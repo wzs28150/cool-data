@@ -4,14 +4,14 @@
 
 ```javascript
 // 全部引入
-import 'mooc-ui/dist/css/index.css'
-import MUI from "mooc-ui";
-Vue.use(MUI);
+import 'cool-data/dist/css/index.css'
+import CoolData from "cool-data";
+Vue.use(CoolData);
 
 // 按需引入
-import 'mooc-ui/dist/css/demo.css'
-import { Demo } from "mooc-ui";
-Vue.use(Demo);
+import 'cool-data/dist/css/xxx.css'
+import { xxx } from "cool-data";
+Vue.use(xxx);
 ```
 
 Copyright (c) 2021-present zack

@@ -5,15 +5,12 @@
  * @Author: wzs
  * @Date: 2022-03-03 15:36:22
  * @LastEditors: wzs
- * @LastEditTime: 2022-03-03 20:22:43
+ * @LastEditTime: 2022-03-06 10:09:42
  */
 "use strict";
 import  _keywords from './config'
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 
 var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));

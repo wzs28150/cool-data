@@ -1,84 +1,94 @@
-import { debounce, observerDomResize } from '../util/index'
+import { debounce, observerDomResize } from "../util/index";
 
 export default {
-  data () {
+  data() {
     return {
-      dom: '',
+      dom: "",
 
       width: 0,
       height: 0,
 
-      debounceInitWHFun: '',
+      debounceInitWHFun: "",
 
-      domObserver: ''
-    }
+      domObserver: "",
+    };
   },
   methods: {
-    async autoResizeMixinInit () {
-      const { initWH, getDebounceInitWHFun, bindDomResizeCallback, afterAutoResizeMixinInit } = this
+    async autoResizeMixinInit() {
+      const {
+        initWH,
+        getDebounceInitWHFun,
+        bindDomResizeCallback,
+        afterAutoResizeMixinInit,
+      } = this;
 
-      await initWH(false)
+      await initWH(false);
 
-      getDebounceInitWHFun()
+      getDebounceInitWHFun();
 
-      bindDomResizeCallback()
+      bindDomResizeCallback();
 
-      if (typeof afterAutoResizeMixinInit === 'function') afterAutoResizeMixinInit()
+      if (typeof afterAutoResizeMixinInit === "function")
+        afterAutoResizeMixinInit();
     },
-    initWH (resize = true) {
-      const { $nextTick, $refs, ref, onResize } = this
+    initWH(resize = true) {
+      const { $nextTick, $refs, ref, onResize } = this;
 
-      return new Promise(resolve => {
-        $nextTick(_ => {
-          const dom = this.dom = $refs[ref]
+      return new Promise((resolve) => {
+        $nextTick(() => {
+          const dom = (this.dom = $refs[ref]);
 
-          this.width = dom ? dom.clientWidth : 0
-          this.height = dom ? dom.clientHeight : 0
+          this.width = dom ? dom.clientWidth : 0;
+          this.height = dom ? dom.clientHeight : 0;
 
           if (!dom) {
-            console.warn('DataV: Failed to get dom node, component rendering may be abnormal!')
+            console.warn(
+              "DataV: Failed to get dom node, component rendering may be abnormal!"
+            );
           } else if (!this.width || !this.height) {
-            console.warn('DataV: Component width or height is 0px, rendering abnormality may occur!')
+            console.warn(
+              "DataV: Component width or height is 0px, rendering abnormality may occur!"
+            );
           }
 
-          if (typeof onResize === 'function' && resize) onResize()
+          if (typeof onResize === "function" && resize) onResize();
 
-          resolve()
-        })
-      })
+          resolve();
+        });
+      });
     },
-    getDebounceInitWHFun () {
-      const { initWH } = this
+    getDebounceInitWHFun() {
+      const { initWH } = this;
 
-      this.debounceInitWHFun = debounce(100, initWH)
+      this.debounceInitWHFun = debounce(100, initWH);
     },
-    bindDomResizeCallback () {
-      const { dom, debounceInitWHFun } = this
+    bindDomResizeCallback() {
+      const { dom, debounceInitWHFun } = this;
 
-      this.domObserver = observerDomResize(dom, debounceInitWHFun)
+      this.domObserver = observerDomResize(dom, debounceInitWHFun);
 
-      window.addEventListener('resize', debounceInitWHFun)
+      window.addEventListener("resize", debounceInitWHFun);
     },
-    unbindDomResizeCallback () {
-      let { domObserver, debounceInitWHFun } = this
+    unbindDomResizeCallback() {
+      let { domObserver, debounceInitWHFun } = this;
 
-      if (!domObserver) return
+      if (!domObserver) return;
 
-      domObserver.disconnect()
-      domObserver.takeRecords()
-      domObserver = null
+      domObserver.disconnect();
+      domObserver.takeRecords();
+      domObserver = null;
 
-      window.removeEventListener('resize', debounceInitWHFun)
-    }
+      window.removeEventListener("resize", debounceInitWHFun);
+    },
   },
-  mounted () {
-    const { autoResizeMixinInit } = this
+  mounted() {
+    const { autoResizeMixinInit } = this;
 
-    autoResizeMixinInit()
+    autoResizeMixinInit();
   },
-  beforeDestroy () {
-    const { unbindDomResizeCallback } = this
+  beforeDestroy() {
+    const { unbindDomResizeCallback } = this;
 
-    unbindDomResizeCallback()
-  }
-}
+    unbindDomResizeCallback();
+  },
+};
