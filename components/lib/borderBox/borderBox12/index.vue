@@ -1,6 +1,6 @@
 <template>
-  <div class="dv-border-box-12" :ref="ref">
-    <svg class="dv-border-svg-container" :width="width" :height="height">
+  <div class="border-box-12" :ref="ref">
+    <svg class="border-svg-container" :width="width" :height="height">
       <defs>
         <filter :id="filterId" height="150%" width="150%" x="-25%" y="-25%">
           <feMorphology operator="dilate" radius="1" in="SourceAlpha" result="thicken" />
@@ -141,25 +141,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.dv-border-box-12 {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  .dv-border-svg-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-  }
-
-  .border-box-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

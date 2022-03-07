@@ -1,6 +1,6 @@
 <template>
-  <div class="dv-border-box-11" :ref="ref">
-    <svg class="dv-border-svg-container" :width="width" :height="height">
+  <div class="border-box-11" :ref="ref">
+    <svg class="border-svg-container" :width="width" :height="height">
       <defs>
         <filter :id="filterId" height="150%" width="150%" x="-25%" y="-25%">
           <feMorphology operator="dilate" radius="2" in="SourceAlpha" result="thicken" />
@@ -180,7 +180,7 @@
       </polygon>
 
       <text
-        class="dv-border-box-11-title"
+        class="border-box-11-title"
         :x="`${width / 2}`"
         y="32"
         fill="#fff"
@@ -229,7 +229,7 @@ export default {
     },
     titleWidth: {
       type: Number,
-      default: 150
+      default: 90
     },
     title: {
       type: String,
@@ -273,30 +273,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.dv-border-box-11 {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  .dv-border-svg-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    left: 0px;
-
-    & > polyline {
-      fill: none;
-      stroke-width: 1;
-    }
-  }
-
-  .border-box-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

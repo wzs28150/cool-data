@@ -1,20 +1,36 @@
 <template>
   <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in components" :key="index" :span="6">
-      <div class="item">
+    <el-col type="flex" :span="6">
+      <router-link :to="'/layout_info'" class="item">
         <div class="inner">
-          <component :is="item">
-            <div
-              class="copy"
-              :data-clipboard-text="'<' + item.name + '>加载中。。。</' + item.name + '>'"
-              @click="copy"
-            >
-              <div class="item-title">{{ item.name }}</div>
-              <div class="copy-tip">点击复制代码</div>
-            </div>
-          </component>
+          <img src="/img/layout1.jpg" alt />
+          模板布局1
         </div>
-      </div>
+      </router-link>
+    </el-col>
+    <el-col type="flex" :span="6">
+      <router-link :to="'/layout_info'" class="item">
+        <div class="inner">
+          <img src="/img/layout2.jpg" alt />
+          模板布局2
+        </div>
+      </router-link>
+    </el-col>
+    <el-col type="flex" :span="6">
+      <router-link :to="'/layout_info'" class="item">
+        <div class="inner">
+          <img src="/img/layout3.jpg" alt />
+          模板布局3
+        </div>
+      </router-link>
+    </el-col>
+    <el-col type="flex" :span="6">
+      <router-link :to="'/layout_info'" class="item">
+        <div class="inner">
+          <img src="/img/layout4.jpg" alt />
+          模板布局4
+        </div>
+      </router-link>
     </el-col>
   </el-row>
 </template>
@@ -53,10 +69,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.center-title {
+  color: #fff;
+}
 .list {
   width: 100%;
   .item {
+    display: block;
     position: relative;
+    color: #fff;
     &::before {
       content: "";
       display: block;
@@ -69,28 +90,11 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
-      & > div {
-        width: 30%;
-        margin: 0 auto;
-      }
-      .loading-text {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        .copy {
-          cursor: pointer;
-          .item-title {
-            color: rgb(66, 185, 131);
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-          }
-          .copy-tip {
-            color: #4fd2dd;
-            font-size: 14px;
-          }
-        }
+      text-align: center;
+      img {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
       }
     }
   }

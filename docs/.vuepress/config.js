@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Cool-Data',
   description: 'Just playing around',
-  base: "/coolData/",
+  base: "/cool-data/",
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },

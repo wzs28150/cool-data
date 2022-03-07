@@ -7,9 +7,11 @@ import borderBox from '../views/borderBox.vue';
 import loading from '../views/loading.vue';
 import font from '../views/font.vue';
 import layout from '../views/layout.vue';
+import layout_info from '../views/layout_info.vue';
 import decoration from '../views/decoration.vue';
 import chart from '../views/chart.vue';
 import color from '../views/color.vue';
+import background from '../views/background.vue';
 Vue.use(Router);
 
 const router = new Router({
@@ -54,7 +56,18 @@ const router = new Router({
           name: 'color',
           component: color
         },
+        
+        {
+          path: 'background',
+          name: 'background',
+          component: background
+        },
       ],
+    },
+    {
+      path: '/layout_info',
+      name: 'layout_info',
+      component: layout_info
     },
   ],
 });

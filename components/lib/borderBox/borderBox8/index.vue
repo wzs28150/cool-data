@@ -1,6 +1,6 @@
 <template>
-  <div class="dv-border-box-8" :ref="ref">
-    <svg class="dv-border-svg-container" :width="width" :height="height">
+  <div class="border-box-8" :ref="ref">
+    <svg class="border-svg-container" :width="width" :height="height">
       <defs>
         <path :id="path" :d="pathD" fill="transparent" />
         <radialGradient :id="gradient" cx="50%" cy="50%" r="50%">
@@ -117,25 +117,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.dv-border-box-8 {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  .dv-border-svg-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0px;
-    top: 0px;
-  }
-
-  .border-box-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

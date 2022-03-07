@@ -1,6 +1,6 @@
 <template>
-  <div class="dv-border-box-6" :ref="ref">
-    <svg class="dv-border-svg-container" :width="width" :height="height">
+  <div class="border-box-6" :ref="ref">
+    <svg class="border-svg-container" :width="width" :height="height">
       <polygon
         :fill="backgroundColor"
         :points="`
@@ -88,30 +88,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-.dv-border-box-6 {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  .dv-border-svg-container {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-
-    & > polyline {
-      fill: none;
-      stroke-width: 1;
-    }
-  }
-
-  .border-box-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

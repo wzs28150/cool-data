@@ -26,6 +26,7 @@ layoutComponentsLoad.keys().sort(function (a, b) {
   return parseInt(path.dirname(a).replace(/.\/layout/g, "")) - parseInt(path.dirname(b).replace(/.\/layout/g, ""));
 }).forEach((filename) => {
   let ComponentsItem = layoutComponentsLoad(filename).default;
+  console.log(ComponentsItem);
   layoutComponents[ComponentsItem.name] = ComponentsItem;
 });
 // 加载图表组件

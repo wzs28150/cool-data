@@ -35,12 +35,16 @@
             <span slot="title">图表</span>
           </el-menu-item>
           <el-menu-item index="/font">
-            <i class="el-icon-pie-chart"></i>
+            <i class="el-icon-paperclip"></i>
             <span slot="title">字体</span>
           </el-menu-item>
           <el-menu-item index="/color">
-            <i class="el-icon-pie-chart"></i>
+            <i class="el-icon-brush"></i>
             <span slot="title">颜色</span>
+          </el-menu-item>
+          <el-menu-item index="/background">
+            <i class="el-icon-monitor"></i>
+            <span slot="title">背景</span>
           </el-menu-item>
         </el-menu>
       </el-aside>

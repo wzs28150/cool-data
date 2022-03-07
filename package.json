@@ -21,13 +21,15 @@
     "build": "npm run build:js && npm run build:css",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "deploy": "bash deploy.sh"
+    "deploy": "bash sed -i 's/\r$//' deploy.sh"
   },
   "dependencies": {
     "clipboard": "^2.0.10",
     "core-js": "^3.6.5",
+    "echarts": "^4.8.0",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
+    "v-charts": "^1.19.0",
     "vue": "^2.6.11",
     "vue-router": "^3.0.1"
   },
