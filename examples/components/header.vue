@@ -11,11 +11,11 @@
 header {
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 100%;
   display: flex;
   justify-content: space-between;
   flex-shrink: 0;
-  background-color: rgba(6, 30, 93, 0.5);
+  background-image: linear-gradient(to bottom, rgba(6, 30, 93, 0.5), rgba(6, 30, 93, 0));
   .header-center-decoration {
     width: 40%;
     height: 50px;

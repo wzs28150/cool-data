@@ -1,61 +1,80 @@
 <template>
-  <ve-ring
-    height="250px"
-    width="100%"
-    :data="chartData"
-    :extend="chartExtend"
-    :settings="chartSettings"
-  ></ve-ring>
+  <v-chart class="chart" :option="option" />
 </template>
 
 <script>
-import VeRing from 'v-charts/lib/ring.common'
-export default {
-  data() {
-    this.chartExtend = {
-      legend: {
-        show: true,
-        textStyle: { color: '#fff' },
-        top: "middle",
-        right: '15%',
-        orient: 'vertical'
-      },  //隐藏legend
-      series: {
-        center: ['35%', '50%']
-      }
-    };
+import { use } from "echarts/core";
+import { CanvasRenderer } from "echarts/renderers";
+import { PieChart } from "echarts/charts";
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent
+} from "echarts/components";
+import VChart from "vue-echarts";
 
+use([
+  CanvasRenderer,
+  PieChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent
+]);
+
+export default {
+
+  data() {
     return {
-      chartSettings: {
-        radius: ['60px', '80px'],
-        label: {
-          show: false,
-          // position: 'center'
+      option: {
+        tooltip: {
+          trigger: 'item'
         },
-        emphasis: {
-          label: {
-            show: true,
-            fontSize: '40',
-            fontWeight: 'bold'
+        legend: {
+          top: "middle",
+          right: '15%',
+          textStyle: { color: '#fff' },
+          orient: 'vertical'
+        },
+        series: [
+          {
+            name: 'Access From',
+            type: 'pie',
+            radius: ['35%', '50%'],
+            center: ['35%', '50%'],
+            avoidLabelOverlap: false,
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '40',
+                fontWeight: 'bold'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: [
+              { value: 1048, name: '客运车' },
+              { value: 735, name: '危险品运输车' },
+              { value: 484, name: '网约车' },
+              { value: 300, name: '学生班车' }
+            ]
           }
-        },
-        labelLine: {
-          show: false
-        },
-      },
-      chartData: {
-        columns: ['type', 'num'],
-        rows: [
-          { 'type': '客运车', 'num': 1231 },
-          { 'type': '危险品运输车', 'num': 1223 },
-          { 'type': '网约车', 'num': 2123 },
-          { 'type': '学生班车', 'num': 4123 },
         ]
-      },
+      }
     }
   },
   components: {
-    VeRing
+    VChart
   }
 }
 </script>
+
+<style scoped>
+.chart {
+  height: 100%;
+}
+</style>
