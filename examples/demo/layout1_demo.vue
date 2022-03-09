@@ -1,13 +1,13 @@
 <template>
   <div>
-    <layout-4
+    <layout-1
       v-if="layoutType == 'Layout2'"
-      width="1920"
-      height="1080"
+      :width="1920"
+      :height="1080"
       :isScale="true"
       :immerse="immerse"
       background="#091220ff"
-      bottomSideHeight="40vh"
+      leftSideWidth="22%"
       :titleHeight="60"
       style="background-image: url(./bg.png); background-size: cover;"
     >
@@ -15,12 +15,28 @@
         <Header />
       </template>
       <template #main>
-        <div id="map" v-if="immerse"></div>
-        <Pannel v-else >
-          <div id="map" ></div>
+        <Pannel v-if="!immerse">
+          <div class="main-inner">
+            <div class="main-top">
+              <BorderBox7 class="m_R20" :color="['#235399', '#eeeeee']" backgroundColor="#113549B2" reverse="true">
+                <div>
+                  <div class="num ds-digital">{{num1}}</div>
+                  <div class="title">总运行车数</div>
+                </div>
+              </BorderBox7>
+              <BorderBox7 :color="['#235399', '#eeeeee']" backgroundColor="#113549B2" reverse="true">
+                <div>
+                  <div class="num ds-digital">{{num2}}</div>
+                  <div class="title">总运行车数</div>
+                </div>
+              </BorderBox7>
+            </div>
+            <div id="map"></div>
+          </div>
         </Pannel>
+        <div v-else id="map"></div>
       </template>
-      <template #bottom>
+      <template #left>
         <Pannel title="车辆类型统计">
           <leftTop />
         </Pannel>
@@ -30,11 +46,20 @@
         <Pannel title="行驶里程排行">
           <leftBottom />
         </Pannel>
+      </template>
+
+      <template #right>
+        <Pannel title="车辆行驶数量">
+          <rightTop />
+        </Pannel>
+        <Pannel title="车辆报警统计">
+          <rightMiddle />
+        </Pannel>
         <Pannel title="行驶时长排行">
           <rightBottom />
         </Pannel>
       </template>
-    </layout-4>
+    </layout-1>
     <div class="setting">
       <div class="icon">
         <i class="el-icon-setting"></i>
@@ -53,11 +78,12 @@
 import styleJson from "../json/mapStyle"
 import Header from '../components/header.vue';
 import Pannel from '../components/pannel.vue';
-import LeftTop from '../components/leftTop.vue'
+import leftTop from '../components/leftTop.vue'
 import leftMiddle from '../components/leftMiddle.vue';
+import rightTop from '../components/rightTop.vue';
 import leftBottom from '../components/leftBottom.vue';
+import rightMiddle from '../components/rightMiddle.vue';
 import rightBottom from '../components/rightBottom.vue';
-
 export default {
   data() {
     return {
@@ -69,15 +95,19 @@ export default {
         bdLNG: 126.698845,
         bdLAT: 45.750806
       },
-      immerse: true
+      immerse: true,
+      num1: 0,
+      num2: 0
     }
   },
   components: {
     Header,
     Pannel,
-    LeftTop,
+    leftTop,
     leftMiddle,
     leftBottom,
+    rightTop,
+    rightMiddle,
     rightBottom
   },
   methods: {
@@ -95,7 +125,7 @@ export default {
       map.setHeading(100);
       map.setTilt(65); // 地图倾斜角度
       var view = new window.mapvgl.View({
-        // effects: [new window.mapvgl.BloomEffect(), new window.mapvgl.BlurEffect(), new window.mapvgl.DepthEffect()],
+        // effects: [new mapvgl.BloomEffect(), new mapvgl.BlurEffect(), new mapvgl.DepthEffect()],
         map: map
       });
 
@@ -125,9 +155,17 @@ export default {
         that.baiduMap()
       })
     },
+    setNum(){
+      this.num1 = Math.floor(Math.random() * 1000) + 1
+      this.num2 = Math.floor(Math.random() * 100) + 1
+    }
   },
   mounted() {
     this.baiduMap()
+    setInterval(()=>{
+      // console.log(2);
+      this.setNum()
+    },500)
   }
 }
 </script>
@@ -137,6 +175,36 @@ export default {
   height: 100%;
   background: none !important;
 }
+
+.main-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .main-top {
+    height: 150px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9999;
+    display: flex;
+    color: #fff;
+    text-align: center;
+    .num {
+      color: #ffeb7b;
+      font-size: 56px;
+      text-align: center;
+    }
+    /deep/ .border-box-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      flex-direction: row;
+    }
+  }
+}
+
 .setting {
   width: 200px;
   height: 200px;

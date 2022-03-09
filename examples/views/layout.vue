@@ -1,21 +1,21 @@
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" :span="6">
-      <router-link :to="'/demo/layout2'" class="item">
+      <router-link :to="'/demo/layout1'" class="item">
         <div class="inner">
           <div class="img" style="background-image: url(./img/layout2.jpg);"></div>模板布局1
         </div>
       </router-link>
     </el-col>
     <el-col type="flex" :span="6">
-      <router-link :to="'/demo/layout3'" class="item">
+      <router-link :to="'/demo/layout2'" class="item">
         <div class="inner">
           <div class="img" style="background-image: url(./img/layout3.jpg);"></div>模板布局2
         </div>
       </router-link>
     </el-col>
     <el-col type="flex" :span="6">
-      <router-link :to="'/demo/layout4'" class="item">
+      <router-link :to="'/demo/layout3'" class="item">
         <div class="inner">
           <div class="img" style="background-image: url(./img/layout4.jpg);"></div>模板布局3
         </div>
@@ -76,6 +76,7 @@ export default {
         width: 100%;
         padding-bottom: 60%;
         background-size: cover;
+        background-position: center;
         margin-bottom: 10px;
       }
     }

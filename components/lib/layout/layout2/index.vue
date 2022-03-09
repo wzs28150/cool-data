@@ -1,43 +1,27 @@
 <template>
-  <div :class="{ 'layout-2': true, }" ref="layout" :style="'background-color: ' + background + ';'">
+  <div class="layout-2" ref="layout" :style="'background-color: ' + background + ';'">
     <div
       class="layout-contanter"
       :style="`width:${width}px; height:${height}px; transform:scale(${scaleX},${scaleY})`"
     >
-      <div class="layout-title" :style="`height: ${titleHeight}px`">
+      <div class="layout-title">
         <slot name="layout-title" />
       </div>
-      <div class="left" :style="`width: ${getLeftSideWidth}; padding-top: ${titleHeight + 20}px`">
-        <div class="left-top">
-          <slot name="left-top" />
-        </div>
-        <div class="left-middle">
-          <slot name="left-middle" />
-        </div>
-        <div class="left-bottom">
-          <slot name="left-bottom" />
-        </div>
+      <div class="right" :style="`width: ${getsideWidth};padding-top: ${titleHeight + 20}px; padding-bottom: calc(${getBottomSideHeight} + 20px); left:${position == 'right'? 'auto' : '0'};right: ${position == 'right' ? '0' : 'auto'}` ">
+        <slot name="aside" />
       </div>
-      <div class="right" :style="`width: ${getRightSideWidth};padding-top: ${titleHeight + 20}px`">
-        <div class="right-top">
-          <slot name="right-top" />
-        </div>
-        <div class="right-middle">
-          <slot name="right-middle" />
-        </div>
-        <div class="right-bottom">
-          <slot name="right-bottom" />
-        </div>
-      </div>
-      <div class="main" v-if="immerse">
+      <div v-if="immerse" class="main">
         <slot name="main" />
       </div>
       <div
         v-else
         class="main"
-        :style="`padding-left: calc(${getLeftSideWidth} + 20px);padding-right: calc(${getRightSideWidth} + 20px);padding-top: ${titleHeight + 20}px; padding-bottom: 10px`"
+        :style="`padding-bottom: calc(${getBottomSideHeight} + 20px);padding-top: ${titleHeight + 20}px; padding-right: ${position == 'right' ? 'calc('+getsideWidth+' + 10px)':'0'}; padding-left: ${position == 'left' ? 'calc('+getsideWidth+' + 10px)':'0'}`"
       >
         <slot name="main" />
+      </div>
+      <div class="bottom" :style="`height: ${getBottomSideHeight}`">
+        <slot name="bottom" />
       </div>
     </div>
   </div>
@@ -53,21 +37,31 @@ export default {
     }
   },
   props: {
-    leftSideWidth: {
+    bottomSideHeight: {
       type: [String, Number],
-      default: "22%"
-    },
-    rightSideWidth: {
-      type: [String, Number],
-      default: "22%"
+      default: "30%"
     },
     titleHeight: {
       type: [String, Number],
-      default: 60
+      default: "60"
+    },
+    sideWidth: {
+      type: [String, Number],
+      default: "50%"
+    },
+    position: {
+      type: String,
+      default: 'right'
     },
     background: String,
-    width: String,
-    height: String,
+    width: {
+      type: Number,
+      default: 1920
+    },
+    height: {
+      type: Number,
+      default: 1080
+    },
     isScale: Boolean,
     immerse: {
       type: Boolean,
@@ -75,16 +69,12 @@ export default {
     }
   },
   computed: {
-    getLeftSideWidth: (e) => {
-      return typeof (e.leftSideWidth) == 'string' ? e.leftSideWidth : e.leftSideWidth + 'px'
+    getsideWidth: (e) => {
+      return typeof (e.sideWidth) == 'string' ? e.sideWidth : e.sideWidth + 'px'
     },
-    getRightSideWidth: (e) => {
-      return typeof (e.rightSideWidth) == 'string' ? e.rightSideWidth : e.rightSideWidth + 'px'
-    },
-    getTitleHeight: (e) => {
-      console.log(e);
-      return typeof (e.titleHeight) == 'string' ? e.titleHeight : e.titleHeight + 'px'
-    },
+    getBottomSideHeight: (e) => {
+      return typeof (e.bottomSideHeight) == 'string' ? e.bottomSideHeight : e.bottomSideHeight + 'px'
+    }
   },
   methods: {
     calculateScale: debounce((that) => {

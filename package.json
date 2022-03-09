@@ -27,10 +27,10 @@
   "dependencies": {
     "clipboard": "^2.0.10",
     "core-js": "^3.6.5",
+    "echarts": "^5.3.1",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
-    "echarts": "^5.3.1",
     "vue-echarts": "^6.0.2",
     "vue-router": "^3.0.1"
   },
