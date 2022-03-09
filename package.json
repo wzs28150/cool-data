@@ -1,6 +1,6 @@
 {
   "name": "cool-data",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "基于vue的可视化组件库",
   "main": "dist/index.umd.js",
   "keywords": [
@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build:demo": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:css": "npx gulp less",
     "build:js": "webpack --config ./webpack.component.js",
@@ -41,7 +42,6 @@
     "babel-eslint": "^10.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "del": "^6.0.0",
-    
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "gulp": "^4.0.2",

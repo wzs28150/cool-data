@@ -1,54 +1,63 @@
 <template>
-  <layout-2 v-if="layoutType == 'Layout2'" width="1920" height="1080" :isScale="true" leftSideWidth="22%">
-    <template #layout-title>
+  <div>
+    <layout-4
+      v-if="layoutType == 'Layout2'"
+      width="1920"
+      height="1080"
+      :isScale="true"
+      :immerse="immerse"
+      background="#091220ff"
+      bottomSideHeight="40vh"
+      :titleHeight="60"
+      style="background-image: url(./bg.png); background-size: cover;"
+    >
+      <template #layout-title>
         <Header />
       </template>
       <template #main>
-        <div id="map"></div>
+        <div id="map" v-if="immerse"></div>
+        <Pannel v-else >
+          <div id="map" ></div>
+        </Pannel>
       </template>
-      <template #left-top>
+      <template #bottom>
         <Pannel title="车辆类型统计">
           <leftTop />
         </Pannel>
-      </template>
-      <template #left-middle>
         <Pannel title="车辆状态统计">
           <leftMiddle />
         </Pannel>
-      </template>
-      <template #left-bottom>
         <Pannel title="行驶里程排行">
           <leftBottom />
         </Pannel>
-      </template>
-
-      <template #right-top>
-        <Pannel title="车辆行驶数量">
-          <rightTop />
-        </Pannel>
-      </template>
-      <template #right-middle>
-        <Pannel title="车辆报警统计">
-          <rightMiddle />
-        </Pannel>
-      </template>
-      <template #right-bottom>
         <Pannel title="行驶时长排行">
           <rightBottom />
         </Pannel>
       </template>
-  </layout-2>
+    </layout-4>
+    <div class="setting">
+      <div class="icon">
+        <i class="el-icon-setting"></i>
+      </div>
+      <div class="setting-inner p_10">
+        <el-form ref="form" label-width="130px">
+          <el-form-item label="是否开启沉浸模式">
+            <el-switch v-model="immerse" @change="changeImmerse"></el-switch>
+          </el-form-item>
+        </el-form>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 import styleJson from "../json/mapStyle"
 import Header from '../components/header.vue';
 import Pannel from '../components/pannel.vue';
-import leftTop from '../components/leftTop.vue'
+import LeftTop from '../components/leftTop.vue'
 import leftMiddle from '../components/leftMiddle.vue';
-import rightTop from '../components/rightTop.vue';
 import leftBottom from '../components/leftBottom.vue';
-import rightMiddle from '../components/rightMiddle.vue';
 import rightBottom from '../components/rightBottom.vue';
+
 export default {
   data() {
     return {
@@ -59,17 +68,16 @@ export default {
         phoneNumber: '15046000000',
         bdLNG: 126.698845,
         bdLAT: 45.750806
-      }
+      },
+      immerse: true
     }
   },
   components: {
     Header,
     Pannel,
-    leftTop,
+    LeftTop,
     leftMiddle,
     leftBottom,
-    rightTop,
-    rightMiddle,
     rightBottom
   },
   methods: {
@@ -87,7 +95,7 @@ export default {
       map.setHeading(100);
       map.setTilt(65); // 地图倾斜角度
       var view = new window.mapvgl.View({
-        // effects: [new mapvgl.BloomEffect(), new mapvgl.BlurEffect(), new mapvgl.DepthEffect()],
+        // effects: [new window.mapvgl.BloomEffect(), new window.mapvgl.BlurEffect(), new window.mapvgl.DepthEffect()],
         map: map
       });
 
@@ -109,7 +117,14 @@ export default {
         }
       });
       view.addLayer(fanLayer);
-    }
+    },
+    changeImmerse() {
+      let that = this
+      this.$nextTick(function () {
+        console.log(that.immerse);
+        that.baiduMap()
+      })
+    },
   },
   mounted() {
     this.baiduMap()
@@ -120,5 +135,37 @@ export default {
 #map {
   width: 100%;
   height: 100%;
+  background: none !important;
+}
+.setting {
+  width: 200px;
+  height: 200px;
+  position: fixed;
+  color: #fff;
+  right: 0;
+  top: 50%;
+  background-color: #2862b7;
+  transform: translate(100%, -50%);
+  transition: all 0.4s;
+  &:hover {
+    transform: translate(0, -50%);
+  }
+  .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    transform: translateX(-100%);
+    background-color: #2862b7;
+    border-radius: 5px 0 0 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  /deep/ .el-form-item__label {
+    color: #fff;
+  }
 }
 </style>

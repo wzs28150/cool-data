@@ -1,8 +1,8 @@
 <template>
   <div class="pannel">
     <border-box-3 background-color="#113549B2">
-      <div class="pannel-title">{{title}}</div>
-      <div class="pannel-inner">
+      <div class="pannel-title" v-if="title">{{title}}</div>
+      <div class="pannel-inner" :style="title ? 'padding: 0 30px 30px;' : 'padding: 30px;'">
         <slot />
       </div>
     </border-box-3>
@@ -32,6 +32,7 @@ export default {
   }
   .pannel-inner{
     flex: 1;
+    
   }
 }
 </style>

@@ -70,7 +70,7 @@ export default {
     return {
       ref: 'border-box-7',
 
-      defaultColor: ['rgba(128,128,128,0.3)', 'rgba(128,128,128,0.5)'],
+      defaultColor: ['rgba(128,128,128,0.3)', 'rgba(128,128,128,0.8)'],
 
       mergedColor: []
     }

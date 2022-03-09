@@ -1,5 +1,12 @@
 <template>
-  <v-chart class="chart" :option="option" />
+  <v-chart
+    class="chart"
+    :init-options="initOptions"
+    :autoresize="true"
+    :loading-options="loadingOptions"
+    :loading="loading"
+    :option="option"
+  />
 </template>
 
 <script>
@@ -9,7 +16,8 @@ import { PieChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 
@@ -18,7 +26,8 @@ use([
   PieChart,
   TitleComponent,
   TooltipComponent,
-  LegendComponent
+  LegendComponent,
+  GridComponent
 ]);
 
 export default {
@@ -31,16 +40,17 @@ export default {
         },
         legend: {
           top: "middle",
-          right: '15%',
+          right: '10%',
           textStyle: { color: '#fff' },
           orient: 'vertical'
         },
+
         series: [
           {
             name: 'Access From',
             type: 'pie',
-            radius: ['35%', '50%'],
-            center: ['35%', '50%'],
+            radius: ['45%', '60%'],
+            center: ['30%', '50%'],
             avoidLabelOverlap: false,
             label: {
               show: false,
@@ -64,11 +74,25 @@ export default {
             ]
           }
         ]
-      }
+      },
+      loadingOptions: {
+        color: '#fff',
+        textColor: '#fff',
+        maskColor: 'rgba(#113549B2, 0.6)',
+      },
+      initOptions: {
+        renderer: 'canvas'
+      },
+      loading: false
     }
   },
   components: {
     VChart
+  },
+  mounted(){
+    setTimeout(() => {
+      this.loading = false
+    }, 500);
   }
 }
 </script>

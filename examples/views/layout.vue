@@ -1,34 +1,23 @@
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" :span="6">
-      <router-link :to="'/layout_info'" class="item">
+      <router-link :to="'/demo/layout2'" class="item">
         <div class="inner">
-          <img src="/img/layout1.jpg" alt />
-          模板布局1
+          <div class="img" style="background-image: url(./img/layout2.jpg);"></div>模板布局1
         </div>
       </router-link>
     </el-col>
     <el-col type="flex" :span="6">
-      <router-link :to="'/layout_info'" class="item">
+      <router-link :to="'/demo/layout3'" class="item">
         <div class="inner">
-          <img src="/img/layout2.jpg" alt />
-          模板布局2
+          <div class="img" style="background-image: url(./img/layout3.jpg);"></div>模板布局2
         </div>
       </router-link>
     </el-col>
     <el-col type="flex" :span="6">
-      <router-link :to="'/layout_info'" class="item">
+      <router-link :to="'/demo/layout4'" class="item">
         <div class="inner">
-          <img src="/img/layout3.jpg" alt />
-          模板布局3
-        </div>
-      </router-link>
-    </el-col>
-    <el-col type="flex" :span="6">
-      <router-link :to="'/layout_info'" class="item">
-        <div class="inner">
-          <img src="/img/layout4.jpg" alt />
-          模板布局4
+          <div class="img" style="background-image: url(./img/layout4.jpg);"></div>模板布局3
         </div>
       </router-link>
     </el-col>
@@ -78,22 +67,15 @@ export default {
     display: block;
     position: relative;
     color: #fff;
-    &::before {
-      content: "";
-      display: block;
-      width: 100%;
-      padding-bottom: 60%;
-    }
+
     .inner {
-      position: absolute;
       width: 100%;
       height: 100%;
-      top: 0;
-      left: 0;
       text-align: center;
-      img {
-        display: block;
+      .img {
         width: 100%;
+        padding-bottom: 60%;
+        background-size: cover;
         margin-bottom: 10px;
       }
     }

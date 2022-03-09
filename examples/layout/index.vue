@@ -1,5 +1,5 @@
 <template>
-  <el-container class="page">
+  <el-container class="page" style="background-image: url('./bg.png');">
     <el-header class="page-header">
       <div class="logo">数据可视化组件</div>
     </el-header>
@@ -62,13 +62,16 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     }
+  },
+  mounted(){
+    console.log(process.env.NODE_ENV);
   }
 }
 </script>
 <style lang="less">
 .page {
   background-color: #081325;
-  background-image: url('/bg.png');
+
   background-size: cover;
   height: 100vh;
   .page-header {

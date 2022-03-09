@@ -20,8 +20,7 @@
       left    : 0;
       top     : 0;
       width   : 100%;
-      height  : @layout-title-height;
-      z-index : 3;
+      z-index : 99999;
 
       .title {
         font-size: 30px;
@@ -33,10 +32,9 @@
       position       : absolute;
       left           : 0;
       top            : 0;
-      padding-top    : @layout-title-height + 10;
       padding-bottom : 10px;
       height         : 100%;
-      z-index        : 2;
+      z-index        : 9999;
       display        : flex;
       flex-direction : column;
       justify-content: space-between;
@@ -55,10 +53,9 @@
       position       : absolute;
       right          : 0;
       top            : 0;
-      padding-top    : @layout-title-height + 10;
       padding-bottom : 10px;
       height         : 100%;
-      z-index        : 2;
+      z-index        : 9999;
       display        : flex;
       flex-direction : column;
       justify-content: space-between;
@@ -74,4 +71,9 @@
     }
   }
 
+  &.immerse{
+    .layout-contanter {
+      width: 100%;
+    }
+  }
 }

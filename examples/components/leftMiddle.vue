@@ -1,10 +1,10 @@
 <template>
-  <v-chart class="chart" :option="option" />
+  <v-chart class="chart" :init-options="initOptions" :option="option" />
 </template>
 
 <script>
 import { use } from "echarts/core";
-import { CanvasRenderer } from "echarts/renderers";
+import { SVGRenderer } from "echarts/renderers";
 import { BarChart } from "echarts/charts";
 import {
   TitleComponent,
@@ -15,7 +15,7 @@ import {
 import VChart from "vue-echarts";
 
 use([
-  CanvasRenderer,
+  SVGRenderer,
   BarChart,
   TitleComponent,
   TooltipComponent,
@@ -112,6 +112,9 @@ export default {
             }
           }
         ]
+      },
+      initOptions: {
+        renderer: 'svg'
       }
     }
 

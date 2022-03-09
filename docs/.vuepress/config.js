@@ -5,8 +5,15 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
+      { text: '案例', link: 'https://wzs28150.github.io/cool-data/demo/index.html' },
       { text: 'Github', link: 'https://github.com/wzs28150/cool-data' }
     ],
-    sidebar: ['/', '/componentDocs/borderBox1']
+    sidebar: ['/', '/componentDocs/borderBox','/componentDocs/decoration']
+  },
+  configureWebpack: {
+    node: {
+      global: true,
+      process: true
+    },
   }
 }

@@ -12,6 +12,10 @@ import decoration from '../views/decoration.vue';
 import chart from '../views/chart.vue';
 import color from '../views/color.vue';
 import background from '../views/background.vue';
+import demo from '../layout/demo.vue';
+import layout2 from '../demo/layout2_demo.vue'
+import layout3 from '../demo/layout3_demo.vue'
+import layout4 from '../demo/layout4_demo.vue'
 Vue.use(Router);
 
 const router = new Router({
@@ -62,12 +66,34 @@ const router = new Router({
           name: 'background',
           component: background
         },
+        
       ],
     },
     {
       path: '/layout_info',
       name: 'layout_info',
       component: layout_info
+    },
+    {
+      path: '/demo',
+      component: demo,
+      children: [
+        {
+          path: 'layout2',
+          name: 'layout2',
+          component: layout2
+        },
+        {
+          path: 'layout3',
+          name: 'layout3',
+          component: layout3
+        },
+        {
+          path: 'layout4',
+          name: 'layout4',
+          component: layout4
+        },
+      ]
     },
   ],
 });

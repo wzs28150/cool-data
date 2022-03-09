@@ -26,7 +26,6 @@ layoutComponentsLoad.keys().sort(function (a, b) {
   return parseInt(path.dirname(a).replace(/.\/layout/g, "")) - parseInt(path.dirname(b).replace(/.\/layout/g, ""));
 }).forEach((filename) => {
   let ComponentsItem = layoutComponentsLoad(filename).default;
-  console.log(ComponentsItem);
   layoutComponents[ComponentsItem.name] = ComponentsItem;
 });
 // 加载图表组件
@@ -46,6 +45,15 @@ decorationComponentsLoad.keys().sort(function (a, b) {
 }).forEach((filename) => {
   let ComponentsItem = decorationComponentsLoad(filename).default;
   decorationComponents[ComponentsItem.name] = ComponentsItem;
+});
+// 加载背景组件
+export const backgroundComponents = {};
+const backgroundComponentsLoad = require.context("./background", true, /\.js$/);
+backgroundComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/background/g, "")) - parseInt(path.dirname(b).replace(/.\/background/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = backgroundComponentsLoad(filename).default;
+  backgroundComponents[ComponentsItem.name] = ComponentsItem;
 });
 
 const components = {

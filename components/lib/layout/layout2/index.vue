@@ -1,13 +1,13 @@
 <template>
-  <div class="layout-2" ref="layout" :style="'background-color: ' + background + ';'">
+  <div :class="{ 'layout-2': true, }" ref="layout" :style="'background-color: ' + background + ';'">
     <div
       class="layout-contanter"
       :style="`width:${width}px; height:${height}px; transform:scale(${scaleX},${scaleY})`"
     >
-      <div class="layout-title">
+      <div class="layout-title" :style="`height: ${titleHeight}px`">
         <slot name="layout-title" />
       </div>
-      <div class="left" :style="`width: ${getLeftSideWidth};`">
+      <div class="left" :style="`width: ${getLeftSideWidth}; padding-top: ${titleHeight + 20}px`">
         <div class="left-top">
           <slot name="left-top" />
         </div>
@@ -18,7 +18,7 @@
           <slot name="left-bottom" />
         </div>
       </div>
-      <div class="right" :style="`width: ${getRightSideWidth};`">
+      <div class="right" :style="`width: ${getRightSideWidth};padding-top: ${titleHeight + 20}px`">
         <div class="right-top">
           <slot name="right-top" />
         </div>
@@ -29,7 +29,14 @@
           <slot name="right-bottom" />
         </div>
       </div>
-      <div class="main">
+      <div class="main" v-if="immerse">
+        <slot name="main" />
+      </div>
+      <div
+        v-else
+        class="main"
+        :style="`padding-left: calc(${getLeftSideWidth} + 20px);padding-right: calc(${getRightSideWidth} + 20px);padding-top: ${titleHeight + 20}px; padding-bottom: 10px`"
+      >
         <slot name="main" />
       </div>
     </div>
@@ -54,22 +61,34 @@ export default {
       type: [String, Number],
       default: "22%"
     },
+    titleHeight: {
+      type: [String, Number],
+      default: 60
+    },
     background: String,
     width: String,
     height: String,
-    isScale: Boolean
+    isScale: Boolean,
+    immerse: {
+      type: Boolean,
+      default: true
+    }
   },
-  computed:{
+  computed: {
     getLeftSideWidth: (e) => {
       return typeof (e.leftSideWidth) == 'string' ? e.leftSideWidth : e.leftSideWidth + 'px'
     },
-       getRightSideWidth: (e) => {
+    getRightSideWidth: (e) => {
       return typeof (e.rightSideWidth) == 'string' ? e.rightSideWidth : e.rightSideWidth + 'px'
+    },
+    getTitleHeight: (e) => {
+      console.log(e);
+      return typeof (e.titleHeight) == 'string' ? e.titleHeight : e.titleHeight + 'px'
     },
   },
   methods: {
     calculateScale: debounce((that) => {
-      console.log(that);
+      // console.log(that);
       that.scaleX = window.innerWidth / that.width;
       that.scaleY = window.innerHeight / that.height;
     }, 300)
