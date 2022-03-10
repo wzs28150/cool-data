@@ -21,7 +21,6 @@ export default {
   },
   mounted(){
     var myChart = echarts.init(document.getElementById('main'))
-    console.log(myChart);
     myChart.setOption(this.option)
   }
 }

@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import debounce from 'lodash.debounce'
+import screenSize from '../../../mixin/screenSize';
 export default {
   name: 'Layout2',
   data() {
@@ -54,42 +54,18 @@ export default {
       default: 'right'
     },
     background: String,
-    width: {
-      type: Number,
-      default: 1920
-    },
-    height: {
-      type: Number,
-      default: 1080
-    },
-    isScale: Boolean,
     immerse: {
       type: Boolean,
       default: true
     }
   },
+  mixins: [screenSize],
   computed: {
     getsideWidth: (e) => {
       return typeof (e.sideWidth) == 'string' ? e.sideWidth : e.sideWidth + 'px'
     },
     getBottomSideHeight: (e) => {
       return typeof (e.bottomSideHeight) == 'string' ? e.bottomSideHeight : e.bottomSideHeight + 'px'
-    }
-  },
-  methods: {
-    calculateScale: debounce((that) => {
-      // console.log(that);
-      that.scaleX = window.innerWidth / that.width;
-      that.scaleY = window.innerHeight / that.height;
-    }, 300)
-  },
-  mounted() {
-    if (this.isScale) {
-      const that = this
-      this.calculateScale(that);
-      window.onresize = function () {
-        that.calculateScale(that);
-      }
     }
   }
 }

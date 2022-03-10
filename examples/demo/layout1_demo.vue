@@ -9,13 +9,16 @@
       background="#091220ff"
       leftSideWidth="22%"
       :titleHeight="60"
-      style="background-image: url(./bg.png); background-size: cover;"
+      style="background-image: url(./bg2.jpg); background-size: cover;"
     >
       <template #layout-title>
         <Header />
       </template>
       <template #main>
         <Pannel v-if="!immerse">
+          <mainPannel />
+        </Pannel>
+        <!-- <Pannel v-if="!immerse">
           <div class="main-inner">
             <div class="main-top">
               <BorderBox7 class="m_R20" :color="['#235399', '#eeeeee']" backgroundColor="#113549B2" reverse="true">
@@ -34,7 +37,7 @@
             <div id="map"></div>
           </div>
         </Pannel>
-        <div v-else id="map"></div>
+        <div v-else id="map"></div>-->
       </template>
       <template #left>
         <Pannel title="车辆类型统计">
@@ -84,6 +87,7 @@ import rightTop from '../components/rightTop.vue';
 import leftBottom from '../components/leftBottom.vue';
 import rightMiddle from '../components/rightMiddle.vue';
 import rightBottom from '../components/rightBottom.vue';
+import mainPannel from '../components/main.vue';
 export default {
   data() {
     return {
@@ -95,7 +99,7 @@ export default {
         bdLNG: 126.698845,
         bdLAT: 45.750806
       },
-      immerse: true,
+      immerse: false,
       num1: 0,
       num2: 0
     }
@@ -108,7 +112,8 @@ export default {
     leftBottom,
     rightTop,
     rightMiddle,
-    rightBottom
+    rightBottom,
+    mainPannel
   },
   methods: {
     baiduMap() {
@@ -155,17 +160,17 @@ export default {
         that.baiduMap()
       })
     },
-    setNum(){
+    setNum() {
       this.num1 = Math.floor(Math.random() * 1000) + 1
       this.num2 = Math.floor(Math.random() * 100) + 1
     }
   },
   mounted() {
-    this.baiduMap()
-    setInterval(()=>{
+    // this.baiduMap()
+    setInterval(() => {
       // console.log(2);
       this.setNum()
-    },500)
+    }, 500)
   }
 }
 </script>

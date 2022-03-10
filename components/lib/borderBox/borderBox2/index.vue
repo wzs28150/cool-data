@@ -1,7 +1,7 @@
 <template>
   <div class="border-box-2" :ref="ref">
     <svg class="border-svg-container" :width="width" :height="height">
-      <polygon :fill="backgroundColor" :points="`
+      <polygon :fill="backgroundColor"  :points="`
         7, 7 ${width - 7}, 7 ${width - 7}, ${height - 7} 7, ${height - 7}
       `" />
 

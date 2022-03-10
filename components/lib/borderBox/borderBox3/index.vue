@@ -1,7 +1,7 @@
 <template>
   <div class="border-box-3" :ref="ref">
     <svg class="border-svg-container" :width="width" :height="height">
-      <polygon :fill="backgroundColor" :points="`
+      <polygon :fill="backgroundColor"  :points="`
         23, 23 ${width - 24}, 23 ${width - 24}, ${height - 24} 23, ${height - 24}
       `" />
 
@@ -44,6 +44,10 @@ export default {
     backgroundColor: {
       type: String,
       default: 'transparent'
+    },
+    backgroundOpacity: {
+      type: Number,
+      default: 1
     }
   },
   data () {

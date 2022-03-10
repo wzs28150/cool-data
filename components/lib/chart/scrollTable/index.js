@@ -1,8 +1,89 @@
-import ScrollTable from './index.vue'
+import ScrollTable from "./index.vue";
 
+ScrollTable.demoData = {
+  option: {
+    // header: ["车牌号", "里程数(km)"],
+    // data: [
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    //   ["京A12345", "134.2"],
+    // ],
+    // dataset: {
+    //   source: [
+    //     ["车牌号", "里程数(km)"],
+    //     ["京A12341", "134.2"],
+    //     ["京A12342", "134.2"],
+    //     ["京A12343", "134.2"],
+    //     ["京A12344", "134.2"],
+    //     ["京A12345", "134.2"],
+    //     ["京A12346", "134.2"],
+    //     ["京A12347", "134.2"],
+    //     ["京A12348", "134.2"],
+    //     ["京A12349", "134.2"],
+    //     ["京A12340", "134.2"],
+    //   ],
+    // },
+    dataset: {
+      dimensions: ["车牌号", "里程数(km)"],
+      source: [
+        {
+          "车牌号": "京A12341",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12342",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12343",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12344",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12345",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12341",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12342",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12343",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12344",
+          "里程数(km)": "134.2"
+        },
+        {
+          "车牌号": "京A12345",
+          "里程数(km)": "134.2"
+        }
+      ]
+    },
+    index: true,
+    columnWidth: [50],
+    align: ["center", "left", "center"],
+    waitTime: 3000,
+  },
+};
 // eslint-disable-next-line func-names
-ScrollTable.install = function(Vue) {
-  Vue.component(ScrollTable.name, ScrollTable)
-}
+ScrollTable.install = function (Vue) {
+  Vue.component(ScrollTable.name, ScrollTable);
+};
 
-export default ScrollTable
+export default ScrollTable;

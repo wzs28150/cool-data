@@ -2,7 +2,7 @@
 
 > 边框组件,SVG 绘制
 
-### Attributes
+### 公共设置
 
 <div class="table-show">
 

@@ -1,6 +1,10 @@
 <template>
   <div class="scroll-table" :ref="ref">
-    <div class="header" v-if="header.length && mergedConfig" :style="`background-color: ${mergedConfig.headerBGC};`">
+    <div
+      class="header"
+      v-if="header.length && mergedConfig"
+      :style="`background-color: ${mergedConfig.headerBGC};`"
+    >
       <div
         class="header-item"
         v-for="(headerItem, i) in header"
@@ -41,7 +45,6 @@
           @mouseenter="handleHover(true, ri, ci, row, ceil)"
           @mouseleave="handleHover(false)"
         />
-
       </div>
     </div>
   </div>
@@ -49,18 +52,22 @@
 
 <script>
 import autoResize from '../../../mixin/autoResize'
-import { deepMerge,deepClone } from '../../../util/index'
+import { deepMerge, deepClone } from '../../../util/index'
 
 export default {
   name: 'ScrollTable',
   mixins: [autoResize],
   props: {
-    config: {
+    option: {
+      type: Object,
+      default: () => ({})
+    },
+    dataset: {
       type: Object,
       default: () => ({})
     }
   },
-  data () {
+  data() {
     return {
       ref: 'scroll-table',
 
@@ -83,6 +90,7 @@ export default {
          * @type {Number}
          * @default rowNum = 5
          */
+        dataset: {},
         rowNum: 5,
         /**
          * @description Header background color
@@ -181,7 +189,7 @@ export default {
     }
   },
   watch: {
-    config () {
+    config() {
       const { stopAnimation, calcData } = this
 
       stopAnimation()
@@ -192,7 +200,7 @@ export default {
     }
   },
   methods: {
-    handleHover(enter, ri, ci, row, ceil){
+    handleHover(enter, ri, ci, row, ceil) {
       const { mergedConfig, emitEvent, stopAnimation, animation } = this
 
       if (enter) emitEvent('mouseover', ri, ci, row, ceil)
@@ -204,12 +212,12 @@ export default {
         animation(true)
       }
     },
-    afterAutoResizeMixinInit () {
+    afterAutoResizeMixinInit() {
       const { calcData } = this
 
       calcData()
     },
-    onResize () {
+    onResize() {
       const { mergedConfig, calcWidths, calcHeights } = this
 
       if (!mergedConfig) return
@@ -218,10 +226,12 @@ export default {
 
       calcHeights()
     },
-    calcData () {
-      const { mergeConfig, calcHeaderData, calcRowsData } = this
+    calcData() {
+      const { mergeConfig, calcHeaderData, calcRowsData, handleDataset } = this
 
       mergeConfig()
+
+      handleDataset()
 
       calcHeaderData()
 
@@ -239,27 +249,41 @@ export default {
 
       animation(true)
     },
-    mergeConfig () {
-      let { config, defaultConfig } = this
+    mergeConfig() {
+      let { option, defaultConfig } = this
 
-      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), config || {})
+      this.mergedConfig = deepMerge(deepClone(defaultConfig, true), option || {})
     },
-    calcHeaderData () {
-      let { header, index, indexHeader} = this.mergedConfig
-
+    handleDataset() {
+      // 处理dataset
+      let { dataset } = this.mergedConfig
+      if (dataset.dimensions) {
+        this.mergedConfig.header = [];
+        this.mergedConfig.header = [...dataset.dimensions];
+        dataset.source.map((row, i) => {
+          console.log(row, i);
+          this.mergedConfig.data[i] = dataset.dimensions.map(function (k) {
+            return row[k]
+          })
+        })
+      } else if (dataset.source) {
+        this.mergedConfig.header = [];
+        this.mergedConfig.header = [...dataset.source[0]];
+        this.mergedConfig.data = dataset.source.slice(1)
+      }
+    },
+    calcHeaderData() {
+      let { header, index, indexHeader } = this.mergedConfig
       if (!header.length) {
         this.header = []
-
         return
       }
-
       header = [...header]
-
       if (index) header.unshift(indexHeader)
-
       this.header = header
+
     },
-    calcRowsData () {
+    calcRowsData() {
       let { data, index, headerBGC, rowNum } = this.mergedConfig
 
       if (index) {
@@ -283,11 +307,11 @@ export default {
       }
 
       data = data.map((d, i) => ({ ...d, scroll: i }))
-
+      // console.log(data);
       this.rowsData = data
       this.rows = data
     },
-    calcWidths () {
+    calcWidths() {
       const { width, mergedConfig, rowsData } = this
 
       const { columnWidth, header } = mergedConfig
@@ -307,7 +331,7 @@ export default {
 
       this.widths = deepMerge(widths, columnWidth)
     },
-    calcHeights (onresize = false) {
+    calcHeights(onresize = false) {
       const { height, mergedConfig, header } = this
 
       const { headerHeight, rowNum, data } = mergedConfig
@@ -322,7 +346,7 @@ export default {
 
       if (!onresize) this.heights = new Array(data.length).fill(avgHeight)
     },
-    calcAligns () {
+    calcAligns() {
       const { header, mergedConfig } = this
 
       const columnNum = header.length
@@ -333,7 +357,7 @@ export default {
 
       this.aligns = deepMerge(aligns, align)
     },
-    async animation (start = false) {
+    async animation(start = false) {
       const { needCalc, calcHeights, calcRowsData } = this
 
       if (needCalc) {
@@ -376,7 +400,7 @@ export default {
       this.animationIndex = animationIndex
       this.animationHandler = setTimeout(animation, waitTime - 300)
     },
-    stopAnimation () {
+    stopAnimation() {
       const { animationHandler, updater } = this
 
       this.updater = (updater + 1) % 999999
@@ -385,7 +409,7 @@ export default {
 
       clearTimeout(animationHandler)
     },
-    emitEvent (type, ri, ci, row, ceil) {
+    emitEvent(type, ri, ci, row, ceil) {
       const { ceils, rowIndex } = row
 
       this.$emit(type, {
@@ -409,7 +433,7 @@ export default {
       if (!animationHandler) animation(true)
     }
   },
-  destroyed () {
+  destroyed() {
     const { stopAnimation } = this
 
     stopAnimation()
