@@ -9,9 +9,9 @@ export default {
       ops: {
         title: "企业培育",
         // 主体离边框距离
-        distance: [75, 75],
+        distance: [100, 75],
         // 主体偏移值 (x,y)
-        offset: [0, 0],
+        offset: [10, 0],
         // 排序(max , min)优先
         sort: "max",
         // 颜色

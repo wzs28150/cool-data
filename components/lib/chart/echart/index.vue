@@ -1,13 +1,28 @@
 <template>
-  <div class="chart" id="main"></div>
+  <v-chart class="chart" :init-options="initOptions" :option="option" />
 </template>
 
 <script>
-var echarts = require('echarts/lib/echarts');
-require('echarts/lib/chart/bar');
-// 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
+import { use } from "echarts/core";
+import { SVGRenderer } from "echarts/renderers";
+import { BarChart,PictorialBarChart,graphic  } from "echarts/charts";
+import {
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent
+} from "echarts/components";
+import VChart from "vue-echarts";
+console.log(graphic);
+use([
+  SVGRenderer,
+  BarChart,
+  TitleComponent,
+  TooltipComponent,
+  LegendComponent,
+  GridComponent,
+  PictorialBarChart 
+]);
 export default {
   name: 'Chart',
   props: {
@@ -16,12 +31,21 @@ export default {
       require: true
     }
   },
+  data(){
+    return {
+      initOptions: {
+        renderer: 'svg'
+      }
+    }
+  },
   methods: {
 
   },
   mounted(){
-    var myChart = echarts.init(document.getElementById('main'))
-    myChart.setOption(this.option)
+
+  },
+  components: {
+    VChart
   }
 }
 </script>

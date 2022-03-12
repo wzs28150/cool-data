@@ -3,8 +3,16 @@
  * @Date: 2021-10-09 10:56:46
 -->
 <template>
-  <div ref="canvas-warpper" id="canvas-warpper">
-    <div id="canvas-tooltip"></div>
+  <div class="trigle" style="width: 100%;height: 100%; position: relative;">
+    <div ref="canvas-warpper" id="canvas-warpper" style="z-index: 2;">
+      <div id="canvas-tooltip"></div>
+    </div>
+    <div class="bg">
+      <div class="back_img3"></div>
+      <div class="back_img"></div>
+      <div class="back_img1"></div>
+      <div class="back_img2"></div>
+    </div>
   </div>
 </template>
 
@@ -91,8 +99,8 @@ export default {
         fontFormatter: this.option.fontFormatter
           ? this.option.fontFormatter
           : () => {
-              return 'default'
-            },
+            return 'default'
+          },
         // tooltip显示
         tooltip: {
           show: this.option.tooltip ? (this.option.tooltip.show ? this.option.tooltip.show : false) : false, // 是否显示
@@ -216,7 +224,7 @@ export default {
       </div>`
     }
   },
-  async created() {},
+  async created() { },
   mounted() {
     this.init()
   },
@@ -392,7 +400,7 @@ export default {
      * @author: 舒
      */
     // eslint-disable-next-line no-unused-vars
-    doMouseUp(e) {},
+    doMouseUp(e) { },
     /**
      * @description: 鼠标移动
      * @param {*} e
@@ -727,9 +735,8 @@ export default {
             [0, 0],
             [0, 0]
           ]
-          this.ctx.font = `normal lighter ${
-            this.integration.infoStyle.size ? this.integration.infoStyle.size : 14
-          }px sans-serif `
+          this.ctx.font = `normal lighter ${this.integration.infoStyle.size ? this.integration.infoStyle.size : 14
+            }px sans-serif `
 
           this.ctx.beginPath()
           if (lData && index + 1 === lData.l) {
@@ -744,9 +751,8 @@ export default {
               ]
             ]
 
-            this.ctx.font = `normal lighter ${
-              this.integration.infoStyle.size ? this.integration.infoStyle.size + 2 : 16
-            }px sans-serif `
+            this.ctx.font = `normal lighter ${this.integration.infoStyle.size ? this.integration.infoStyle.size + 2 : 16
+              }px sans-serif `
             text =
               this.integration.fontFormatter(item) !== 'default'
                 ? this.integration.fontFormatter(item)
@@ -904,7 +910,8 @@ export default {
     position: absolute;
     display: block;
     z-index: 9999999;
-    transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s, visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+    transition: opacity 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s,
+      visibility 0.2s cubic-bezier(0.23, 1, 0.32, 1) 0s;
     font: 14px / 21px sans-serif;
     top: 0px;
     left: 0px;

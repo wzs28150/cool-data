@@ -8,7 +8,7 @@
       :immerse="immerse"
       background="#091220ff"
       leftSideWidth="22%"
-      :titleHeight="60"
+      :titleHeight="70"
       style="background-image: url(./bg2.jpg); background-size: cover;"
     >
       <template #layout-title>
@@ -79,7 +79,7 @@
 </template>
 <script>
 import styleJson from "../json/mapStyle"
-import Header from '../components/header.vue';
+import Header from '../components/header1.vue';
 import Pannel from '../components/pannel.vue';
 import leftTop from '../components/leftTop.vue'
 import leftMiddle from '../components/leftMiddle.vue';
@@ -241,4 +241,6 @@ export default {
     color: #fff;
   }
 }
+
+
 </style>

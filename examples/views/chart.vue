@@ -75,7 +75,7 @@ export default {
       content: "";
       display: block;
       width: 100%;
-      padding-bottom: 60%;
+      padding-bottom: 80%;
     }
     .inner {
       position: absolute;
