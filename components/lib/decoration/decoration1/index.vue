@@ -125,6 +125,7 @@
         text-anchor="middle"
         dominant-baseline="middle"
         :style="`text-shadow: 0 0 5px ${mergedColor[0]};`"
+        ref="text"
       >{{ title }}</text>
 
       <circle
@@ -242,10 +243,6 @@ export default {
   props: {
     title: {
       type: String
-    },
-    titleWidth: {
-      type: Number,
-      default: 100
     }
   },
   data() {
@@ -255,7 +252,8 @@ export default {
       filterId: `decoration-1-filterId-${id}`,
       // defaultColor: ['#52ffff', '#1f33a2'],
       defaultColor: ['#8aaafb', '#1f33a2'],
-      mergedColor: []
+      mergedColor: [],
+      titleWidth: 0
     }
   },
   watch: {
@@ -275,8 +273,8 @@ export default {
   },
   mounted() {
     const { mergeColor } = this
-
     mergeColor()
+    this.titleWidth = this.$refs.text.clientWidth * 2
   }
 }
 </script>

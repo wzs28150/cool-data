@@ -35,7 +35,7 @@
 
         <rect
           v-for="i in 10"
-          :key="i"
+          :key="`a${i}`"
           :x="width * 0.28 + width * 0.0051 * i"
           :y="height * 0.6 + height * 0.58 - height * 0.026 * i"
           rx="4"
@@ -58,7 +58,7 @@
 
         <rect
           v-for="i in 10"
-          :key="i"
+          :key="`c${i}`"
           :x="width * 0.72 - width * 0.0051 * i"
           :y="height * 0.6 + height * 0.59 - height * 0.026 * i"
           rx="4"
@@ -91,8 +91,7 @@
           fill="none"
         />
         <polyline
-          :points="`
-          ${width * 0.107 + 7} ${height * 0.27}, 
+          :points="`${width * 0.107 + 7} ${height * 0.27}, 
           ${width * 0.23} ${height * 0.27},
           ${width * 0.25} ${height * 0.45},
           ${width * 0.5} ${height * 0.45}`"
@@ -145,8 +144,7 @@
         />
 
         <polyline
-          :points="`
-            ${width * 0.151 + 7 + width * 0.014} 0,
+          :points="`${width * 0.151 + 7 + width * 0.014} 0,
             ${width * 0.151 + 7 + width * 0.021} 0,
             ${width * 0.151 + 7 + width * 0.031} ${height * 0.11},
             ${width * 0.151 + 7 + width * 0.024} ${height * 0.11}
@@ -155,8 +153,7 @@
         />
 
         <polyline
-          :points="`
-            ${width * 0.151 + 7 + width * 0.014 + width * 0.015} 0,
+          :points="`${width * 0.151 + 7 + width * 0.014 + width * 0.015} 0,
             ${width * 0.151 + 7 + width * 0.021 + width * 0.015} 0,
             ${width * 0.151 + 7 + width * 0.036 + width * 0.015} ${height * 0.17},
             ${width * 0.151 + 7 + width * 0.029 + width * 0.015} ${height * 0.17}
@@ -165,8 +162,7 @@
         />
 
         <polyline
-          :points="`
-            ${width * 0.151 + 7 + width * 0.013 + width * 0.015 * 2} 0,
+          :points="`${width * 0.151 + 7 + width * 0.013 + width * 0.015 * 2} 0,
             ${width * 0.151 + 7 + width * 0.02 + width * 0.015 * 2} 0,
             ${width * 0.151 + 7 + width * 0.04 + width * 0.015 * 2} ${height * 0.22},
             ${width * 0.151 + 7 + width * 0.033 + width * 0.015 * 2} ${height * 0.22}
@@ -191,12 +187,11 @@
 
         <polyline
           v-for="i in 4"
-          :key="i"
-          :points="`
-            ${9 + width * 0.015 + width * 0.007 * (i - 1)} ${height * 0.14},
+          :key="`k${i}`"
+          :points="`${9 + width * 0.015 + width * 0.007 * (i - 1)} ${height * 0.14},
             ${9 + width * 0.02 + width * 0.007 * (i - 1)} ${height * 0.14},
             ${9 + width * 0.017 + width * 0.007 * (i - 1)} ${height * 0.2},
-            ${9 + width * 0.012 + width * 0.007 * (i - 1)} ${height * 0.2},
+            ${9 + width * 0.012 + width * 0.007 * (i - 1)} ${height * 0.2}
           `"
           :filter="`url(#${filterId})`"
           :fill="mergedColor[0]"
@@ -283,7 +278,7 @@
 
         <circle
           v-for="i in 5"
-          :key="i"
+          :key="`s${i}`"
           :cx="`${width - 3}`"
           :cy="`${height * 0.38 + height * 0.04 * (i-1)}`"
           r="3"
@@ -313,10 +308,6 @@ export default {
   props: {
     title: {
       type: String
-    },
-    titleWidth: {
-      type: Number,
-      default: 200
     }
   },
   data() {

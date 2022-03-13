@@ -3,7 +3,20 @@
     <el-col type="flex" v-for="(item, index) in components" :key="index" :span="24">
       <div class="item" :style="`height:${item.height}px`">
         <div class="inner">
-          <component :is="item" titleWidth="300" title="国网黑龙江供应链运营中心" ></component>
+          <component :is="item" title="大屏数据平台界面标题"></component>
+          <div class="hover">
+            <div
+              class="copy"
+              :data-clipboard-text="`<${item.name} title='大屏数据平台界面标题' >内容</${item.name}>`"
+              @click="copy"
+            >
+              <div class="item-title">{{ item.name }}</div>
+              <div class="copy-tip">
+                点击复制代码
+                <i class="el-icon-document-copy"></i>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </el-col>
@@ -56,18 +69,27 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
+      cursor: pointer;
       & > div {
         width: 100%;
         margin: 0 auto;
       }
-      .loading-text {
+      .hover {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(6, 30, 93, 0.8);
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.4s;
+        color: #fff;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         text-align: center;
-        .copy {
-          cursor: pointer;
-          .item-title {
+        .item-title {
             color: rgb(66, 185, 131);
             font-size: 20px;
             font-weight: bold;
@@ -76,7 +98,16 @@ export default {
           .copy-tip {
             color: #4fd2dd;
             font-size: 14px;
+            i {
+              margin-left: 5px;
+            }
           }
+      }
+
+      &:hover {
+        .hover {
+          visibility: visible;
+          opacity: 1;
         }
       }
     }
