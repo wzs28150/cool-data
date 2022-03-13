@@ -1,18 +1,9 @@
 <template>
   <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in components" :key="index" :span="6">
-      <div class="item">
+    <el-col type="flex" v-for="(item, index) in components" :key="index" :span="24">
+      <div class="item" :style="`height:${item.height}px`">
         <div class="inner">
-          <component :is="item">
-            <div
-              class="copy"
-              :data-clipboard-text="'<' + item.name + '>加载中。。。</' + item.name + '>'"
-              @click="copy"
-            >
-              <div class="item-title">{{ item.name }}</div>
-              <div class="copy-tip">点击复制代码</div>
-            </div>
-          </component>
+          <component :is="item" titleWidth="300" title="国网黑龙江供应链运营中心" ></component>
         </div>
       </div>
     </el-col>
@@ -21,6 +12,7 @@
 
 <script>
 import { decorationComponents } from "../../components/lib";
+console.log(decorationComponents);
 export default {
   data() {
     return {
@@ -57,12 +49,7 @@ export default {
   width: 100%;
   .item {
     position: relative;
-    &::before {
-      content: "";
-      display: block;
-      width: 100%;
-      padding-bottom: 60%;
-    }
+    margin-bottom: 20px;
     .inner {
       position: absolute;
       width: 100%;
@@ -70,7 +57,7 @@ export default {
       top: 0;
       left: 0;
       & > div {
-        width: 30%;
+        width: 100%;
         margin: 0 auto;
       }
       .loading-text {

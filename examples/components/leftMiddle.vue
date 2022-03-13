@@ -4,7 +4,7 @@
 
 <script>
 import { use } from "echarts/core";
-import { SVGRenderer } from "echarts/renderers";
+import { CanvasRenderer } from "echarts/renderers";
 import { BarChart } from "echarts/charts";
 import {
   TitleComponent,
@@ -15,7 +15,7 @@ import {
 import VChart from "vue-echarts";
 
 use([
-  SVGRenderer,
+  CanvasRenderer,
   BarChart,
   TitleComponent,
   TooltipComponent,
@@ -30,8 +30,7 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            // Use axis to trigger tooltip
-            type: 'shadow' // 'shadow' as default; can also be 'line' or 
+            type: 'shadow'
           }
         },
         legend: {
@@ -114,7 +113,7 @@ export default {
         ]
       },
       initOptions: {
-        renderer: 'svg'
+        renderer: 'canvas'
       }
     }
 

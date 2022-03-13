@@ -5,7 +5,7 @@
 <script>
 import { use } from "echarts/core";
 import { SVGRenderer } from "echarts/renderers";
-import { BarChart,PictorialBarChart,graphic  } from "echarts/charts";
+import { BarChart,PictorialBarChart  } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -13,7 +13,7 @@ import {
   GridComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
-console.log(graphic);
+
 use([
   SVGRenderer,
   BarChart,
