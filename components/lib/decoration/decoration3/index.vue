@@ -29,23 +29,20 @@
         font-family="shishang"
         text-anchor="middle"
         dominant-baseline="middle"
+        letter-spacing="4"
         :style="`text-shadow: 0 0 5px ${mergedColor[0]};`"
       >{{ title }}</text>
       <g >
 
-        <rect
+        <polyline
           v-for="i in 10"
-          :key="`a${i}`"
-          :x="width * 0.28 + width * 0.0051 * i"
-          :y="height * 0.6 + height * 0.58 - height * 0.026 * i"
-          rx="4"
-          ry="4"
-          width="4"
-          height="25"
-          transform="rotate(30)"
-          transform-origin="50% 50%"
+          :key="`lxx${i}`"
+          :points="`${width * 0.258 + width * 0.007 * i} ${height * 0.135}, 
+          ${width * 0.262 + width * 0.007 * i} ${height * 0.135},
+          ${width * 0.256 + width * 0.007 * i} ${height * 0.23}, 
+          ${width * 0.252 + width * 0.007 * i} ${height * 0.23}`"
           :fill="mergedColor[0]"
-          :fill-opacity="1"
+          fill-opacity="1"
         >
           <animate
             attributeName="fill-opacity"
@@ -54,21 +51,17 @@
             :begin="`${i * 0.1}s`"
             repeatCount="indefinite"
           />
-        </rect>
+        </polyline>
 
-        <rect
+        <polyline
           v-for="i in 10"
-          :key="`c${i}`"
-          :x="width * 0.72 - width * 0.0051 * i"
-          :y="height * 0.6 + height * 0.59 - height * 0.026 * i"
-          rx="4"
-          ry="4"
-          width="4"
-          height="25"
-          transform="rotate(-30)"
-          transform-origin="50% 50%"
+          :key="`lx${i}`"
+          :points="`${width - width * 0.258 - width * 0.007 * i} ${height * 0.135}, 
+          ${width - width * 0.262 - width * 0.007 * i} ${height * 0.135},
+          ${width - width * 0.256 - width * 0.007 * i} ${height * 0.23}, 
+          ${width - width * 0.252 +- width * 0.007 * i} ${height * 0.23}`"
           :fill="mergedColor[0]"
-          :fill-opacity="1"
+          fill-opacity="1"
         >
           <animate
             attributeName="fill-opacity"
@@ -77,7 +70,7 @@
             :begin="`${i * 0.1}s`"
             repeatCount="indefinite"
           />
-        </rect>
+        </polyline>
 
       </g>
 

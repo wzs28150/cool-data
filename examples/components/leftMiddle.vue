@@ -4,7 +4,7 @@
 
 <script>
 import { use } from "echarts/core";
-import { CanvasRenderer } from "echarts/renderers";
+import { SVGRenderer } from "echarts/renderers";
 import { BarChart } from "echarts/charts";
 import {
   TitleComponent,
@@ -13,16 +13,14 @@ import {
   GridComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
-
 use([
-  CanvasRenderer,
+  SVGRenderer,
   BarChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent
 ]);
-
 export default {
   data() {
     return {
@@ -30,7 +28,8 @@ export default {
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow'
+            // Use axis to trigger tooltip
+            type: 'shadow' // 'shadow' as default; can also be 'line' or 
           }
         },
         legend: {
@@ -59,18 +58,11 @@ export default {
             }
           },
           type: 'category',
-        },
-        dataset: {
-          source: [
-            ['type', '行驶', '停车', '熄火','离线'],
-            ['客运车', 43.3, 85.8, 93.7],
-            ['危险品运输车', 83.1, 73.4, 55.1],
-            ['网约车', 86.4, 65.2, 82.5],
-            ['学生班车', 72.4, 53.9, 39.1]
-          ]
+          data: ['客运车', '危险品运输车', '网约车', '学生班车']
         },
         series: [
           {
+            name: '行驶',
             type: 'bar',
             stack: 'total',
             label: {
@@ -79,8 +71,10 @@ export default {
             emphasis: {
               focus: 'series'
             },
+            data: [320, 302, 301, 334, 390, 330, 320]
           },
           {
+            name: '停车',
             type: 'bar',
             stack: 'total',
             label: {
@@ -89,8 +83,10 @@ export default {
             emphasis: {
               focus: 'series'
             },
+            data: [120, 132, 101, 134, 90, 230, 210]
           },
           {
+            name: '熄火',
             type: 'bar',
             stack: 'total',
             label: {
@@ -98,9 +94,11 @@ export default {
             },
             emphasis: {
               focus: 'series'
-            }
+            },
+            data: [220, 182, 191, 234, 290, 330, 310]
           },
           {
+            name: '离线',
             type: 'bar',
             stack: 'total',
             label: {
@@ -108,15 +106,15 @@ export default {
             },
             emphasis: {
               focus: 'series'
-            }
+            },
+            data: [150, 212, 201, 154, 190, 330, 410]
           }
         ]
       },
       initOptions: {
-        renderer: 'canvas'
+        renderer: 'svg'
       }
     }
-
   },
   components: {
     VChart

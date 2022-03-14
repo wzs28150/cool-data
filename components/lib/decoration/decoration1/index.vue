@@ -17,6 +17,7 @@
         :points="`0 ${height * 0.75},${width * 0.087} ${height * 0.75},${width * 0.1} ${height * 0.4}, ${width * 0.16} ${height * 0.4},${width * 0.166} ${height * 0.57},${width / 2 - titleWidth / 2 - 18 - 75} ${height * 0.57}`"
         :stroke="mergedColor[0]"
         stroke-width="2"
+        fill="none"
       />
       <polyline
         :points="`${width * 0.17} ${height * 0.45},${width * 0.3} ${height * 0.45}`"
@@ -126,6 +127,7 @@
         dominant-baseline="middle"
         :style="`text-shadow: 0 0 5px ${mergedColor[0]};`"
         ref="text"
+        letter-spacing="4"
       >{{ title }}</text>
 
       <circle
@@ -140,6 +142,7 @@
         :points="`${width} ${height * 0.75},${width * 0.913} ${height * 0.75},${width * 0.9} ${height * 0.4},${width * 0.84} ${height * 0.4},${width * 0.834} ${height * 0.57},${width / 2 + titleWidth / 2 + 18 + 75} ${height * 0.57}`"
         :stroke="mergedColor[0]"
         stroke-width="2"
+        fill="none"
       />
 
       <circle

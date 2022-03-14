@@ -1,5 +1,5 @@
 import Chart from "./index.vue";
-import { graphic } from "echarts/core"; 
+import { graphic } from "echarts/core";
 Chart.demoData = {
   // option: {
   //   legend: { textStyle: { color: '#fff' }, top: "8%" },
@@ -42,6 +42,12 @@ Chart.demoData = {
       data: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     },
     yAxis: {},
+    grid: {
+      left: "10%",
+      right: "10%",
+      bottom: "10%",
+      containLabel: true,
+    },
     series: [
       {
         type: "bar",

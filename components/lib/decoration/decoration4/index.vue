@@ -48,6 +48,7 @@
         dominant-baseline="middle"
         ref="text"
         :style="`text-shadow: 0 0 5px ${mergedColor[1]};`"
+        letter-spacing="4"
       >{{ title }}</text>
 
       <polyline

@@ -4,11 +4,10 @@
       <div class="item" :style="`height:${item.height}px`">
         <div class="inner">
           <component :is="item" title="大屏数据平台界面标题"></component>
-          <div class="hover">
+          <div class="hover" :data-clipboard-text="`<${item.name} title='大屏数据平台界面标题' >内容</${item.name}>`"
+              @click="copy">
             <div
               class="copy"
-              :data-clipboard-text="`<${item.name} title='大屏数据平台界面标题' >内容</${item.name}>`"
-              @click="copy"
             >
               <div class="item-title">{{ item.name }}</div>
               <div class="copy-tip">
@@ -37,7 +36,7 @@ export default {
   },
   methods: {
     copy() {
-      var clipboard = new this.Clipboard('.copy');
+      var clipboard = new this.Clipboard('.hover');
       clipboard.on('success', () => {
         this.$message({
           message: '复制成功',
