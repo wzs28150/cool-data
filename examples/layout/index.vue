@@ -18,6 +18,14 @@
             <i class="el-icon-full-screen"></i>
             <span slot="title">边框</span>
           </el-menu-item>
+          <el-menu-item index="/title">
+            <i class="el-icon-house"></i>
+            <span slot="title">标题</span>
+          </el-menu-item>
+          <el-menu-item index="/moduleTitle">
+            <i class="el-icon-house"></i>
+            <span slot="title">板块标题</span>
+          </el-menu-item>
           <el-menu-item index="/decoration">
             <i class="el-icon-magic-stick"></i>
             <span slot="title">装饰器</span>

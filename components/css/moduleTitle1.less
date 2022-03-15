@@ -1,0 +1,101 @@
+.module-title-1 {
+  height: 38px;
+
+  .module-title-module-main {
+    display : flex;
+    position: relative;
+
+  }
+
+  .module-title-1-icon {
+    line-height: 26px;
+    width      : 33px;
+    font-size  : 20px;
+    color: rgb(var(--module-title-1-main-color));
+  }
+
+  .module-title-1-title {
+    font-size       : 20px;
+    font-weight     : bold;
+    height          : 26px;
+    line-height     : 26px;
+    background-image: linear-gradient(to right, rgba(var(--module-title-1-main-color), 0.5), rgba(var(--module-title-1-main-color), 0) 50%);
+    flex            : 1;
+    padding-left    : 2px;
+    color: rgb(var(--module-title-1-text-color));
+  }
+
+  .module-title-1-btn-list {
+    margin-left: auto;
+    display    : flex;
+    position   : absolute;
+    right      : 0;
+    top        : 0;
+
+    .item {
+      font-size       : 16px;
+      line-height     : 24px;
+      width           : 68px;
+      height          : 24px;
+      border          : 1px solid rgb(var(--module-title-1-main-color));
+      text-align      : center;
+      background-color: rgba(var(--module-title-1-main-color), 0.2);
+      margin-left     : 10px;
+      cursor          : pointer;
+      transition      : all 0.4s;
+
+      &.on {
+        background-color: rgba(var(--module-title-1-main-color), 0.5);
+      }
+
+      &:hover {
+        box-shadow: 0 0 10px rgba(var(--module-title-1-main-color), 1);
+      }
+    }
+  }
+
+  .module-title-1-line {
+    width     : 100%;
+    height    : 6px;
+    margin-top: 4px;
+    overflow  : hidden;
+    display   : flex;
+
+    .module-title-1-line-line {
+      flex            : 1;
+      height          : 1px;
+      background-color: rgb(var(--module-title-1-main-color));
+      margin-top      : 3px;
+    }
+
+    .module-title-1-line-circle {
+      width          : 40px;
+      display        : flex;
+      align-items    : center;
+      justify-content: space-between;
+
+      &>div {
+        border-radius   : 100%;
+        background-color: var(--module-title-1-circle-color);
+        margin-left     : 6px;
+      }
+
+      .module-title-1-line-circle1 {
+        width  : 4px;
+        height : 4px;
+        opacity: 0.3;
+      }
+
+      .module-title-1-line-circle2 {
+        width  : 5px;
+        height : 5px;
+        opacity: 0.5;
+      }
+
+      .module-title-1-line-circle3 {
+        width : 6px;
+        height: 6px;
+      }
+    }
+  }
+}

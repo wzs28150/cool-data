@@ -10,6 +10,26 @@ borderBoxComponentsLoad.keys().sort(function (a, b) {
   borderBoxComponents[ComponentsItem.name] = ComponentsItem;
 });
 
+// 加载标题组件
+export const titleComponents = {};
+const titleComponentsLoad = require.context("./title", true, /\.js$/);
+titleComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/title/g, "")) - parseInt(path.dirname(b).replace(/.\/title/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = titleComponentsLoad(filename).default;
+  titleComponents[ComponentsItem.name] = ComponentsItem;
+});
+
+// 加载模块标题组件
+export const moduleTitleComponents = {};
+const moduleTitleComponentsLoad = require.context("./moduleTitle", true, /\.js$/);
+moduleTitleComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/moduleTitle/g, "")) - parseInt(path.dirname(b).replace(/.\/moduleTitle/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = moduleTitleComponentsLoad(filename).default;
+  moduleTitleComponents[ComponentsItem.name] = ComponentsItem;
+});
+
 // 加载加载组件
 export const loadingComponents = {};
 const loadingComponentsLoad = require.context("./loading", true, /\.js$/);
@@ -62,6 +82,8 @@ const components = {
   ...layoutComponents,
   ...chartComponents,
   ...decorationComponents,
+  ...titleComponents,
+  ...moduleTitleComponents
 };
 
 const install = function (Vue) {
