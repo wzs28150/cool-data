@@ -14,6 +14,7 @@ import color from "../views/color.vue";
 import title from "../views/title.vue";
 import moduleTitle from "../views/moduleTitle.vue";
 import background from "../views/background.vue";
+import background_canvas from "../views/background_canvas.vue";
 import demo from "../layout/demo.vue";
 import layout1 from "../demo/layout1_demo.vue";
 import layout2 from "../demo/layout2_demo.vue";
@@ -74,9 +75,20 @@ const router = new Router({
         },
 
         {
-          path: "background",
-          name: "background",
-          component: background,
+          path: "/background",
+          component: demo,
+          children: [
+            {
+              path: "index",
+              name: "background",
+              component: background,
+            },
+            {
+              path: "canvas",
+              name: "canvas",
+              component: background_canvas,
+            },
+          ]
         },
       ],
     },

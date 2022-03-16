@@ -42,7 +42,9 @@ import Chart1 from './chart/echart/index';
 import Pyramid from './chart/pyramid/index';
 import ScrollTable from './chart/scrollTable/index';
 
-import Background from './background/index';
+import Background from './background/background/index';
+import BackgroundCanvas1 from './background/backgroundCanvas1/index';
+import BackgroundCanvas2 from './background/backgroundCanvas2/index';
 // 加载边框组件
 export const borderBoxComponents = {
   BorderBox1,
@@ -112,7 +114,9 @@ export const decorationComponents = {};
 
 // 加载背景组件
 export const backgroundComponents = {
-  Background
+  Background,
+  BackgroundCanvas1,
+  BackgroundCanvas2
 };
 
 

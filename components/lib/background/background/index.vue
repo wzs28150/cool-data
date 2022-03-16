@@ -2,7 +2,7 @@
   <div class="background" :style="`background-image:url(${img ? img : list[id]})`"></div>
 </template>
 <script>
-import { list } from './index';
+import { localList } from './index';
 
 export default {
   name: "Background",
@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      list: list
+      list: localList
     }
   }
 }

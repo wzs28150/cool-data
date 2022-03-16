@@ -13,6 +13,7 @@
           background-color="transparent"
           active-text-color="#4fd2dd"
           style="border-right: 0;"
+          :unique-opened="true"
         >
           <el-menu-item index="/index">
             <i class="el-icon-full-screen"></i>
@@ -50,10 +51,20 @@
             <i class="el-icon-brush"></i>
             <span slot="title">颜色</span>
           </el-menu-item>
-          <el-menu-item index="/background">
+          <!-- <el-menu-item index="/background">
             <i class="el-icon-monitor"></i>
             <span slot="title">背景</span>
-          </el-menu-item>
+          </el-menu-item>-->
+          <el-submenu index="/background">
+            <template slot="title">
+              <i class="el-icon-monitor"></i>
+              <span>背景</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/background/index">背景图</el-menu-item>
+              <el-menu-item index="/background/canvas">背景效果</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main class="page-main">
@@ -71,7 +82,7 @@ export default {
       console.log(key, keyPath);
     }
   },
-  mounted(){
+  mounted() {
     console.log(process.env.NODE_ENV);
   }
 }

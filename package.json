@@ -30,6 +30,7 @@
     "echarts": "^5.3.1",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
+    "particles.vue": "^2.42.2",
     "vue": "^2.6.11",
     "vue-echarts": "^6.0.2",
     "vue-router": "^3.0.1"

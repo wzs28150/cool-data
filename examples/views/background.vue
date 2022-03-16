@@ -13,6 +13,9 @@
             <div class="inner-bar-download" @click="download(item, 'bg.jpg')">
               <i class="el-icon-download"></i>图片下载
             </div>
+            <div class="inner-bar-download copy" :data-clipboard-text="`<background :img='${webList[index]}'></background>`" @click="copy">
+              <i class="el-icon-document-copy"></i>复制代码
+            </div>
           </div>
         </div>
       </div>
@@ -20,11 +23,12 @@
   </el-row>
 </template>
 <script>
-import { list } from '../../components/lib/background/index';
+import { localList,webList } from '../../components/lib/background/background';
 export default {
   data() {
     return {
-      list: list
+      list: localList,
+      webList
     }
   },
   mounted() {

@@ -1,7 +1,3 @@
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
-var _toConsumableArray2 = _interopRequireDefault(require("@babel/runtime/helpers/toConsumableArray"));
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
-
 export function randomExtend (minNum, maxNum) {
   if (arguments.length === 1) {
     return parseInt(Math.random() * minNum + 1, 10)
@@ -107,30 +103,6 @@ export function mulAdd(nums) {
   return nums.reduce(function (all, num) {
     return all + num;
   }, 0);
-}
-
-function getTwoPointDistance(_ref3, _ref4) {
-  var _ref5 = (0, _slicedToArray2["default"])(_ref3, 2),
-      xa = _ref5[0],
-      ya = _ref5[1];
-
-  var _ref6 = (0, _slicedToArray2["default"])(_ref4, 2),
-      xb = _ref6[0],
-      yb = _ref6[1];
-
-  var minusX = Math.abs(xa - xb);
-  var minusY = Math.abs(ya - yb);
-  return Math.sqrt(minusX * minusX + minusY * minusY);
-}
-
-export function getPolylineLength(points) {
-  var lineSegments = new Array(points.length - 1).fill(0).map(function (foo, i) {
-    return [points[i], points[i + 1]];
-  });
-  var lengths = lineSegments.map(function (item) {
-    return getTwoPointDistance.apply(void 0, (0, _toConsumableArray2["default"])(item));
-  });
-  return mulAdd(lengths);
 }
 
 export function getCircleRadianPoint(x, y, radius, radian) {
