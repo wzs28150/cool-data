@@ -10,8 +10,8 @@
             </div>
           </el-image>
           <div class="inner-bar">
-            <div class="inner-bar-title">
-              
+            <div class="inner-bar-download" @click="download(item, 'bg.jpg')">
+              <i class="el-icon-download"></i>图片下载
             </div>
           </div>
         </div>
@@ -48,6 +48,15 @@ export default {
         clipboard.destroy()
       })
     },
+    download(url, name){
+      const ele = document.createElement("a");
+      ele.setAttribute("href", url);
+      ele.setAttribute("download", name);
+      ele.style.display = "none";
+      document.body.appendChild(ele);
+      ele.click();
+      document.body.removeChild(ele);
+    }
   }
 }
 </script>
@@ -76,7 +85,21 @@ export default {
         left: 0;
         width: 100%;
         height: 40px;
-        background-color: rgba(255,255,255,0.5);
+        background-color: rgba(#eee,0.5);
+        font-size: 14px;
+        line-height: 40px;
+        color: #fff;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        .inner-bar-download{
+          cursor: pointer;
+          padding-right: 10px;
+          // display: flex;
+          i{
+            padding-right: 5px;
+          }
+        }
       }
     }
   }
