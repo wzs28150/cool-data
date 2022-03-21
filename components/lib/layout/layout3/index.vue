@@ -4,7 +4,7 @@
       class="layout-contanter"
       :style="`width:${width}px; height:${height}px; transform:scale(${scaleX},${scaleY})`"
     >
-      <div class="layout-title">
+      <div class="layout-title" :style="`height: ${titleHeight}px`">
         <slot name="layout-title" />
       </div>
       <div v-if="immerse" class="main">

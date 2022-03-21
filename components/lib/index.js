@@ -28,6 +28,8 @@ import ModuleTitle4 from './moduleTitle/moduleTitle4/index';
 import ModuleTitle5 from './moduleTitle/moduleTitle5/index';
 import ModuleTitle6 from './moduleTitle/moduleTitle6/index';
 
+import Decoration1 from './decoration/decoration1/index';
+
 import Loading1 from './loading/loading1/index';
 import Loading2 from './loading/loading2/index';
 import Loading3 from './loading/loading3/index';
@@ -41,6 +43,7 @@ import Layout3 from './layout/layout3/index';
 import Chart1 from './chart/echart/index';
 import Pyramid from './chart/pyramid/index';
 import ScrollTable from './chart/scrollTable/index';
+import SvgMap from './chart/svgMap/index';
 
 import Background from './background/background/index';
 import BackgroundCanvas1 from './background/backgroundCanvas1/index';
@@ -106,11 +109,14 @@ export const layoutComponents = {
 export const chartComponents = {
   Chart1,
   Pyramid,
-  ScrollTable
+  ScrollTable,
+  SvgMap
 };
 
 // 加载装饰器组件
-export const decorationComponents = {};
+export const decorationComponents = {
+  Decoration1
+};
 
 // 加载背景组件
 export const backgroundComponents = {

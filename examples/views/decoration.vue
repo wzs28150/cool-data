@@ -1,6 +1,6 @@
 <template>
   <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in components" :key="index" :span="24">
+    <el-col type="flex" v-for="(item, index) in components" :key="index" :span="12">
       <div class="item" :style="`height:${item.height}px`">
         <div class="inner">
           <component :is="item" title="大屏数据平台界面标题"></component>

@@ -19,6 +19,7 @@ import demo from "../layout/demo.vue";
 import layout1 from "../demo/layout1_demo.vue";
 import layout2 from "../demo/layout2_demo.vue";
 import layout3 from "../demo/layout3_demo.vue";
+import layout4 from "../demo/layout4_demo.vue";
 Vue.use(Router);
 
 const router = new Router({
@@ -115,6 +116,11 @@ const router = new Router({
           path: "layout3",
           name: "layout3",
           component: layout3,
+        },
+        {
+          path: "layout4",
+          name: "layout4",
+          component: layout4,
         },
       ],
     },

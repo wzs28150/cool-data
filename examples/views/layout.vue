@@ -21,6 +21,13 @@
         </div>
       </router-link>
     </el-col>
+     <el-col type="flex" :span="6">
+      <router-link :to="'/demo/layout4'" class="item">
+        <div class="inner">
+          <div class="img" style="background-image: url(./img/layout4.jpg);"></div>模板布局3
+        </div>
+      </router-link>
+    </el-col>
   </el-row>
 </template>
 

@@ -309,7 +309,7 @@
           ${width * 0.5 + width * 0.052 + titleWidth * 0.5} ${height * 0.788},
           ${width * 0.5 + width * 0.0625 + titleWidth * 0.5} ${height * 0.5},
           ${width * 0.5 + width * 0.07 + titleWidth * 0.5} ${height * 0.5},
-          ${width * 0.5 + width * 0.059 + titleWidth * 0.5} ${height * 0.788},
+          ${width * 0.5 + width * 0.059 + titleWidth * 0.5} ${height * 0.788}
         `"
         :stroke="mergedColor[2]"
         stroke-width="1"
@@ -322,7 +322,7 @@
           ${width * 0.5 + width * 0.0520 + titleWidth * 0.5 + width * 0.015} ${height * 0.788},
           ${width * 0.5 + width * 0.0625 + titleWidth * 0.5 + width * 0.015} ${height * 0.5},
           ${width * 0.5 + width * 0.0700 + titleWidth * 0.5 + width * 0.015} ${height * 0.5},
-          ${width * 0.5 + width * 0.0590 + titleWidth * 0.5 + width * 0.015} ${height * 0.788},
+          ${width * 0.5 + width * 0.0590 + titleWidth * 0.5 + width * 0.015} ${height * 0.788}
         `"
         :stroke="mergedColor[2]"
         stroke-width="1"
@@ -335,7 +335,7 @@
           ${width * 0.5 - width * 0.052 - titleWidth * 0.5} ${height * 0.788},
           ${width * 0.5 - width * 0.0625 - titleWidth * 0.5} ${height * 0.5},
           ${width * 0.5 - width * 0.07 - titleWidth * 0.5} ${height * 0.5},
-          ${width * 0.5 - width * 0.059 - titleWidth * 0.5} ${height * 0.788},
+          ${width * 0.5 - width * 0.059 - titleWidth * 0.5} ${height * 0.788}
         `"
         :stroke="mergedColor[2]"
         stroke-width="1"
@@ -348,7 +348,7 @@
           ${width * 0.5 - width * 0.0520 - titleWidth * 0.5 - width * 0.015} ${height * 0.788},
           ${width * 0.5 - width * 0.0625 - titleWidth * 0.5 - width * 0.015} ${height * 0.5},
           ${width * 0.5 - width * 0.0700 - titleWidth * 0.5 - width * 0.015} ${height * 0.5},
-          ${width * 0.5 - width * 0.0590 - titleWidth * 0.5 - width * 0.015} ${height * 0.788},
+          ${width * 0.5 - width * 0.0590 - titleWidth * 0.5 - width * 0.015} ${height * 0.788}
         `"
         :stroke="mergedColor[2]"
         stroke-width="1"

@@ -1,6 +1,6 @@
 {
   "name": "cool-data",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "基于vue的可视化组件库",
   "main": "dist/index.umd.js",
   "keywords": [
@@ -25,9 +25,11 @@
     "deploy": "bash sed -i 's/\r$//' deploy.sh"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "clipboard": "^2.0.10",
     "core-js": "^3.6.5",
     "echarts": "^5.3.1",
+    "echarts-gl": "^2.0.9",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
     "particles.vue": "^2.42.2",

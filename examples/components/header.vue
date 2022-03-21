@@ -1,9 +1,6 @@
 <template>
   <header>
-    <decoration-3 class="header-left-decoration" />
-    <decoration-2 class="header-center-decoration" />
-    <decoration-3 class="header-right-decoration" :reverse="true" />
-    <div class="title">车辆系统平台</div>
+   
   </header>
 </template>
 

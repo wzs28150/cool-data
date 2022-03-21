@@ -7,12 +7,6 @@
     <div ref="canvas-warpper" id="canvas-warpper" style="z-index: 2;">
       <div id="canvas-tooltip"></div>
     </div>
-    <div class="bg">
-      <div class="back_img3"></div>
-      <div class="back_img"></div>
-      <div class="back_img1"></div>
-      <div class="back_img2"></div>
-    </div>
   </div>
 </template>
 

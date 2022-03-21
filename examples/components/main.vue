@@ -1,5 +1,11 @@
 <template>
-  <pyramid :option="ops" />
+  <div style="height:100%">
+    <pyramid :option="ops" />
+    <div class="main-decoration">
+      <decoration-1></decoration-1>
+    </div>
+    
+  </div>
 </template>
 
 <script>
@@ -9,9 +15,9 @@ export default {
       ops: {
         title: "企业培育",
         // 主体离边框距离
-        distance: [100, 75],
+        distance: [120, 50],
         // 主体偏移值 (x,y)
-        offset: [10, 0],
+        offset: [40, 20],
         // 排序(max , min)优先
         sort: "max",
         // 颜色
@@ -90,3 +96,12 @@ export default {
   },
 };
 </script>
+
+<style lang="less">
+.main-decoration{
+  position: absolute;
+  bottom: 2%;
+  width: 100%;
+  height: 300px;
+}
+</style>

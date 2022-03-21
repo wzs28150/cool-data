@@ -2,46 +2,110 @@ import Chart from "./index.vue";
 import { graphic } from "echarts/core";
 Chart.demoData = {
   // option: {
-  //   legend: { textStyle: { color: '#fff' }, top: "8%" },
-  //   tooltip: {
-
-  //   },
+  //   legend: { textStyle: { color: "#fff" }, top: "8%" },
+  //   tooltip: {},
   //   grid: {
-  //     left: '10%',
-  //     right: '10%',
-  //     bottom: '10%',
-  //     containLabel: true
+  //     left: "10%",
+  //     right: "10%",
+  //     bottom: "10%",
+  //     containLabel: true,
   //   },
   //   dataset: {
   //     source: [
-  //       ['product', '2015', '2016', '2017'],
-  //       ['Matcha Latte', 43.3, 85.8, 93.7],
-  //       ['Milk Tea', 83.1, 73.4, 55.1],
-  //       ['Cheese Cocoa', 86.4, 65.2, 82.5],
-  //       ['Walnut Brownie', 72.4, 53.9, 39.1]
-  //     ]
+  //       ["product", "2015", "2016", "2017"],
+  //       ["Matcha Latte", 43.3, 85.8, 93.7],
+  //       ["Milk Tea", 83.1, 73.4, 55.1],
+  //       ["Cheese Cocoa", 86.4, 65.2, 82.5],
+  //       ["Walnut Brownie", 72.4, 53.9, 39.1],
+  //     ],
   //   },
   //   xAxis: {
-  //     type: 'category', axisLine: {
+  //     type: "category",
+  //     axisLine: {
   //       lineStyle: {
-  //         color: '#fff'
-  //       }
+  //         color: "#fff",
+  //       },
   //     },
   //   },
   //   yAxis: {
   //     axisLine: {
   //       lineStyle: {
-  //         color: '#fff'
-  //       }
+  //         color: "#fff",
+  //       },
   //     },
   //   },
-  //   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
-  // }
+  //   series: [
+  //     {
+  //       type: "bar",
+  //       itemStyle: {
+  //         normal: {
+  //           borderWidth: 1,
+  //           borderColor: "#18CEE2",
+  //           barBorderRadius: 28,
+  //           color: 'rgba(218,170, 58, 0.7)',
+  //         },
+  //         emphasis: {
+  //           barBorderRadius: 13,
+  //           shadowBlur: 18,
+  //           shadowColor: "rgba(218,170, 58, 0.7)",
+  //         },
+  //       },
+  //     },
+  //     {
+  //       type: "bar",
+  //       itemStyle: {
+  //         normal: {
+  //           borderWidth: 1,
+  //           borderColor: "#18CEE2",
+  //           barBorderRadius: 28,
+  //           color: 'rgba(0,97,199, 0.7)',
+  //         },
+  //         emphasis: {
+  //           barBorderRadius: 13,
+  //           shadowBlur: 18,
+  //           shadowColor: "rgba(218,170, 58, 0.7)",
+  //         },
+  //       },
+  //     },
+  //     {
+  //       type: "bar",
+  //       itemStyle: {
+  //         normal: {
+  //           borderWidth: 1,
+  //           borderColor: "#18CEE2",
+  //           barBorderRadius: 28,
+  //           color: 'rgba(132,144,44, 0.7)',
+  //         },
+  //         emphasis: {
+  //           barBorderRadius: 13,
+  //           shadowBlur: 18,
+  //           shadowColor: "rgba(218,170, 58, 0.7)",
+  //         },
+  //       },
+  //     },
+
+  //   ],
+  // },
+  //rgb(145,204,117)
+  // rgb(84,112,198)
+  //rgb(145,204,117)
   option: {
     xAxis: {
       data: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      axisLine: {
+        lineStyle: {
+          color: "#fff",
+        },
+      },
     },
-    yAxis: {},
+    yAxis: {
+      axisLine: {
+        lineStyle: {
+          color: "#fff",
+        },
+      },
+    },
+
     grid: {
       left: "10%",
       right: "10%",
@@ -50,17 +114,57 @@ Chart.demoData = {
     },
     series: [
       {
-        type: "bar",
-        barWidth: 20,
+        //柱底圆片
+        name: "底部",
+        type: "pictorialBar",
+        symbolSize: [15, 10], //调整截面形状
+        symbolOffset: [0, 5],
+        z: 12,
         itemStyle: {
           normal: {
-            borderWidth: 1,
-            borderColor: "#18CEE2",
-            barBorderRadius: 28,
-            color: graphic.LinearGradient(0, 1, 1, 0, [
-              { offset: 0, color: "#2dc3db" },
-              { offset: 1, color: "#0f88c0" },
-            ]),
+            color: function (params) {
+              var colorArr = [
+                "rgba(193,35,43,0.6)",
+                "#B5C334",
+                "#FCCE10",
+                "#E87C25",
+                "#27727B",
+                "#FE8463",
+                "#9BCA63",
+              ];
+              return colorArr[params.dataIndex];
+            },
+          },
+        },
+        data: [220, 182, 191, 234, 290, 330, 310],
+      },
+      {
+        type: "bar",
+        barWidth: 15,
+        barGap: "0%",
+        itemStyle: {
+          normal: {
+            color: function (params) {
+              // build a color map as your need.
+
+              var colorList = [
+                new graphic.LinearGradient(0, 0, 1, 0, [
+                  { offset: 0, color: "rgba(193,35,43,1)" },
+                  { offset: 1, color: "rgba(193,35,43,0.8)" },
+                ]),
+                "#B5C334",
+                "#FCCE10",
+                "#E87C25",
+                "#27727B",
+
+                "#FE8463",
+                "#9BCA63",
+                "#FAD860",
+              ];
+
+              return colorList[params.dataIndex];
+            },
+            opacity: 0.7,
           },
           emphasis: {
             barBorderRadius: 13,
@@ -71,29 +175,33 @@ Chart.demoData = {
         data: [220, 182, 191, 234, 290, 330, 310],
       },
       {
-        name: "a",
-        tooltip: {
-          show: false,
-        },
+        name: "顶部",
         type: "pictorialBar",
+        symbolSize: [15, 10], //调整截面形状
+        symbolOffset: [0, -5],
+        z: 5,
+        symbolPosition: "end",
         itemStyle: {
           normal: {
-            color: graphic.LinearGradient(0, 0, 1, 0, [
-              { offset: 0, color: "rgba(43,198,221,0.5)" },
-              { offset: 1, color: "rgba(24,205,225,0.8)" },
-            ]),
-            borderWidth: 1,
-            borderColor: "#18CEE2",
+            color: function (params) {
+              var colorArr = [
+                "#C1232B",
+                "#B5C334",
+                "#FCCE10",
+                "#E87C25",
+                "#27727B",
+                "#FE8463",
+                "#9BCA63",
+              ];
+              return colorArr[params.dataIndex];
+            },
           },
         },
-        symbol: "circle",
-        symbolSize: ["20", "10"],
-        symbolPosition: "end",
         data: [220, 182, 191, 234, 290, 330, 310],
-        z: 3,
       },
     ],
   },
+
   // option: {
   //   backgroundColor: "#0e202d",
   //   tooltip: {},

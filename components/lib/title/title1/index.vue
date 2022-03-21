@@ -120,12 +120,12 @@
         class="border-box-1-title"
         :x="`${width / 2}`"
         :y="`${height * 0.57}`"
-        :fill="mergedColor[0]"
+        :fill="mergedColor[1]"
         font-size="32"
         font-family="shishang"
         text-anchor="middle"
         dominant-baseline="middle"
-        :style="`text-shadow: 0 0 5px ${mergedColor[0]};`"
+        :style="`text-shadow: 0 0 5px ${mergedColor[1]};`"
         ref="text"
         letter-spacing="4"
       >{{ title }}</text>
@@ -246,7 +246,11 @@ export default {
   props: {
     title: {
       type: String
-    }
+    },
+    color: {
+      type: Array,
+      default: () => ([])
+    },
   },
   data() {
     const id = uuid()
@@ -254,7 +258,7 @@ export default {
       ref: 'title-1',
       filterId: `title-1-filterId-${id}`,
       // defaultColor: ['#52ffff', '#1f33a2'],
-      defaultColor: ['#8aaafb', '#1f33a2'],
+      defaultColor: ['#8aaafb', '#8aaafb'],
       mergedColor: [],
       titleWidth: 0
     }
