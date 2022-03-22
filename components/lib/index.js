@@ -44,10 +44,26 @@ import Chart1 from './chart/echart/index';
 import Pyramid from './chart/pyramid/index';
 import ScrollTable from './chart/scrollTable/index';
 import SvgMap from './chart/svgMap/index';
+import DynamicRing from './chart/dynamicRing/index';
 
 import Background from './background/background/index';
 import BackgroundCanvas1 from './background/backgroundCanvas1/index';
 import BackgroundCanvas2 from './background/backgroundCanvas2/index';
+
+import classic from './color/classic';
+import quiet from './color/quiet';
+import soft from './color/soft';
+import easyv from './color/easyv';
+import littlelion from './color/littlelion';
+import purple from './color/purple';
+import elegant from './color/elegant';
+import bright from './color/bright';
+import business from './color/business';
+import nostalgia from './color/nostalgia';
+import fresh from './color/fresh';
+import gradual from './color/gradual';
+import retro from './color/retro';
+import news from './color/news';
 // 加载边框组件
 export const borderBoxComponents = {
   BorderBox1,
@@ -110,7 +126,8 @@ export const chartComponents = {
   Chart1,
   Pyramid,
   ScrollTable,
-  SvgMap
+  SvgMap,
+  DynamicRing
 };
 
 // 加载装饰器组件
@@ -125,6 +142,22 @@ export const backgroundComponents = {
   BackgroundCanvas2
 };
 
+export const Theme = {
+  classic: classic.theme,
+  quiet: quiet.theme,
+  soft: soft.theme,
+  littlelion: littlelion.theme,
+  easyv: easyv.theme,
+  purple: purple.theme,
+  elegant: elegant.theme,
+  bright: bright.theme,
+  business: business.theme,
+  nostalgia: nostalgia.theme,
+  fresh: fresh.theme,
+  gradual: gradual.theme,
+  retro: retro.theme,
+  news: news.theme
+}
 
 const components = {
   ...borderBoxComponents,

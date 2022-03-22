@@ -6,6 +6,7 @@
     :loading-options="loadingOptions"
     :loading="loading"
     :option="option"
+    :theme="theme"
   />
 </template>
 
@@ -13,6 +14,8 @@
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart } from "echarts/charts";
+import { Theme } from "../../components/lib/index";
+const { easyv } = Theme;
 import {
   TitleComponent,
   TooltipComponent,
@@ -83,13 +86,14 @@ export default {
       initOptions: {
         renderer: 'canvas'
       },
-      loading: false
+      loading: false,
+      theme: easyv
     }
   },
   components: {
     VChart
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
       this.loading = false
     }, 500);

@@ -59,6 +59,7 @@ export default {
   .item {
     position: relative;
     background-color: rgba(6, 30, 93, 0.5);
+    margin-bottom: 20px;
     &::after {
       content: "";
       display: block;
