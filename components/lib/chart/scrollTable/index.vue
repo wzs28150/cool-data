@@ -261,7 +261,7 @@ export default {
         this.mergedConfig.header = [];
         this.mergedConfig.header = [...dataset.dimensions];
         dataset.source.map((row, i) => {
-          console.log(row, i);
+          // console.log(row, i);
           this.mergedConfig.data[i] = dataset.dimensions.map(function (k) {
             return row[k]
           })

@@ -7,37 +7,43 @@ DynamicRing.demoData = {
       trigger: "item",
     },
     legend: {
-      top: "5%",
-      right: "center",
+      top: "middle",
+      right: "10%",
+      orient: "vertical",
       textStyle: {
-        color: '#eee'
-      }
+        color: "#eee",
+      },
     },
     series: [
       {
         name: "Access From",
         type: "pie",
-        radius: ["40%", "50%"],
+        radius: ["50%", "60%"],
+        center: ["30%", "50%"],
         avoidLabelOverlap: false,
         label: {
           show: false,
-          color: '#fff',
+          color: "#fff",
           fontSize: 12,
-          position: 'center'
+          position: "center",
+          formatter: '{b}\n\n{d}%'
         },
         emphasis: {
           label: {
             show: true,
             fontSize: "14",
-            color: '#fff',
+            color: "#fff",
             fontWeight: "bold",
-            scaleSize: 20
           },
+          scale: true,
+          scaleSize: 10,
+          focus: "series",
+          blurScope: "coordinateSystem",
         },
         labelLine: {
           show: false,
         },
-   
+
         data: [
           { value: 1048, name: "Search Engine" },
           { value: 735, name: "Direct" },

@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     map3D(domId) {
-      console.log(domId);
+      // console.log(domId);
       const that = this
       axios.get("./json/map/" + that.chinaId + ".json", {}).then(response => {
         const mapJson = response.data;
@@ -49,7 +49,7 @@ export default {
         that.parentName = "china";
 
         myChart.on("click", function (param) {
-          console.log(param);
+          // console.log(param);
           var cityId = cityMap[param.name];
           if (cityId) {
             //代表有下级地图
@@ -57,7 +57,7 @@ export default {
               .get("./json/map/" + cityId + ".json", {})
               .then(response => {
                 const mapJson = response.data;
-                console.log(mapJson);
+                // console.log(mapJson);
                 that.registerAndsetOption(
                   myChart,
                   cityId,
@@ -132,7 +132,7 @@ export default {
       const that = this
 
       const mapData = mapJson.features.map(function (feature, index) {
-        console.log(feature.properties);
+        // console.log(feature.properties);
         return {
           name: feature.properties.name,
           itemStyle: {
@@ -151,7 +151,7 @@ export default {
     randomHexColor(index) { //随机生成十六进制颜色
       // const arr = ['#fde8cd','#e4f1d7','#fffed7','#e4f1d7','#fffed7','#fffed8','#dccee7','#fffed7','#fce8cd','#ddceeb','#e4f1d3']
       // return arr[index];
-      console.log(index);
+      // console.log(index);
       return `rgba(65,${100 - index * 5},${225 - index * 1},0.8)`
       // return '#' +
       //   (function fn(color) {

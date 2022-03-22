@@ -45,6 +45,7 @@ import Pyramid from './chart/pyramid/index';
 import ScrollTable from './chart/scrollTable/index';
 import SvgMap from './chart/svgMap/index';
 import DynamicRing from './chart/dynamicRing/index';
+import DynamicRing3d from './chart/dynamicRing3d/index';
 
 import Background from './background/background/index';
 import BackgroundCanvas1 from './background/backgroundCanvas1/index';
@@ -127,7 +128,8 @@ export const chartComponents = {
   Pyramid,
   ScrollTable,
   SvgMap,
-  DynamicRing
+  DynamicRing,
+  DynamicRing3d
 };
 
 // 加载装饰器组件
