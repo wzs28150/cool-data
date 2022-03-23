@@ -33,6 +33,17 @@
 <body>
   <div id="app">
     <border-box-1 > <div class="ds-digital">Welcome to Cool Data</div></border-box-1>
+    <dynamic-ring :dataset="[
+    {
+      source: [
+        ['From', 'value'],
+        ['客运车', '1048'],
+        ['危险品运输车', '735'],
+        ['网约车', '580'],
+        ['学生班车', '484']
+      ]
+    }
+  ]"  />
   </div>
 
   <script>

@@ -24,7 +24,6 @@
 
 <script>
 import { backgroundComponents } from "../../components/lib";
-console.log(backgroundComponents);
 export default {
   data() {
     return {

@@ -7,7 +7,6 @@ import Clipboard from "clipboard";
 import "../components/css/index.less";
 import CoolData from "../components/lib";
 import './lib/index.css'
-console.log(CoolData);
 Vue.use(CoolData);
 Vue.use(ElementUI);
 Vue.prototype.Clipboard = Clipboard;

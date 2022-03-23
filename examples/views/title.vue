@@ -24,7 +24,6 @@
 
 <script>
 import { titleComponents } from "../../components/lib";
-console.log(titleComponents);
 export default {
   data() {
     return {

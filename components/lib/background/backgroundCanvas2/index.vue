@@ -5,7 +5,6 @@
 <script>
 import Vue from "vue";
 import Particles from "particles.vue";
-console.log(Particles);
 Vue.use(Particles);
 export default {
   name: 'backgroundCanvas2',

@@ -300,6 +300,45 @@ export default {
           // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
           hoveredIndex = ''
         }
+    },
+    bindListen(myChart, optionName = 'options') {
+      let hoveredIndex = ''
+
+
+
+      myChart.on('globalout', () => {
+        // 准备重新渲染扇形所需的参数
+        let isSelected
+        let isHovered
+        let startRatio
+        let endRatio
+        let k
+        if (hoveredIndex !== '') {
+          // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
+          isSelected = this[optionName].series[hoveredIndex].pieStatus.selected
+          isHovered = false
+          k = this[optionName].series[hoveredIndex].pieStatus.k
+          startRatio = this[optionName].series[hoveredIndex].pieData.startRatio
+          endRatio = this[optionName].series[hoveredIndex].pieData.endRatio
+          // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
+          this[optionName].series[
+            hoveredIndex
+          ].parametricEquation = getParametricEquation(
+            startRatio,
+            endRatio,
+            isSelected,
+            isHovered,
+            k,
+            this[optionName].series[hoveredIndex].pieData.value
+          )
+          this[optionName].series[hoveredIndex].pieStatus.hovered = isHovered
+          // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
+          hoveredIndex = ''
+        }
+        // 使用更新后的 option，渲染图表
+        // myChart.setOption(this[optionName])
+      })
+
     }
   }
 }

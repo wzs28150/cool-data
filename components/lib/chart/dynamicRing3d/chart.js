@@ -64,7 +64,7 @@ const getPie3D = (
   legendData = [];
   legendBfb = [];
   for (let i = 0; i < series.length; i++) {
-    console.log(series[i].pieData);
+    //console.log(series[i].pieData);
     endValue = startValue + series[i].pieData.value;
     series[i].pieData.startRatio = startValue / sumValue;
     series[i].pieData.endRatio = endValue / sumValue;

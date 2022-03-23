@@ -24,7 +24,6 @@
 
 <script>
 import { decorationComponents } from "../../components/lib";
-console.log(decorationComponents);
 export default {
   data() {
     return {
