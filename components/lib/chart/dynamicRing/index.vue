@@ -12,7 +12,7 @@
 <script>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart, PictorialBarChart } from "echarts/charts";
+import { PieChart } from "echarts/charts";
 import defaultOption from './config';
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import {
@@ -25,12 +25,11 @@ import VChart from "vue-echarts";
 
 use([
   CanvasRenderer,
-  BarChart,
+  PieChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  PictorialBarChart
 ]);
 export default {
   name: 'DynamicRing',
@@ -241,6 +240,8 @@ export default {
     mergeOption();
     stopActions();
     startActions()
+    console.log(this.theme.color);
+
   },
   components: {
     VChart

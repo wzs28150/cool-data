@@ -11,7 +11,7 @@ module.exports = {
     sidebar: ['/', '/componentDocs/borderBox','/componentDocs/decoration','/componentDocs/layout','/componentDocs/chart']
   },
   plugins: [
-    'vuepress-plugin-element-tabs'
+    [ 'vuepress-plugin-element-tabs' ]
   ],
   configureWebpack: {
     node: {

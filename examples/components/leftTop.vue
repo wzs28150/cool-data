@@ -16,8 +16,8 @@ export default {
       },
       dataset: [
         {
+          dimensions: ['name', 'value'],
           source: [
-            ['From', 'value'],
             ['客运车', '1048'],
             ['危险品运输车', '735'],
             ['网约车', '580'],

@@ -1,11 +1,13 @@
 <template>
-  <v-chart class="chart" :init-options="initOptions" :option="option" />
+  <v-chart class="chart" :init-options="initOptions" :option="option" :theme="theme"  />
 </template>
 
 <script>
 import { use } from "echarts/core";
 import { SVGRenderer } from "echarts/renderers";
 import { BarChart } from "echarts/charts";
+import { Theme } from "../../components/lib/index";
+const { easyv } = Theme;
 import {
   TitleComponent,
   TooltipComponent,
@@ -80,7 +82,8 @@ export default {
       },
       initOptions: {
         renderer: 'svg'
-      }
+      },
+      theme: easyv
     }
   },
   components: {

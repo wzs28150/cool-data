@@ -1,10 +1,12 @@
 <template>
-  <v-chart class="chart" :init-options="initOptions" :option="option" />
+  <v-chart class="chart" :init-options="initOptions" :option="option" :theme="theme"  />
 </template>
 <script>
 import { use } from "echarts/core";
 import { SVGRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
+import { Theme } from "../../components/lib/index";
+const { easyv } = Theme;
 import {
   TitleComponent,
   TooltipComponent,
@@ -49,7 +51,6 @@ export default {
           top: '10%',
           containLabel: true
         },
-        color: ["#ffff43"],
         series: [
           {
             data: [150, 230, 224, 218, 135, 147, 260],
@@ -59,7 +60,8 @@ export default {
       },
       initOptions: {
         renderer: 'svg'
-      }
+      },
+      theme: easyv
     }
   },
   components: {

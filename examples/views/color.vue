@@ -71,12 +71,17 @@
               <el-tooltip
                 class="item"
                 effect="dark"
-                :content="it"
+                :content="typeObj(it)?`linear-gradient(to right, ${it.colorStops[0].color},${it.colorStops[1].color})`:it"
                 placement="top-start"
                 v-for="(it, ind) in item.color"
                 :key="ind"
               >
-                <div class="color-show-item" :style="'background-color: ' + it + ';'"></div>
+                <div
+                  v-if="typeObj(it)"
+                  class="color-show-item"
+                  :style="`background-image: linear-gradient(to right, ${it.colorStops[0].color},${it.colorStops[1].color});`"
+                ></div>
+                <div v-else class="color-show-item" :style="'background-color: ' + it + ';'"></div>
               </el-tooltip>
             </div>
           </div>
@@ -84,8 +89,12 @@
       </el-col>
       <el-col :span="2">
         <div class="col-inner" style="height: 100%; display: flex; align-items: center;">
-          <div class="copy" :data-clipboard-text="`import { Theme } from 'cool-data';
-const { ${index} } = Theme`" @click="copy">
+          <div
+            class="copy"
+            :data-clipboard-text="`import { Theme } from 'cool-data';
+            const { ${index} } = Theme`"
+            @click="copy"
+          >
             <div class="copy-tip">
               点击复制代码
               <i class="el-icon-document-copy"></i>
@@ -123,6 +132,19 @@ export default {
         clipboard.destroy()
       })
     },
+    typeObj(obj) {
+      var type = Object.prototype.toString.call(obj);
+      console.log(type);
+      if (type == '[object Object]') {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
+  mounted() {
+    console.log(Theme.easyv.color[0].colorStops);
+    console.log(this.typeObj(Theme.easyv.color[0]));
   }
 }
 </script>

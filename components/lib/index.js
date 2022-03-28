@@ -42,6 +42,7 @@ import Layout3 from './layout/layout3/index';
 
 import Chart1 from './chart/echart/index';
 import Pyramid from './chart/pyramid/index';
+import Pyramid2 from './chart/pyramid2/index';
 import ScrollTable from './chart/scrollTable/index';
 import SvgMap from './chart/svgMap/index';
 import DynamicRing from './chart/dynamicRing/index';
@@ -126,6 +127,7 @@ export const layoutComponents = {
 export const chartComponents = {
   Chart1,
   Pyramid,
+  Pyramid2,
   ScrollTable,
   SvgMap,
   DynamicRing,

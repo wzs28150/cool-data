@@ -1,7 +1,6 @@
 # 图表
 
 > 一些常用的图表组件
-
 ## 滚动图表
 
 ### 示例:
@@ -56,9 +55,7 @@
 
 ### 代码：
 
-:::: tabs
-
-::: tab data 模式
+> tab data 模式
 
 ```javascript
 <template>
@@ -90,10 +87,7 @@ export default {
 }
 </script>
 ```
-
-:::
-
-::: tab dataset 模式一
+> dataset 模式一
 
 ```javascript
 <template>
@@ -127,10 +121,7 @@ export default {
 }
 </script>
 ```
-
-:::
-
-::: tab dataset 模式二
+> dataset 模式二
 
 ```javascript
 <template>
@@ -195,9 +186,18 @@ export default {
 </script>
 ```
 
-:::
+## 动态环图
 
-::::
+### 示例:
+
+<br />
+<div class="code-show" style="height:300px">
+<ClientOnly>
+  <chart   />
+</ClientOnly>
+</div>
+
+
 
 ## 3D 金字塔
 

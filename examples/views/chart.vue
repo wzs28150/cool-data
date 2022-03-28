@@ -60,6 +60,7 @@ export default {
     position: relative;
     background-color: rgba(6, 30, 93, 0.5);
     margin-bottom: 20px;
+    overflow: hidden;
     &::after {
       content: "";
       display: block;

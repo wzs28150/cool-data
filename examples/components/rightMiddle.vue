@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="chart" :init-options="initOptions" :option="option" />
+  <v-chart class="chart" :init-options="initOptions" :option="option" :theme="theme"/>
 </template>
 
 <script>
@@ -13,8 +13,10 @@ import {
   GridComponent,
   TimelineComponent
 } from "echarts/components";
-import VChart from "vue-echarts";
 
+import VChart from "vue-echarts";
+import { Theme } from "../../components/lib/index";
+const { easyv } = Theme;
 use([
   CanvasRenderer,
   PieChart,
@@ -243,11 +245,6 @@ export default {
                     }
                   }
                 },
-                "itemStyle": {
-                  "normal": {
-                    
-                  }
-                },
                 "data": [
                   38,
                   25,
@@ -275,11 +272,7 @@ export default {
                     }
                   }
                 },
-                "itemStyle": {
-                  "normal": {
-                    "color": "#25f3e6"
-                  }
-                },
+        
                 "data": [
                   11,
                   38,
@@ -293,7 +286,8 @@ export default {
       },
       initOptions: {
         renderer: 'canvas'
-      }
+      },
+      theme: easyv
     }
   },
   components: {
