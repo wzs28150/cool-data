@@ -20,12 +20,12 @@ const defaultOption = {
   },
   dataset: [
     {
-      dimensions: ['name', 'value'],
+      dimensions: ["name", "value"],
       source: [
-        ["火车", "1048"],
-        ["飞机", "735"],
-        ["客车", "580"],
-        ["轮渡", "484"],
+        { name: "火车", value: "1048" },
+        { name: "飞机", value: "735" },
+        { name: "客车", value: "580" },
+        { name: "轮渡", value: "484" },
       ],
     },
   ],
@@ -39,11 +39,11 @@ const defaultOption = {
   series: [
     // 选中处理偏移
     {
-      name: "Access From",
+      name: "动态环图",
       type: "pie",
       radius: ["50%", "60%"],
       center: ["30%", "50%"],
-      avoidLabelOverlap: false,
+ 
       label: {
         show: false,
         color: "#fff",
@@ -62,11 +62,11 @@ const defaultOption = {
           shadowBlur: 20,
         },
       },
-      emphasis: {
-        label: {
-          show: false,
-        },
-      },
+      // emphasis: {
+      //   label: {
+      //     show: false,
+      //   },
+      // },
     },
   ],
 };

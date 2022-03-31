@@ -1,19 +1,19 @@
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" v-for="(item, index) in components" :key="index" :span="6">
-      <div class="item">
+      <div class="item" v-if="item.type == $route.params.type">
         <div class="inner">
-          <component :is="item" :option="item.demoData.option">
-            <div
-              class="copy"
-              :data-clipboard-text="'<' + item.name + '>加载中。。。</' + item.name + '>'"
-              @click="copy"
-
-            >
-              <div class="item-title">{{ item.name }}</div>
+          <component :is="item" :option="item.config" :theme="theme"></component>
+          <div
+            class="copy"
+            :data-clipboard-text="'<' + item.name + '>加载中。。。</' + item.name + '>'"
+            @click="copy"
+          >
+            <div>
+              <div class="item-title">{{ item.title }}</div>
               <div class="copy-tip">点击复制代码</div>
             </div>
-          </component>
+          </div>
         </div>
       </div>
     </el-col>
@@ -22,10 +22,13 @@
 
 <script>
 import { chartComponents } from "../../components/lib";
+import { Theme } from "../../components/lib/index";
+const { easyv } = Theme;
 export default {
   data() {
     return {
       components: [],
+      theme: easyv
     }
   },
   mounted() {
@@ -89,23 +92,37 @@ export default {
         width: 100%;
         margin: 0 auto;
       }
-      .loading-text {
+      .copy {
+        cursor: pointer;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
+        background-color: rgba(6, 30, 93, 0.9);
         text-align: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s;
+        .item-title {
+          color: #fff;
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+        .copy-tip {
+          color: #fff;
+          font-size: 14px;
+        }
+      }
+
+      &:hover {
         .copy {
-          cursor: pointer;
-          .item-title {
-            color: rgb(66, 185, 131);
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-          }
-          .copy-tip {
-            color: #4fd2dd;
-            font-size: 14px;
-          }
+          opacity: 1;
+          visibility: visible;
         }
       }
     }

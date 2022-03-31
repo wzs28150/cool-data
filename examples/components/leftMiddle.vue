@@ -1,5 +1,5 @@
 <template>
-  <v-chart class="chart" :init-options="initOptions" :option="option" :theme="theme"  />
+  <v-chart class="chart" :init-options="initOptions" :option="option" :theme="theme" />
 </template>
 
 <script>
@@ -58,6 +58,7 @@ export default {
         },
         // 声明一个 X 轴，类目轴（category）。默认情况下，类目轴对应到 dataset 第一列。
         xAxis: {
+          type: 'category',
           axisLine: {
             lineStyle: {
               color: '#fff'
@@ -66,7 +67,7 @@ export default {
         },
         // 声明一个 Y 轴，数值轴。
         yAxis: {
-          type: 'category', axisLine: {
+          axisLine: {
             lineStyle: {
               color: '#fff'
             }
@@ -74,8 +75,8 @@ export default {
         },
         // 声明多个 bar 系列，默认情况下，每个系列会自动对应到 dataset 的每一列。
         series: [
-          { type: 'bar', stack: 'total', seriesLayoutBy: 'row' }, 
-          { type: 'bar', stack: 'total', seriesLayoutBy: 'row' }, 
+          { type: 'bar', stack: 'total', seriesLayoutBy: 'row' },
+          { type: 'bar', stack: 'total', seriesLayoutBy: 'row' },
           { type: 'bar', stack: 'total', seriesLayoutBy: 'row' },
           { type: 'bar', stack: 'total', seriesLayoutBy: 'row' }
         ]

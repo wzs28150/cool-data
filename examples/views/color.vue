@@ -6,8 +6,8 @@
         <div class="col-inner">
           <div class="col-title">标题颜色</div>
           <div class="color-show">
-            <el-tooltip class="item" effect="dark" :content="item.titleColor" placement="top-start">
-              <div class="color-show-item" :style="'background-color: ' + item.titleColor + ';'"></div>
+            <el-tooltip class="item" effect="dark" :content="item.title.textStyle.color" placement="top-start">
+              <div class="color-show-item" :style="'background-color: ' + item.title.textStyle.color + ';'"></div>
             </el-tooltip>
           </div>
         </div>
@@ -19,10 +19,10 @@
             <el-tooltip
               class="item"
               effect="dark"
-              :content="item.subtitleColor"
+              :content="item.title.subtextStyle.color"
               placement="top-start"
             >
-              <div class="color-show-item" :style="'background-color: ' + item.subtitleColor + ';'"></div>
+              <div class="color-show-item" :style="'background-color: ' + item.title.subtextStyle.color + ';'"></div>
             </el-tooltip>
           </div>
         </div>
@@ -34,12 +34,30 @@
             <el-tooltip
               class="item"
               effect="dark"
-              :content="item.axes[0].axisLineColor"
+              :content="item.categoryAxis.axisLine.lineStyle.color"
               placement="top-start"
             >
               <div
                 class="color-show-item"
-                :style="'background-color: ' + item.axes[0].axisLineColor + ';'"
+                :style="'background-color: ' + item.categoryAxis.axisLine.lineStyle.color + ';'"
+              ></div>
+            </el-tooltip>
+          </div>
+        </div>
+      </el-col>
+      <el-col :span="2">
+        <div class="col-inner">
+          <div class="col-title">坐标轴文字</div>
+          <div class="color-show">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="item.valueAxis.axisLabel.color"
+              placement="top-start"
+            >
+              <div
+                class="color-show-item"
+                :style="'background-color: ' + item.valueAxis.axisLabel.color + ';'"
               ></div>
             </el-tooltip>
           </div>
@@ -52,12 +70,12 @@
             <el-tooltip
               class="item"
               effect="dark"
-              :content="item.legendTextColor"
+              :content="item.legend.textStyle.color"
               placement="top-start"
             >
               <div
                 class="color-show-item"
-                :style="'background-color: ' + item.legendTextColor + ';'"
+                :style="'background-color: ' + item.legend.textStyle.color + ';'"
               ></div>
             </el-tooltip>
           </div>
@@ -107,7 +125,7 @@
 </template>
 <script>
 import { Theme } from '../../components/lib/index';
-
+console.log(Theme);
 export default {
   data() {
     return {

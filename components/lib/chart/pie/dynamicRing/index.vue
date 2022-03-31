@@ -10,12 +10,14 @@
 </template>
 
 <script>
+import 'echarts-gl';
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { PieChart } from "echarts/charts";
+import { PieChart, CustomChart } from "echarts/charts";
 import defaultOption from './config';
-import { uuid, deepMerge, deepClone } from '../../../util/index'
+import { uuid, deepMerge, deepClone } from '../../../../util/index'
 import {
+  PolarComponent,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -30,41 +32,51 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
+  PolarComponent,
+  CustomChart,
 ]);
 export default {
   name: 'DynamicRing',
   props: {
+    // 其他自定义echarts属性
     option: {
       type: Object
     },
+    // 数据集
     dataset: {
       type: Array,
       default: () => {
         return []
       }
     },
+    // 圆环尺寸
     radius: {
       type: String,
       default: '50%'
     },
+    // 圆环宽度
     ringWidth: {
       type: Number,
       default: 10
     },
+    // 选中偏移距离
     selectedOffset: {
       type: Number,
       default: 10
     },
+    // 自动播放时间间隔
     autoPlay: {
       type: Number,
       default: 3000
     },
+    // 圆环中心设置
     ringCenter: {
       type: Array,
       default: () => {
         return ["35%", "50%"]
       }
     },
+    // 图例设置
     legend: {
       type: Object,
       default: () => {
@@ -78,6 +90,7 @@ export default {
         }
       }
     },
+    // 主题设置
     theme: {
       type: Object
     }
@@ -109,6 +122,7 @@ export default {
   methods: {
     // 渲染百分比
     renderPercentItem(params, api) {
+      // console.log(api);
       const valOnRadian = api.value(1);
       const that = this
       return {
@@ -159,7 +173,7 @@ export default {
     },
     mergeOption() {
       // 设置配置参数
-      const { option, dataset, radius, ringWidth, ringCenter,selectedOffset } = this
+      const { option, dataset, radius, ringWidth, ringCenter, selectedOffset } = this
       this.mergedOption = deepMerge(deepClone(defaultOption, true), option || [])
       if (dataset.length > 0) {
         this.mergedOption.dataset = dataset
@@ -172,16 +186,15 @@ export default {
       // 设置选中偏移量
       this.mergedOption.series[0].selectedOffset = selectedOffset
       // 计算总数
-      this.mergedOption.dataset[0].source.map((it, index) => {
-        if (index > 0) {
-          this.total = typeof (it[1]) == 'number' ? it[1] + this.total : Number(it[1]) + this.total
-        }
+      this.mergedOption.dataset[0].source.map((it) => {
+        this.total = typeof (it.value) == 'number' ? it.value + this.total : Number(it.value) + this.total
       })
       // 设置初始标题
-      this.title = this.mergedOption.dataset[0].source[1][0]
+      this.title = this.mergedOption.dataset[0].source[0].name
       this.setText(0)
     },
     setText(index) {
+      // console.log(Number(this.mergedOption.dataset[0].source[index].value));
       this.mergedOption.angleAxis = {
         type: 'value',
         startAngle: 0,
@@ -193,7 +206,7 @@ export default {
         type: 'custom',
         coordinateSystem: 'polar',
         renderItem: this.renderPercentItem,
-        data: [[1, Number(this.mergedOption.dataset[0].source[index + 1][1])]]
+        data: [[1, Number(this.mergedOption.dataset[0].source[index].value)]]
       }
       this.mergedOption.series[2] = {
         type: 'custom',
@@ -207,7 +220,7 @@ export default {
       if (!ring) {
         return;
       }
-      const dataLen = this.mergedOption.dataset[0].source.length - 1;
+      const dataLen = this.mergedOption.dataset[0].source.length;
       this.actionTimer = setInterval(() => {
         ring.dispatchAction({
           type: "downplay",
@@ -228,20 +241,18 @@ export default {
     },
     handleSelect({ selected }) {
       // 选中之后更新中间的标题及百分比
-      const index = selected[0].dataIndex[0]
-      const ring = this.$refs.dynamicRing;
-      this.title = this.mergedOption.dataset[0].source[index + 1][0]
-      this.setText(index)
-      ring.setOption(this.mergedOption)
+        const index = selected[0].dataIndex[0]
+        const ring = this.$refs.dynamicRing;
+        this.title = this.mergedOption.dataset[0].source[index].name
+        this.setText(index)
+        ring.setOption(this.mergedOption)
     }
   },
   mounted() {
-    const { mergeOption, startActions, stopActions } = this
+    const { mergeOption, stopActions, startActions } = this
     mergeOption();
     stopActions();
     startActions()
-    console.log(this.theme.color);
-
   },
   components: {
     VChart

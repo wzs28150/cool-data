@@ -39,10 +39,16 @@
             <i class="el-icon-document"></i>
             <span slot="title">模板</span>
           </el-menu-item>
-          <el-menu-item index="/chart">
-            <i class="el-icon-pie-chart"></i>
-            <span slot="title">图表</span>
-          </el-menu-item>
+          <el-submenu index="/chart">
+            <template slot="title">
+              <i class="el-icon-pie-chart"></i>
+              <span>图表</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/chart/bar">柱状图</el-menu-item>
+              <el-menu-item index="/chart/pie">饼形图</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
           <el-menu-item index="/font">
             <i class="el-icon-paperclip"></i>
             <span slot="title">字体</span>

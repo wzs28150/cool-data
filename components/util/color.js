@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-03-03 15:36:22
  * @LastEditors: wzs
- * @LastEditTime: 2022-03-06 10:09:42
+ * @LastEditTime: 2022-03-31 10:09:18
  */
 "use strict";
 import  _keywords from './config'
@@ -60,6 +60,15 @@ function getColorByKeyword(keyword) {
  * @return {Array<Number>|Boolean} Rgb value of the color (Invalid input will return false)
  */
 
+export function isHexColor(color){
+  if (!color) {
+    console.error('getRgbValue: Missing parameters!');
+    return false;
+  }
+  color = validator(color);
+  if (!color) return false;
+  return hexReg.test(color);
+}
 
 export function getRgbValue(color) {
   if (!color) {

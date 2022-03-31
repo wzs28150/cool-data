@@ -81,7 +81,7 @@
 </template>
 <script>
 import styleJson from "../json/mapStyle"
-import Header from '../components/header.vue';
+import Header from '../components/header1.vue';
 import Pannel from '../components/pannel.vue';
 import LeftTop from '../components/leftTop.vue'
 import leftMiddle from '../components/leftMiddle.vue';

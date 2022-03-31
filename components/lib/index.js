@@ -40,13 +40,24 @@ import Layout1 from './layout/layout1/index';
 import Layout2 from './layout/layout2/index';
 import Layout3 from './layout/layout3/index';
 
-import Chart1 from './chart/echart/index';
-import Pyramid from './chart/pyramid/index';
-import Pyramid2 from './chart/pyramid2/index';
-import ScrollTable from './chart/scrollTable/index';
-import SvgMap from './chart/svgMap/index';
-import DynamicRing from './chart/dynamicRing/index';
-import DynamicRing3d from './chart/dynamicRing3d/index';
+// import Chart1 from './chart/echart/index';
+// import Pyramid from './chart/pyramid/index';
+// import Pyramid2 from './chart/pyramid2/index';
+// import ScrollTable from './chart/scrollTable/index';
+// import SvgMap from './chart/svgMap/index';
+import Bar1 from './chart/bar/bar1/index';
+import Bar2 from './chart/bar/bar2/index';
+import Bar3 from './chart/bar/bar3/index';
+import Bar4 from './chart/bar/bar4/index';
+import Bar5 from './chart/bar/bar5/index';
+import Bar6 from './chart/bar/bar6/index';
+import Bar7 from './chart/bar/bar7/index';
+import Bar8 from './chart/bar/bar8/index';
+import Bar9 from './chart/bar/bar9/index';
+import Bar10 from './chart/bar/bar10/index';
+import DynamicRing from './chart/pie/dynamicRing/index';
+
+// import DynamicRing3d from './chart/dynamicRing3d/index';
 
 import Background from './background/background/index';
 import BackgroundCanvas1 from './background/backgroundCanvas1/index';
@@ -56,7 +67,7 @@ import classic from './color/classic';
 import quiet from './color/quiet';
 import soft from './color/soft';
 import easyv from './color/easyv';
-import littlelion from './color/littlelion';
+// import littlelion from './color/littlelion';
 import purple from './color/purple';
 import elegant from './color/elegant';
 import bright from './color/bright';
@@ -125,13 +136,23 @@ export const layoutComponents = {
 
 // 加载图表组件
 export const chartComponents = {
-  Chart1,
-  Pyramid,
-  Pyramid2,
-  ScrollTable,
-  SvgMap,
+  // Chart1,
+  // Pyramid,
+  // Pyramid2,
+  // ScrollTable,
+  // SvgMap,
+  Bar1,
+  Bar2,
+  Bar3,
+  Bar4,
+  Bar5,
+  Bar6,
+  Bar7,
+  Bar8,
+  Bar9,
+  Bar10,
   DynamicRing,
-  DynamicRing3d
+  // DynamicRing3d
 };
 
 // 加载装饰器组件
@@ -150,7 +171,7 @@ export const Theme = {
   classic: classic.theme,
   quiet: quiet.theme,
   soft: soft.theme,
-  littlelion: littlelion.theme,
+  // littlelion: littlelion.theme,
   easyv: easyv.theme,
   purple: purple.theme,
   elegant: elegant.theme,

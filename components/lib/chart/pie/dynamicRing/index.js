@@ -1,9 +1,9 @@
 import DynamicRing from "./index.vue";
-import defaultOption from './config';
+import defaultOption from "./config";
 // eslint-disable-next-line func-names
-DynamicRing.demoData = {
-  option: defaultOption
-};
+DynamicRing.title = "动态环图";
+DynamicRing.type = "pie"
+DynamicRing.config = defaultOption;
 DynamicRing.install = function (Vue) {
   Vue.component(DynamicRing.name, DynamicRing);
 };

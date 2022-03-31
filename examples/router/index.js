@@ -65,7 +65,7 @@ const router = new Router({
           component: decoration,
         },
         {
-          path: "chart",
+          path: "chart/:type",
           name: "chart",
           component: chart,
         },
