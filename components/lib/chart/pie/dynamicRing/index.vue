@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import 'echarts-gl';
+// import 'echarts-gl';
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart, CustomChart } from "echarts/charts";
@@ -22,7 +22,8 @@ import {
   TitleComponent,
   TooltipComponent,
   LegendComponent,
-  GridComponent
+  GridComponent,
+  DatasetComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 
@@ -35,6 +36,7 @@ use([
   GridComponent,
   PolarComponent,
   CustomChart,
+  DatasetComponent
 ]);
 export default {
   name: 'DynamicRing',

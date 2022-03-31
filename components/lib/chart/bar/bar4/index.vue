@@ -19,7 +19,8 @@ import {
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  TransformComponent
+  TransformComponent,
+  DatasetComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 use([
@@ -29,7 +30,8 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  TransformComponent
+  TransformComponent,
+  DatasetComponent
 ]);
 
 export default {
