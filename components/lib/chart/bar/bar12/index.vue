@@ -2,18 +2,19 @@
   <v-chart
     class="chart"
     autoresize
-    ref="bar5"
+    ref="bar12"
     :init-options="initOptions"
     :option="mergedOption"
     :theme="theme"
   />
 </template>
 <script>
-import { use } from "echarts/core";
+import { use, graphic } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { PictorialBarChart } from "echarts/charts";
+import { ScatterChart } from "echarts/charts";
 import defaultOption from './config';
 import { uuid, deepMerge, deepClone } from '../../../../util/index'
+import { toRgb } from '../../../../util/color';
 import {
   TitleComponent,
   TooltipComponent,
@@ -24,7 +25,7 @@ import {
 import VChart from "vue-echarts";
 use([
   CanvasRenderer,
-  PictorialBarChart,
+  ScatterChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -33,7 +34,7 @@ use([
 ]);
 
 export default {
-  name: "Bar5",
+  name: "Bar12",
   props: {
     // 其他自定义echarts属性
     option: {
@@ -77,9 +78,6 @@ export default {
         this.mergedOption.dataset
       ]
       let seriesItem = this.mergedOption.series[0];
-      let bottomItem = this.mergedOption.series[1];
-      let topItem = this.mergedOption.series[2];
-      console.log(dataLen % 2, Math.floor(dataLen / 2));
       for (let i = 0; i < dataLen; i++) {
         this.mergedOption.dataset[i + 1] = {
           transform: {
@@ -87,36 +85,21 @@ export default {
             config: { dimension: this.mergedOption.dataset[0].dimensions[i + 1], '>': 0 }
           }
         }
-        this.mergedOption.series[i] = {
-          ...seriesItem,
-        }
-        let symbolOffsetX = 0
-        if (dataLen % 2 == 0) {
-          symbolOffsetX = (2 * (i - dataLen / 2 ) + 1) * 6
+        // 处理主题颜色渐变
+        let seriesItemOption = deepClone(seriesItem, true);
+        let colorStart = null
+        let colorEnd = null
+        if (typeof (this.theme.color[i]) == 'object') {
+          colorStart = this.theme.color[i].colorStops[0].color
+          colorEnd = this.theme.color[i].colorStops[1].color
         } else {
-          // 奇数个
-          symbolOffsetX = (i - Math.floor(dataLen / 2)) * 12
+          colorStart = this.theme.color[i]
         }
-        this.mergedOption.series[i + dataLen] = {
-          ...topItem,
-          datasetIndex: 1,
-          symbolOffset: [symbolOffsetX, -3],
-          itemStyle: {
-            normal: {
-              color: this.theme.color[i]
-            }
-          }
-        },
-        this.mergedOption.series[i + dataLen * 2] = {
-          ...bottomItem,
-          datasetIndex: 2,
-          symbolOffset: [symbolOffsetX, 3],
-          itemStyle: {
-            normal: {
-              color: this.theme.color[i]
-            }
-          }
-        }
+        seriesItemOption.itemStyle.color = new graphic.LinearGradient(1, 0, 0, 0, [
+          { offset: 0, color: toRgb(colorStart, 1) },
+          { offset: 1, color: toRgb(colorEnd ? colorEnd : colorStart, 0.6) },
+        ])
+        this.mergedOption.series[i] = seriesItemOption
       }
       console.log(this.mergedOption);
     }

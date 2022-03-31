@@ -1,6 +1,7 @@
 <template>
   <v-chart
     class="chart"
+    autoresize
     ref="bar4"
     :init-options="initOptions"
     :option="mergedOption"

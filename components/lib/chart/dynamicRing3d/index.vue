@@ -1,6 +1,7 @@
 <template>
   <v-chart
     class="chart"
+    autoresize
     ref="dynamicRing3d"
     :init-options="initOptions"
     :option="options"

@@ -94,6 +94,9 @@ export default {
 }
 </script>
 <style lang="less">
+html {
+  overflow: hidden;
+}
 .page {
   background-color: #081325;
 

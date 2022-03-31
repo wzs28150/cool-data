@@ -1,6 +1,7 @@
 <template>
   <v-chart
     class="chart"
+    autoresize
     ref="dynamicRing"
     :init-options="initOptions"
     :option="mergedOption"
