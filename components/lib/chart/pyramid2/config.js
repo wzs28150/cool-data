@@ -98,7 +98,7 @@ const defaultOption = {
     // containLabel: true,
     left: "10%",
     top: "19%",
-    bottom: "15%",
+    bottom: "10%",
   },
   xAxis: {
     show: false,

@@ -13,7 +13,7 @@ const defaultOption = {
   grid: {
     left: "10%",
     right: "15%",
-    bottom: "15%",
+    bottom: "10%",
     containLabel: true,
   },
   // dataset: [
