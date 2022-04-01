@@ -1,4 +1,3 @@
-import { version } from "../../package.json";
 import path from "path";
 
 // 加载边框组件
@@ -128,7 +127,6 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 const API = {
-  version,
   install,
   ...components,
 };
