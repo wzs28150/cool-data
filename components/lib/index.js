@@ -1,189 +1,108 @@
 import { version } from "../../package.json";
-import BorderBox1 from "./borderBox/borderBox1/index";
-import BorderBox2 from "./borderBox/borderBox2/index";
-import BorderBox3 from "./borderBox/borderBox3/index";
-import BorderBox4 from "./borderBox/borderBox4/index";
-import BorderBox5 from "./borderBox/borderBox5/index";
-import BorderBox6 from "./borderBox/borderBox6/index";
-import BorderBox7 from "./borderBox/borderBox7/index";
-import BorderBox8 from "./borderBox/borderBox8/index";
-import BorderBox9 from "./borderBox/borderBox9/index";
-import BorderBox10 from "./borderBox/borderBox10/index";
-import BorderBox11 from "./borderBox/borderBox11/index";
-import BorderBox12 from "./borderBox/borderBox12/index";
-import BorderBox13 from "./borderBox/borderBox13/index";
+import path from "path";
 
-import Title1 from "./title/title1/index";
-import Title2 from "./title/title2/index";
-import Title3 from "./title/title3/index";
-import Title4 from "./title/title4/index";
-import Title5 from "./title/title5/index";
-import Title6 from "./title/title6/index";
-import Title7 from "./title/title7/index";
-
-import ModuleTitle1 from "./moduleTitle/moduleTitle1/index";
-import ModuleTitle2 from "./moduleTitle/moduleTitle2/index";
-import ModuleTitle3 from "./moduleTitle/moduleTitle3/index";
-import ModuleTitle4 from "./moduleTitle/moduleTitle4/index";
-import ModuleTitle5 from "./moduleTitle/moduleTitle5/index";
-import ModuleTitle6 from "./moduleTitle/moduleTitle6/index";
-
-import Decoration1 from "./decoration/decoration1/index";
-
-import Loading1 from "./loading/loading1/index";
-import Loading2 from "./loading/loading2/index";
-import Loading3 from "./loading/loading3/index";
-import Loading4 from "./loading/loading4/index";
-import Loading5 from "./loading/loading5/index";
-
-import Layout1 from "./layout/layout1/index";
-import Layout2 from "./layout/layout2/index";
-import Layout3 from "./layout/layout3/index";
-
-// import Chart1 from './chart/echart/index';
-// import Pyramid from './chart/pyramid/index';
-// import Pyramid2 from './chart/pyramid2/index';
-// import ScrollTable from './chart/scrollTable/index';
-// import SvgMap from './chart/svgMap/index';
-import Bar1 from "./chart/bar/bar1/index";
-import Bar2 from "./chart/bar/bar2/index";
-import Bar3 from "./chart/bar/bar3/index";
-import Bar4 from "./chart/bar/bar4/index";
-import Bar5 from "./chart/bar/bar5/index";
-import Bar6 from "./chart/bar/bar6/index";
-import Bar7 from "./chart/bar/bar7/index";
-import Bar8 from "./chart/bar/bar8/index";
-import Bar9 from "./chart/bar/bar9/index";
-import Bar10 from "./chart/bar/bar10/index";
-import Bar11 from "./chart/bar/bar11/index";
-import Bar12 from "./chart/bar/bar12/index";
-import DynamicRing from "./chart/pie/dynamicRing/index";
-
-// import DynamicRing3d from './chart/dynamicRing3d/index';
-
-import Background from "./background/background/index";
-import BackgroundCanvas1 from "./background/backgroundCanvas1/index";
-import BackgroundCanvas2 from "./background/backgroundCanvas2/index";
-
-import classic from "./color/classic";
-import quiet from "./color/quiet";
-import soft from "./color/soft";
-import easyv from "./color/easyv";
-// import littlelion from './color/littlelion';
-import purple from "./color/purple";
-import elegant from "./color/elegant";
-import bright from "./color/bright";
-import business from "./color/business";
-import nostalgia from "./color/nostalgia";
-import fresh from "./color/fresh";
-import gradual from "./color/gradual";
-import retro from "./color/retro";
-import news from "./color/news";
 // 加载边框组件
-export const borderBoxComponents = {
-  BorderBox1,
-  BorderBox2,
-  BorderBox3,
-  BorderBox4,
-  BorderBox5,
-  BorderBox6,
-  BorderBox7,
-  BorderBox8,
-  BorderBox9,
-  BorderBox10,
-  BorderBox11,
-  BorderBox12,
-  BorderBox13,
-};
+export const borderBoxComponents = {};
+const borderBoxComponentsLoad = require.context("./borderBox", true, /\.js$/);
+borderBoxComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/borderBox/g, "")) - parseInt(path.dirname(b).replace(/.\/borderBox/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = borderBoxComponentsLoad(filename).default;
+  borderBoxComponents[ComponentsItem.name] = ComponentsItem;
+});
 
 // 加载标题组件
-export const titleComponents = {
-  Title1,
-  Title2,
-  Title3,
-  Title4,
-  Title5,
-  Title6,
-  Title7,
-};
+export const titleComponents = {};
+const titleComponentsLoad = require.context("./title", true, /\.js$/);
+titleComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/title/g, "")) - parseInt(path.dirname(b).replace(/.\/title/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = titleComponentsLoad(filename).default;
+  titleComponents[ComponentsItem.name] = ComponentsItem;
+});
 
 // 加载模块标题组件
-export const moduleTitleComponents = {
-  ModuleTitle1,
-  ModuleTitle2,
-  ModuleTitle3,
-  ModuleTitle4,
-  ModuleTitle5,
-  ModuleTitle6,
-};
+export const moduleTitleComponents = {};
+const moduleTitleComponentsLoad = require.context("./moduleTitle", true, /\.js$/);
+moduleTitleComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/moduleTitle/g, "")) - parseInt(path.dirname(b).replace(/.\/moduleTitle/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = moduleTitleComponentsLoad(filename).default;
+  moduleTitleComponents[ComponentsItem.name] = ComponentsItem;
+});
 
 // 加载加载组件
-export const loadingComponents = {
-  Loading1,
-  Loading2,
-  Loading3,
-  Loading4,
-  Loading5,
-};
-
+export const loadingComponents = {};
+const loadingComponentsLoad = require.context("./loading", true, /\.js$/);
+loadingComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/loading/g, "")) - parseInt(path.dirname(b).replace(/.\/loading/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = loadingComponentsLoad(filename).default;
+  loadingComponents[ComponentsItem.name] = ComponentsItem;
+});
 // 加载模板组件
-export const layoutComponents = {
-  Layout1,
-  Layout2,
-  Layout3,
-};
-
+export const layoutComponents = {};
+const layoutComponentsLoad = require.context("./layout", true, /\.js$/);
+layoutComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/layout/g, "")) - parseInt(path.dirname(b).replace(/.\/layout/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = layoutComponentsLoad(filename).default;
+  layoutComponents[ComponentsItem.name] = ComponentsItem;
+});
 // 加载图表组件
-export const chartComponents = {
-  // Chart1,
-  // Pyramid,
-  // Pyramid2,
-  // ScrollTable,
-  // SvgMap,
-  Bar1,
-  Bar2,
-  Bar3,
-  Bar4,
-  Bar5,
-  Bar6,
-  Bar7,
-  Bar8,
-  Bar9,
-  Bar10,
-  Bar11,
-  Bar12,
-  DynamicRing,
-  // DynamicRing3d
-};
-
+export const chartComponents = {};
+const chartComponentsLoad = require.context("./chart", true, /\index.js$/);
+chartComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/chart/g, "")) - parseInt(path.dirname(b).replace(/.\/chart/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = chartComponentsLoad(filename).default;
+  chartComponents[ComponentsItem.name] = ComponentsItem;
+});
 // 加载装饰器组件
-export const decorationComponents = {
-  Decoration1,
-};
-
+export const decorationComponents = {};
+const decorationComponentsLoad = require.context("./decoration", true, /\.js$/);
+decorationComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/decoration/g, "")) - parseInt(path.dirname(b).replace(/.\/decoration/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = decorationComponentsLoad(filename).default;
+  decorationComponents[ComponentsItem.name] = ComponentsItem;
+});
 // 加载背景组件
-export const backgroundComponents = {
-  Background,
-  BackgroundCanvas1,
-  BackgroundCanvas2,
-};
+export const backgroundComponents = {};
+const backgroundComponentsLoad = require.context("./background", true, /\.js$/);
+backgroundComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/background/g, "")) - parseInt(path.dirname(b).replace(/.\/background/g, ""));
+}).forEach((filename) => {
+  let ComponentsItem = backgroundComponentsLoad(filename).default;
+  backgroundComponents[ComponentsItem.name] = ComponentsItem;
+});
 
-export const Theme = {
-  classic: classic.theme,
-  quiet: quiet.theme,
-  soft: soft.theme,
-  // littlelion: littlelion.theme,
-  easyv: easyv.theme,
-  purple: purple.theme,
-  elegant: elegant.theme,
-  bright: bright.theme,
-  business: business.theme,
-  nostalgia: nostalgia.theme,
-  fresh: fresh.theme,
-  gradual: gradual.theme,
-  retro: retro.theme,
-  news: news.theme,
-};
+export const Theme = {};
+const themeComponentsLoad = require.context("./color", true, /\.js$/);
+themeComponentsLoad.keys().sort(function (a, b) {
+  return parseInt(path.dirname(a).replace(/.\/background/g, "")) - parseInt(path.dirname(b).replace(/.\/background/g, ""));
+}).forEach((filename) => {
+  
+  let ComponentsItem = themeComponentsLoad(filename).default;
+  console.log(ComponentsItem);
+  Theme[ComponentsItem.themeName] = ComponentsItem.theme;
+});
+// export const Theme = {
+//   classic: classic.theme,
+//   quiet: quiet.theme,
+//   soft: soft.theme,
+//   // littlelion: littlelion.theme,
+//   easyv: easyv.theme,
+//   purple: purple.theme,
+//   elegant: elegant.theme,
+//   bright: bright.theme,
+//   business: business.theme,
+//   nostalgia: nostalgia.theme,
+//   fresh: fresh.theme,
+//   gradual: gradual.theme,
+//   retro: retro.theme,
+//   news: news.theme,
+// };
 
 const components = {
   ...borderBoxComponents,
@@ -199,7 +118,7 @@ const components = {
 const install = function (Vue) {
   if (install.installed) return;
   Object.keys(components).forEach((key) => {
-    // console.log(components[key]);
+    console.log(components[key]);
     Vue.component(components[key].name, components[key]);
   });
 };

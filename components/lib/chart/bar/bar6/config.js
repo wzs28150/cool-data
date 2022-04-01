@@ -108,9 +108,7 @@ const defaultOption = {
           trueVal: "98",
           symbolPosition: "end",
           itemStyle: {
-            normal: {
-              color: "#00fff5", //圆柱顶部颜色
-            },
+            color: "#00fff5", //圆柱顶部颜色
           },
         },
         {
@@ -119,9 +117,7 @@ const defaultOption = {
           trueVal: "100",
           symbolPosition: "end",
           itemStyle: {
-            normal: {
-              color: "#ffcc00", //圆柱顶部颜色
-            },
+            color: "#ffcc00", //圆柱顶部颜色
           },
         },
         {
@@ -130,9 +126,7 @@ const defaultOption = {
           trueVal: "90",
           symbolPosition: "end",
           itemStyle: {
-            normal: {
-              color: "#b9b7ff", //圆柱顶部颜色
-            },
+            color: "#b9b7ff", //圆柱顶部颜色
           },
         },
       ],
@@ -150,9 +144,7 @@ const defaultOption = {
           value: "981",
           trueVal: "98",
           itemStyle: {
-            normal: {
-              color: "#43bafe", //圆柱底部颜色
-            },
+            color: "#43bafe", //圆柱底部颜色
           },
         },
         {
@@ -160,9 +152,7 @@ const defaultOption = {
           value: "1000",
           trueVal: "100",
           itemStyle: {
-            normal: {
-              color: "#ff7800", //圆柱底部颜色
-            },
+            color: "#ff7800", //圆柱底部颜色
           },
         },
         {
@@ -170,9 +160,7 @@ const defaultOption = {
           value: "900",
           trueVal: "90",
           itemStyle: {
-            normal: {
-              color: "#e9a5ff", //圆柱底部颜色
-            },
+            color: "#e9a5ff", //圆柱底部颜色
           },
         },
       ],
@@ -238,25 +226,23 @@ const defaultOption = {
             },
           },
           itemStyle: {
-            normal: {
-              color: {
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                type: "linear",
-                global: false,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: "rgba(255,204,0,0.5)",
-                  },
-                  {
-                    offset: 1,
-                    color: "#ff7800", //底部渐变颜色
-                  },
-                ],
-              },
+            color: {
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              type: "linear",
+              global: false,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: "rgba(255,204,0,0.5)",
+                },
+                {
+                  offset: 1,
+                  color: "#ff7800", //底部渐变颜色
+                },
+              ],
             },
           },
         },
@@ -276,25 +262,23 @@ const defaultOption = {
             },
           },
           itemStyle: {
-            normal: {
-              color: {
-                x: 0,
-                y: 0,
-                x2: 0,
-                y2: 1,
-                type: "linear",
-                global: false,
-                colorStops: [
-                  {
-                    offset: 0,
-                    color: "rgba(185,183,255,0.5)",
-                  },
-                  {
-                    offset: 1,
-                    color: "#e9a5ff", //底部渐变颜色
-                  },
-                ],
-              },
+            color: {
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              type: "linear",
+              global: false,
+              colorStops: [
+                {
+                  offset: 0,
+                  color: "rgba(185,183,255,0.5)",
+                },
+                {
+                  offset: 1,
+                  color: "#e9a5ff", //底部渐变颜色
+                },
+              ],
             },
           },
         },

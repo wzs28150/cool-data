@@ -24,7 +24,9 @@ const easyv = {
       "#00d68a",
     ],
     backgroundColor: "",
-    textStyle: {},
+    textStyle: {
+      color: "#eeeeee",
+    },
     title: {
       textStyle: {
         color: "#eeeeee",
@@ -66,6 +68,12 @@ const easyv = {
         borderWidth: 0,
         borderColor: "#ccc",
       },
+      label: {
+        textBorderColor: 'transparent',
+        color: '#eee',
+        fontSize: 8,
+        fontWeight: 'lighter'
+      }
     },
     scatter: {
       itemStyle: {

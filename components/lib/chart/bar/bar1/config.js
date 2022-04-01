@@ -67,14 +67,7 @@ const defaultOption = {
       barWidth: 10,
       // barGap: '-100%',
       itemStyle: {
-        emphasis: {
-          barBorderRadius: 7,
-        },
-        normal: {
-          // borderColor: '#fff',
-          // borderWidth: 1,
-          barBorderRadius: [7, 7, 0, 0],
-        },
+        borderRadius: [7, 7, 0, 0],
       },
     }
   ],

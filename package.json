@@ -18,44 +18,44 @@
     "build:demo": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build:css": "npx gulp less",
-    "build:js": "webpack --config ./webpack.component.js",
+    "build:es": "webpack --config ./webpack.es.js",
+    "build:js": "webpack --config ./webpack.umd.js",
     "build": "npm run build:js && npm run build:css",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "deploy": "bash sed -i 's/\r$//' deploy.sh"
   },
   "dependencies": {
-    "axios": "^0.26.1",
     "clipboard": "^2.0.10",
-    "core-js": "^3.6.5",
+    "core-js": "^3.8.3",
     "echarts": "^5.3.1",
     "element-ui": "^2.15.6",
     "nprogress": "^0.2.0",
-    "particles.vue": "^2.42.2",
-    "vue": "^2.6.11",
+    "particles.vue": "^2.42.4",
+    "vue": "^2.6.14",
     "vue-echarts": "^6.0.2",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
     "@vue/composition-api": "^1.4.9",
-    "babel-eslint": "^10.1.0",
-    "clean-webpack-plugin": "^3.0.0",
-    "del": "^6.0.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
     "gulp": "^4.0.2",
     "gulp-less": "^5.0.0",
     "gulp-minify-css": "^1.2.4",
     "less": "^4.1.2",
-    "less-loader": "^5.0.0",
+    "less-loader": "^10.2.0",
     "vue-loader": "^15.9.6",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.14",
     "vuepress": "^1.8.2",
     "vuepress-plugin-tabs": "^0.3.0",
-    "webpack-cli": "^4.5.0"
+    "webpack-cli": "^4.9.2"
   },
   "eslintConfig": {
     "root": true,
@@ -67,7 +67,7 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },
