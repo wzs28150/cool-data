@@ -13,7 +13,7 @@ module.exports = defineConfig({
     },
   },
   publicPath: process.env.NODE_ENV === "production" ? "/cool-data/demo" : "/",
-  outputDir: "docs/.vuepress/dist/demo",
+  outputDir: "doc/docs/.vuepress/dist/demo",
   configureWebpack: {
     resolve: {
       extensions: [".js", ".vue", ".json"],

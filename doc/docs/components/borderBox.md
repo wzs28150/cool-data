@@ -16,14 +16,8 @@
 
 ## BorderBox1
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-1>内容</border-box-1>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -33,14 +27,8 @@
 
 ## BorderBox2
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-2>内容</border-box-2>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -50,14 +38,8 @@
 
 ## BorderBox3
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-3>内容</border-box-3>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -69,18 +51,7 @@
 
 > 可翻转
 
-### 示例:
-
-<br />
-<div class="code-show" >
-  <border-box-4>内容</border-box-4>
-</div>
-
-<div class="code-show" >
-  <border-box-4 :reverse="true">内容</border-box-4>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -93,17 +64,7 @@
 
 > 可翻转
 
-### 示例:
-
-<br />
-<div class="code-show" >
-  <border-box-5>内容</border-box-5>
-</div>
-
-<div class="code-show" >
-  <border-box-5 :reverse="true">内容</border-box-5>
-</div>
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -114,14 +75,8 @@
 
 ## BorderBox6
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-6>内容</border-box-6>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -131,14 +86,8 @@
 
 ## BorderBox7
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-7>内容</border-box-7>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -158,17 +107,8 @@
 
 </div>
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-8>内容</border-box-8>
-</div>
-<div class="code-show" >
-  <border-box-8 :reverse="true" :dur="10">内容</border-box-8>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -179,14 +119,7 @@
 
 ## BorderBox9
 
-### 示例:
-
-<br />
-<div class="code-show" >
-  <border-box-9>内容</border-box-9>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -196,14 +129,8 @@
 
 ## BorderBox10
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-10>内容</border-box-10>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -224,14 +151,8 @@
 
 </div>
 
-### 示例:
 
-<br />
-<div class="code-show" >
-  <border-box-11 title="标题" :title-width="120">内容</border-box-11>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>
@@ -242,14 +163,7 @@
 
 ## BorderBox12
 
-### 示例:
-
-<br />
-<div class="code-show" >
-  <border-box-12>内容</border-box-12>
-</div>
-
-### 代码：
+#### 代码：
 
 ```html
 <template>

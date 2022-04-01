@@ -3,32 +3,6 @@
 > 一些常用的图表组件
 ## 滚动图表
 
-### 示例:
-
-<br />
-<div class="code-show" >
-  <scroll-table :option="{
-        dataset: {
-          source: [
-            ['车牌号', '里程数(km)'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2'],
-            ['京A12345', '134.2']
-          ]
-        },
-        index: true,
-        columnWidth: [50],
-        align: ['center', 'left', 'center'],
-        waitTime: 3000
-    }"></scroll-table>
-</div>
 
 ### 设置
 
@@ -188,56 +162,8 @@ export default {
 
 ## 动态环图
 
-### 示例:
-
-<br />
-<div class="code-show" style="height:300px">
-<ClientOnly>
-  <chart   />
-</ClientOnly>
-</div>
 
 
 
 ## 3D 金字塔
 
-### 示例:
-
-<br />
-<div class="code-show" style="height:300px">
-  <Pyramid :option="{title: '企业培育',
-        distance: [100, 10],
-        offset: [0, 0],
-        sort: 'max',
-        color: [
-          'rgba(112, 245, 100, 0.8)',
-          'rgba(84, 155, 180, 1.000)',
-          'rgba(59, 94, 185, 1.000)',
-          'rgba(31, 63, 144, 1.000)',
-          'rgba(13, 34, 103, 1.000)',
-        ],
-        lMouseClick: true,
-        lMouseMove: true,
-        fontFormatter: (val) => {
-          return ` ${val.name}   ${val.value}%`;
-        },
-        tooltip: {
-          show: true,
-        },
-        infoStyle: {
-          stroke: true,
-          color: 'rgba(189, 192, 214, 1.000)',
-          setLineDash: [4, 4], 
-          size: 12, 
-          width: 120, 
-          dotSize: 2,
-        },
-        data: [
-          { name: '示例1', value: 10 },
-          { name: '示例2', value: 10 },
-          { name: '示例3', value: 20 },
-          { name: '示例4', value: 30 },
-          { name: '示例5', value: 30 },
-        ],
-      }" />
-</div>
