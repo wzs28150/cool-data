@@ -1,7 +1,6 @@
 <template>
   <div>
-    <layout-1
-      v-if="layoutType == 'Layout2'"
+    <layout-4
       :width="1920"
       :height="1080"
       :isScale="true"
@@ -9,58 +8,11 @@
       background="#091220ff"
       leftSideWidth="22%"
       :titleHeight="104"
-      style="background-image: url(./bg2.jpg); background-size: cover;"
+      :title="'大数据可视化系统名称'"
+      style="background-image: url(./bg.png); background-size: cover;"
     >
-      <template #layout-title>
-        <Header />
-      </template>
-      <template #main>
-        <map-3D />
-        <!-- <Pannel v-if="!immerse">
-          <div class="main-inner">
-            <div class="main-top">
-              <BorderBox7 class="m_R20" :color="['#235399', '#eeeeee']" backgroundColor="#113549B2" reverse="true">
-                <div>
-                  <div class="num ds-digital">{{num1}}</div>
-                  <div class="title">总运行车数</div>
-                </div>
-              </BorderBox7>
-              <BorderBox7 :color="['#235399', '#eeeeee']" backgroundColor="#113549B2" reverse="true">
-                <div>
-                  <div class="num ds-digital">{{num2}}</div>
-                  <div class="title">总运行车数</div>
-                </div>
-              </BorderBox7>
-            </div>
-            <div id="map"></div>
-          </div>
-        </Pannel>
-        <div v-else id="map"></div>-->
-      </template>
-      <template #left>
-        <Pannel title="车辆类型统计">
-          <leftTop />
-        </Pannel>
-        <Pannel title="车辆状态统计">
-          <leftMiddle />
-        </Pannel>
-        <Pannel title="行驶里程排行">
-          <leftBottom />
-        </Pannel>
-      </template>
-
-      <template #right>
-        <Pannel title="车辆行驶数量">
-          <rightTop />
-        </Pannel>
-        <Pannel title="车辆报警统计">
-          <rightMiddle />
-        </Pannel>
-        <Pannel title="行驶时长排行">
-          <rightBottom />
-        </Pannel>
-      </template>
-    </layout-1>
+     
+    </layout-4>
     <div class="setting">
       <div class="icon">
         <i class="el-icon-setting"></i>

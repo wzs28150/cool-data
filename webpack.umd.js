@@ -31,6 +31,10 @@ module.exports = {
   experiments: {
     outputModule: true,
   },
+  externals: {
+    vue: "Vue",
+    echarts: "echarts",
+  },
   // output: {
   //   filename: '[name].es.js',
   //   path: path.resolve(__dirname, 'dist'),

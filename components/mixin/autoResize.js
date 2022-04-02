@@ -4,12 +4,9 @@ export default {
   data() {
     return {
       dom: "",
-
       width: 0,
       height: 0,
-
       debounceInitWHFun: "",
-
       domObserver: "",
     };
   },
@@ -23,11 +20,8 @@ export default {
       } = this;
 
       await initWH(false);
-
       getDebounceInitWHFun();
-
       bindDomResizeCallback();
-
       if (typeof afterAutoResizeMixinInit === "function")
         afterAutoResizeMixinInit();
     },
@@ -37,6 +31,7 @@ export default {
       return new Promise((resolve) => {
         $nextTick(() => {
           const dom = (this.dom = $refs[ref]);
+          console.log(dom);
 
           this.width = dom ? dom.clientWidth : 0;
           this.height = dom ? dom.clientHeight : 0;

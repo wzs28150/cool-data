@@ -1,12 +1,21 @@
+/*
+ * @Title:
+ * @Descripttion:
+ * @version:
+ * @Author: wzs
+ * @Date: 2022-04-01 13:32:24
+ * @LastEditors: wzs
+ * @LastEditTime: 2022-04-02 09:24:24
+ */
 const defaultOption = {
-  legend: {
-    top: "middle",
-    right: "10%",
-    orient: "vertical",
-    textStyle: {
-      color: "#eee",
-    }
-  },
+  // legend: {
+  //   top: "middle",
+  //   right: "10%",
+  //   orient: "vertical",
+  //   textStyle: {
+  //     color: "#eee",
+  //   },
+  // },
   tooltip: {
     trigger: "axis",
     axisPointer: {
@@ -39,7 +48,6 @@ const defaultOption = {
     // //   console.log(value);
     // // },
     max: (value) => (value.max * 4) / 3,
-    clockwise: true,
   },
   radiusAxis: {
     type: "category",
@@ -61,7 +69,6 @@ const defaultOption = {
         color: "rgba(17, 51, 68, 0.8)",
       },
     },
-    
     data: [],
   },
   tooltip: {},
@@ -75,7 +82,7 @@ const defaultOption = {
         borderRadius: 10,
       },
       data: [],
-      zlevel: 10,
+      
       // label: {
       //   show: true,
       //   position: 'middle',
@@ -83,16 +90,16 @@ const defaultOption = {
       // }
     },
     {
-      type: "bar",
+      type: "scatter",
       coordinateSystem: "polar",
       barWidth: 10,
       // showBackground: true,
       itemStyle: {
         borderRadius: 10,
-        color: 'rgba(255,255,255,0.1)',
+        color: 'rgba(255,255,255,1)',
       },
       data: [],
-      zlevel: -12,
+      zlevel: 10,
       barGap: '-100%'
       // label: {
       //   show: true,

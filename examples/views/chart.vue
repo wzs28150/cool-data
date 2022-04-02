@@ -6,13 +6,11 @@
           <component :is="item" :option="item.config" :theme="theme"></component>
           <div
             class="copy"
-            :data-clipboard-text="'<' + item.name + '>加载中。。。</' + item.name + '>'"
+            :data-clipboard-text="`<${item.name} :dataset='' :theme='' :option='' />`"
             @click="copy"
           >
-            <div>
-              <div class="item-title">{{ item.title }}</div>
-              <div class="copy-tip">点击复制代码</div>
-            </div>
+            <div class="item-title">{{ item.title }}</div>
+            <div class="copy-tip">点击复制代码</div>
           </div>
         </div>
       </div>
@@ -88,6 +86,8 @@ export default {
       height: 100%;
       top: 0;
       left: 0;
+      padding-bottom: 40px;
+      overflow: hidden;
       & > div {
         width: 100%;
         margin: 0 auto;
@@ -96,22 +96,24 @@ export default {
         cursor: pointer;
         position: absolute;
         left: 0;
-        top: 0;
+        bottom: 0;
         width: 100%;
-        height: 100%;
+        padding: 20px;
+        height: 30px;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
         background-color: rgba(6, 30, 93, 0.9);
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
         text-align: center;
-        opacity: 0;
-        visibility: hidden;
+        // opacity: 0;
+        // visibility: hidden;
         transition: all 0.4s;
         .item-title {
           color: #fff;
-          font-size: 20px;
+          font-size: 14px;
           font-weight: bold;
-          margin-bottom: 10px;
+          // margin-bottom: 10px;
         }
         .copy-tip {
           color: #fff;

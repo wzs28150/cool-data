@@ -2,7 +2,7 @@
   <v-chart
     class="chart"
     autoresize
-    ref="pie4"
+    ref="pie5"
     :init-options="initOptions"
     :option="mergedOption"
     :theme="theme"
@@ -34,7 +34,7 @@ use([
 ]);
 
 export default {
-  name: "pie4",
+  name: "pie5",
   props: {
     // 其他自定义echarts属性
     option: {
@@ -46,10 +46,6 @@ export default {
       default: () => {
         return []
       }
-    },
-    reverse: {
-      type: Boolean,
-      default: true
     },
     // 自动播放时间间隔
     autoPlay: {
@@ -83,10 +79,6 @@ export default {
       }
       // 处理数据从小到大
       this.mergedOption.dataset.source.sort((a, b) => a.value - b.value)
-      // 设置旋转方向
-      if(!this.reverse){
-        this.mergedOption.angleAxis.clockwise = false
-      }
       // 设置坐标名称
       this.mergedOption.radiusAxis.data = this.mergedOption.dataset.source.map(item => item.name)
       // 处理颜色
@@ -109,8 +101,10 @@ export default {
             ])
           }
         })
-        const maxData = this.mergedOption.dataset.source[this.mergedOption.dataset.source.length - 1].value
-        this.mergedOption.series[1].data.push(maxData + maxData * 0.1)
+        this.mergedOption.series[1].data.push({
+          name: item.name,
+          value: item.value,
+        })
       })
       console.log(this.mergedOption);
     }
