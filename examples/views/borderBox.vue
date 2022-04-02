@@ -28,7 +28,7 @@ import Clipboard from "clipboard";
 const copy = () => {
   const clipboard = new Clipboard('.copy');
   clipboard.on('success', () => {
-    this.$message({
+    ElMessage({
       message: '复制成功',
       type: 'success'
     });
@@ -62,7 +62,7 @@ const copy = () => {
       height: 100%;
       top: 0;
       left: 0;
-      /deep/ .border-box-content {
+      &:deep(.border-box-content) {
         display: flex;
         justify-content: center;
         align-items: center;

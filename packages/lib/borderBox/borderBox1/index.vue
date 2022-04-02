@@ -63,7 +63,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup name="BorderBox1">
 import autoResize from '../../../util/autoResize';
 import { deepMerge, deepClone } from '../../../util/index'
 

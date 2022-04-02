@@ -1,13 +1,13 @@
-import packageInfo from "../../package.json";
-import BorderBox1 from "./borderBox/borderBox1/index";
+import packageInfo from "../package.json";
+import BorderBox1 from "./lib/borderBox/borderBox1/index";
 
 export const borderBoxComponents = {
-  BorderBox1
+  BorderBox1,
 };
 
 const components = {
-  ...borderBoxComponents
-}
+  ...borderBoxComponents,
+};
 
 const install = function (Vue) {
   if (install.installed) return;
@@ -17,10 +17,8 @@ const install = function (Vue) {
   });
 };
 
-const API = {
+export default {
   version: packageInfo.version,
   install,
   ...components,
 };
-
-export default API;

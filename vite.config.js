@@ -26,7 +26,7 @@ export default defineConfig(({command})=>{
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./examples"),
-        "@components": path.resolve(__dirname, "./components"),
+        "@packages": path.resolve(__dirname, "./packages"),
       },
     },
     server: {
