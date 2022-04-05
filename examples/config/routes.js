@@ -17,8 +17,8 @@ import background_canvas from "../views/background_canvas.vue";
 const routes = [
   {
     path: '/',
-    
     component:page,
+    redirect: "/index",
     children: [
       {
         path: 'index',

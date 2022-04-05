@@ -1,18 +1,20 @@
 <template>
   <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in borderBoxComponents" :key="index" :span="6">
+    <el-col v-for="(item, index) in component" :key="index" :span="6">
       <div class="item">
         <div class="inner">
-          <component :is="item" backgroundColor="rgba(6, 30, 93, 0.5)">
+          <component :is="item.name" backgroundColor="rgba(6, 30, 93, 0.5)">
             <div
               class="copy"
-              :data-clipboard-text="`<${item.name} color='' backgroundColor='' ${item.props.reverse ? 'reverse=\'true\'' : ''}>内容</${item.name}>`"
+              :data-clipboard-text="`<${item.name} color='' backgroundColor='' ${item.reverse ? 'reverse=\'true\'' : ''}>内容</${item.name}>`"
               @click="copy"
             >
-              <div class="item-title">{{ item.name }}</div>
+              <div class="item-title">{{ item?item.name:'丢' }}</div>
               <div class="copy-tip">
                 点击复制代码
-                <i class="el-icon-document-copy"></i>
+                <el-icon>
+                  <document-copy />
+                </el-icon>
               </div>
             </div>
           </component>
@@ -23,8 +25,17 @@
 </template>
 
 <script setup>
-import { borderBoxComponents } from "@components/lib";
+import { borderBoxComponents } from "@packages";
 import Clipboard from "clipboard";
+import { DocumentCopy } from "@element-plus/icons-vue";
+
+const component = borderBoxComponents.map((item)=>{
+  return {
+    name: item.name,
+    reverse: item.props.reverse?item.props.reverse:false
+  }
+})
+// console.log(component);
 const copy = () => {
   const clipboard = new Clipboard('.copy');
   clipboard.on('success', () => {
@@ -42,6 +53,7 @@ const copy = () => {
     clipboard.destroy()
   })
 }
+
 </script>
 
 <style lang="less" scoped>

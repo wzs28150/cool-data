@@ -15,7 +15,7 @@ export function debounce (delay, callback) {
     const [that, args] = [this, arguments]
 
     lastTime = setTimeout(() => {
-      console.log(callback);
+      if(callback)
       callback.apply(that, args)
     }, delay)
   }

@@ -2,7 +2,8 @@ module.exports = {
   lang: "zh-CN",
   title: "Cool-Data",
   description: "Cool-Data——一个专注可视化大屏的组件",
-  base: "/cool-data/",
+  base: "/cool-data/docs/",
+  dest: "./cool-data/docs/",
   head: [
     [
       "link",
@@ -11,11 +12,12 @@ module.exports = {
   ],
   themeConfig: {
     // logo: 'https://vuejs.org/images/logo.png',
+    darkMode: true,
     navbar: [
       // NavbarItem
       {
         text: "指南",
-        link: "/",
+        link: "/index.md",
       },
       // NavbarGroup
       {

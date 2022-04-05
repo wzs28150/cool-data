@@ -21,9 +21,13 @@ export default defineConfig(({command})=>{
   // @vitejs/plugin-legacy
   command === "build" && plugins.push(legacy());
   return {
-    base: "./",
+    base: "/",
     plugins: plugins,
+    build:{
+      outDir: './cool-data/case'
+    },
     resolve: {
+      extensions: ['.js','.mjs'],
       alias: {
         "@": path.resolve(__dirname, "./examples"),
         "@packages": path.resolve(__dirname, "./packages"),
@@ -31,7 +35,9 @@ export default defineConfig(({command})=>{
     },
     server: {
       host: "0.0.0.0",
+      open: true
     },
+
     optimizeDeps: {
       include: [
         "echarts",

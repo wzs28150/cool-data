@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DataV</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js"
+        }
+      }
+    </script>
+    <!--Debug version-->
+    <link rel="stylesheet" href="./lib/css/index.css" />
+    <!--调试版-->
+    <script src="./lib/index.umd.js"></script>
+    <!--Compression version-->
+    <!--压缩版-->
+    <!-- <script src="https://unpkg.com/@jiaminghi/data-view/dist/datav.min.vue.js"></script> -->
+    <style>
+      html,
+      body,
+      #app {
+        width: 100%;
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+        background-color: #081325;
+        background-image: url(./public/bg.png);
+      }
+
+      .border-box-content {
+        color: rgb(66, 185, 131);
+        font-size: 40px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <BorderBox1>
+        <div class="ds-digital">Welcome to Cool Data</div></BorderBox1
+      >
+    </div>
+
+    <script type="module">
+      import { createApp } from 'vue'
+    
+      createApp({
+        data() {
+          return {
+            message: 'Hello Vue!'
+          }
+        }
+      }).mount('#app')
+    </script>
+  </body>
+</html>

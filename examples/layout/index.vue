@@ -4,7 +4,13 @@
       <div class="logo">数据可视化组件</div>
     </el-header>
     <el-container>
-      <el-aside router :default-active="$route.path" class="page-aside" @select="handleSelect" width="200px">
+      <el-aside
+        router
+        :default-active="$route.path"
+        class="page-aside"
+        @select="handleSelect"
+        width="200px"
+      >
         <el-menu
           router
           default-active="2"
@@ -96,7 +102,7 @@
   </el-container>
 </template>
 <script setup>
-import { FullScreen, House, MagicStick, Loading, Document, PieChart,Paperclip,Brush,Monitor } from "@element-plus/icons-vue";
+import { FullScreen, House, MagicStick, Loading, Document, PieChart, Paperclip, Brush, Monitor } from "@element-plus/icons-vue";
 const handleSelect = () => {
 
 }
@@ -125,7 +131,9 @@ html {
       border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     }
     .logo {
-      font-weight: bold;
+      // font-weight: bold;
+      letter-spacing: 5px;
+      font-family: shishang;
       font-size: 28px;
       line-height: 1em;
     }
