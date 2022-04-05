@@ -98,7 +98,7 @@ export default {
         seriesItemOption.itemStyle.normal.color = new graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: toRgb(color,1) },
           { offset: 1, color: toRgb(color,0.1) },
-        ]),
+        ])
           this.mergedOption.series[i] = seriesItemOption
       }
     }

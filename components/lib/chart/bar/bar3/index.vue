@@ -11,7 +11,7 @@
 <script>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { PictorialBarChart } from "echarts/charts";
+import { BarChart,PictorialBarChart } from "echarts/charts";
 import defaultOption from './config';
 import { uuid, deepMerge, deepClone } from '../../../../util/index'
 import {
@@ -25,6 +25,7 @@ import {
 import VChart from "vue-echarts";
 use([
   CanvasRenderer,
+  BarChart,
   PictorialBarChart,
   TitleComponent,
   TooltipComponent,

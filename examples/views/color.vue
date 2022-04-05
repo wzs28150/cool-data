@@ -81,7 +81,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="14">
+      <el-col :span="10">
         <div style="justify-content: flex-start;display: flex; text-align: left;">
           <div class="col-inner">
             <div class="col-title">图表颜色</div>

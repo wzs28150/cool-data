@@ -29,14 +29,14 @@
 </template>
 <script>
 import styleJson from "../json/mapStyle"
-import Header from '../components/header1.vue';
-import Pannel from '../components/pannel.vue';
-import leftTop from '../components/leftTop.vue'
-import leftMiddle from '../components/leftMiddle.vue';
-import rightTop from '../components/rightTop.vue';
-import leftBottom from '../components/leftBottom.vue';
-import rightMiddle from '../components/rightMiddle.vue';
-import rightBottom from '../components/rightBottom.vue';
+// import Header from '../components/header1.vue';
+// import Pannel from '../components/pannel.vue';
+// import leftTop from '../components/leftTop.vue'
+// import leftMiddle from '../components/leftMiddle.vue';
+// import rightTop from '../components/rightTop.vue';
+// import leftBottom from '../components/leftBottom.vue';
+// import rightMiddle from '../components/rightMiddle.vue';
+// import rightBottom from '../components/rightBottom.vue';
 export default {
   data() {
     return {
@@ -54,14 +54,14 @@ export default {
     }
   },
   components: {
-    Header,
-    Pannel,
-    leftTop,
-    leftMiddle,
-    leftBottom,
-    rightTop,
-    rightMiddle,
-    rightBottom
+    // Header,
+    // Pannel,
+    // leftTop,
+    // leftMiddle,
+    // leftBottom,
+    // rightTop,
+    // rightMiddle,
+    // rightBottom
   },
   methods: {
     baiduMap() {
