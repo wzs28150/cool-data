@@ -2,15 +2,16 @@
   <div :class="{ 'layout-1': true, }" ref="layout" :style="'background-color: ' + background + ';'">
     <div
       class="layout-contanter"
-      :style="`width:${width}px; height:${height}px; transform:scale(${scaleX},${scaleY})`"
+      :style="`width:${width}px; height:${height - titleHeight}px; transform:scale(${scaleX},${scaleY}); padding-top: ${titleHeight}px`"
     >
       <div class="layout-title" :style="`height: ${titleHeight}px`">
         <slot name="layout-title" />
       </div>
-      <div class="left" :style="`width: ${getLeftSideWidth}; padding-top: ${titleHeight + 20}px`">
+
+      <div class="left" :style="`width: ${getLeftSideWidth}; padding-top: 20px; top: ${titleHeight}px; height: ${height - titleHeight - 30}px`">
         <slot name="left" />
       </div>
-      <div class="right" :style="`width: ${getRightSideWidth};padding-top: ${titleHeight + 20}px`">
+      <div class="right" :style="`width: ${getLeftSideWidth}; padding-top: 20px; top: ${titleHeight}px; height: ${height - titleHeight - 30}px`">
         <slot name="right" />
       </div>
       <div class="main" v-if="immerse">
@@ -19,17 +20,20 @@
       <div
         v-else
         class="main"
-        :style="`padding-left: calc(${getLeftSideWidth} + 20px);padding-right: calc(${getRightSideWidth} + 20px);padding-top: ${titleHeight + 20}px; padding-bottom: 10px`"
+        :style="`padding-left: calc(${getLeftSideWidth} + 20px);padding-right: calc(${getRightSideWidth} + 20px);padding-top: 20px; padding-bottom: 10px`"
       >
         <slot name="main" />
       </div>
+    </div>
+    <div class="layout-background">
+      <slot name="background" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { debounce } from '../../util/index';
-import { computed, ref,onMounted } from 'vue';
+import { computed, ref, onMounted } from 'vue';
 
 const props = defineProps({
   leftSideWidth: {
@@ -83,7 +87,7 @@ onMounted(() => {
   if (props.isScale) {
     calculateScale();
     window.onresize = function () {
-      that.calculateScale(that);
+      calculateScale();
     };
   }
 });

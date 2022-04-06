@@ -1,10 +1,11 @@
 <template>
-  <div class="background" :style="`background-image:url(${props.img})`"></div>
+  <div class="background" :style="`background-image:url(${img})`"></div>
 </template>
 
 <script setup>
 import list from './bg';
 import { ref } from 'vue';
+console.log(list);
 const props = defineProps({
   img: {
     type: String
@@ -17,4 +18,5 @@ if (props.img){
 } else {
   img.value = list[props.index]
 }
+
 </script>

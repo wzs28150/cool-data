@@ -1,8 +1,12 @@
 <template>
   <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in backgroundComponents[0]['list']" :key="index" :span="6">
+    <el-col
+      type="flex"
+      v-for="(item, index) in backgroundComponents[0]['list']"
+      :key="index"
+      :span="6"
+    >
       <div class="item">
-         
         <div class="inner">
           <el-image
             style="width: 100%; height: 100%"
@@ -16,6 +20,7 @@
             </div>
           </el-image>
           <div class="inner-bar">
+            <div class="id">ID: {{ index }}</div>
             <div class="inner-bar-download" @click="downloadImg(item, 'bg.jpg')">
               <el-icon>
                 <download />
@@ -33,7 +38,6 @@
           </div>
         </div>
       </div>
-      
     </el-col>
   </el-row>
 </template>
@@ -103,6 +107,11 @@ const copy = () => {
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        .id {
+          margin-right: auto;
+          margin-left: 10px;
+          font-weight: bold;
+        }
         .inner-bar-download {
           cursor: pointer;
           padding-right: 10px;

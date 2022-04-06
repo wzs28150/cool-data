@@ -1,5 +1,5 @@
 <template>
-  <Particles id="backgroundCanvas3" class="background" :options="config" />
+  <Particles id="backgroundCanvas3" class="background-canvas" :options="config" />
 </template>
 
 <script setup>
