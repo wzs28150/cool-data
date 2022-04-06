@@ -54,16 +54,16 @@ Object.keys(decorationFile)
     decorationComponents.push(decorationItem);
   });
 // 背景组件
-// export const backgroundComponents = [];
-// const backgroundFile = import.meta.globEager("./background/*/index.js");
-// Object.keys(backgroundFile)
-//   .sort((a, b) => {
-//     return a.replace(/[^\d]/g, "") - b.replace(/[^\d]/g, "");
-//   })
-//   .forEach((item) => {
-//     const backgroundItem = backgroundFile[item].default;
-//     backgroundComponents.push(backgroundItem);
-//   });
+export const backgroundComponents = [];
+const backgroundFile = import.meta.globEager("./background/*/index.js");
+Object.keys(backgroundFile)
+  .sort((a, b) => {
+    return a.replace(/[^\d]/g, "") - b.replace(/[^\d]/g, "");
+  })
+  .forEach((item) => {
+    const backgroundItem = backgroundFile[item].default;
+    backgroundComponents.push(backgroundItem);
+  });
 
 // 加载组件
 export const loadingComponents = [];
@@ -77,14 +77,27 @@ Object.keys(loadingFile)
     loadingComponents.push(loadingItem);
   });
 
+// 加载模板组件
+export const layoutComponents = [];
+const layoutFile = import.meta.globEager("./layout/*/index.js");
+Object.keys(layoutFile)
+  .sort((a, b) => {
+    return a.replace(/[^\d]/g, "") - b.replace(/[^\d]/g, "");
+  })
+  .forEach((item) => {
+    const layoutItem = layoutFile[item].default;
+    layoutComponents.push(layoutItem);
+  });
+
 const components = [
   ...borderBoxComponents,
   ...chartComponents,
   ...titleComponents,
   ...moduleTitleComponents,
   ...decorationComponents,
-  // ...backgroundComponents,
+  ...backgroundComponents,
   ...loadingComponents,
+  ...layoutComponents
 ];
 
 export const Theme = {};

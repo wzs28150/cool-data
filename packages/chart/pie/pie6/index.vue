@@ -6,7 +6,7 @@
     :init-options="initOptions"
     :option="mergedOption"
     @selectchanged="handleSelect"
-    :theme="props.theme"
+    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
@@ -25,7 +25,9 @@ import VChart from "vue-echarts";
 import { reactive, onMounted, computed, ref,onBeforeUnmount } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
-import { toRgb } from '../../../util/color';
+import easyv from "../../../theme/easyv.js"
+const defaultTheme = easyv.theme
+
 use([
   CanvasRenderer,
   PieChart,

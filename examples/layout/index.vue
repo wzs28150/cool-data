@@ -2,6 +2,7 @@
   <el-container class="page" style="background-image: url('./bg.png');">
     <el-header class="page-header">
       <div class="logo">数据可视化组件</div>
+      <a href="/cool-data/docs"><el-icon><document /></el-icon>文档</a>
     </el-header>
     <el-container>
       <el-aside
@@ -103,6 +104,7 @@
 </template>
 <script setup>
 import { FullScreen, House, MagicStick, Loading, Document, PieChart, Paperclip, Brush, Monitor } from "@element-plus/icons-vue";
+
 const handleSelect = () => {
 
 }
@@ -136,6 +138,16 @@ html {
       font-family: shishang;
       font-size: 28px;
       line-height: 1em;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      line-height:60px;
+      i{
+        margin-right: 5px;
+      }
     }
   }
   .page-aside {

@@ -20,10 +20,12 @@
 
 <script setup>
 import { chartComponents, Theme } from "@packages";
+import Clipboard from "clipboard";
 import { useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 const { easyv } = Theme;
 const router = useRouter()
+
 const component = computed(() => {
   return chartComponents.filter((item) => {
     return item.type == router.currentRoute.value.params.type
@@ -36,6 +38,23 @@ const component = computed(() => {
   })
 })
 // console.log(router.currentRoute.value.params.type);
+const copy = () => {
+  const clipboard = new Clipboard('.copy');
+  clipboard.on('success', () => {
+    ElMessage({
+      message: '复制成功',
+      type: 'success'
+    });
+    // 释放内存
+    clipboard.destroy()
+  })
+  clipboard.on('error', () => {
+    // 不支持复制
+    console.log('该浏览器不支持自动复制')
+    // 释放内存
+    clipboard.destroy()
+  })
+}
 </script>
 
 <style lang="less" scoped>

@@ -21,7 +21,8 @@ export default defineConfig(({command})=>{
   // @vitejs/plugin-legacy
   command === "build" && plugins.push(legacy());
   return {
-    base: "/",
+    base: "/cool-data/case/",
+    // mode: "production",
     plugins: plugins,
     build:{
       outDir: './cool-data/case'

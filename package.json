@@ -12,7 +12,8 @@
     "build:package": "rollup -c build/rollup.config.js",
     "build:css": "gulp build -f build/gulpfile.prod.js",
     "show:case": "node build/docsCase.js",
-    "show": "node build/docsShow.js"
+    "show": "node build/docsShow.js",
+    "deploy": "bash sed -i 's/\r$//' deploy.sh"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",

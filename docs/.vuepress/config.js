@@ -31,6 +31,13 @@ module.exports = {
         ],
       },
       {
+        text: "图表组件",
+        children: [
+          "/components/bar.md",
+          "/components/pie.md"
+        ],
+      },
+      {
         text: "案例",
         link: "https://wzs28150.github.io/cool-data/demo/index.html"
       },

@@ -19,9 +19,12 @@
 #### 示例:
 
 <br />
+
+<ClientOnly>
 <div class="code-show" >
   <border-box-1>内容</border-box-1>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -36,9 +39,12 @@
 #### 示例:
 
 <br />
+
+<ClientOnly>
 <div class="code-show" >
   <border-box-2>内容</border-box-2>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -53,9 +59,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-3>内容</border-box-3>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -72,6 +80,7 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-4>内容</border-box-4>
 </div>
@@ -79,6 +88,7 @@
 <div class="code-show" >
   <border-box-4 :reverse="true">内容</border-box-4>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -96,6 +106,7 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-5>内容</border-box-5>
 </div>
@@ -103,6 +114,8 @@
 <div class="code-show" >
   <border-box-5 :reverse="true">内容</border-box-5>
 </div>
+</ClientOnly>
+
 #### 代码：
 
 ```html
@@ -117,9 +130,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-6>内容</border-box-6>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -134,9 +149,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-7>内容</border-box-7>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -161,12 +178,14 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-8>内容</border-box-8>
 </div>
 <div class="code-show" >
   <border-box-8 :reverse="true" :dur="10">内容</border-box-8>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -182,9 +201,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-9>内容</border-box-9>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -199,9 +220,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-10>内容</border-box-10>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -227,9 +250,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-11 title="标题" :title-width="120">内容</border-box-11>
 </div>
+</ClientOnly>
 
 #### 代码：
 
@@ -245,9 +270,11 @@
 #### 示例:
 
 <br />
+<ClientOnly>
 <div class="code-show" >
   <border-box-12>内容</border-box-12>
 </div>
+</ClientOnly>
 
 #### 代码：
 

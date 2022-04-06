@@ -5,7 +5,7 @@
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="props.theme"
+    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
@@ -23,6 +23,9 @@ import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
+import easyv from "../../../theme/easyv.js"
+const defaultTheme = easyv.theme
+
 use([
   CanvasRenderer,
   BarChart,

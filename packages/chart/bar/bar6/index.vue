@@ -5,13 +5,13 @@
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="props.theme"
+    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { CustomChart } from "echarts/charts";
+import { PictorialBarChart, BarChart  } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -24,9 +24,13 @@ import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
+import easyv from "../../../theme/easyv.js"
+const defaultTheme = easyv.theme
+
 use([
   CanvasRenderer,
-  CustomChart,
+  PictorialBarChart,
+  BarChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -96,13 +100,13 @@ const mergeOption = async () => {
       // 奇数个
       symbolOffsetX = (i - Math.floor(dataLen / 2)) * 12
     }
-
+    let theme = props.theme ?? defaultTheme
     mergedOption.value.series[i + dataLen] = {
       ...topItem,
       datasetIndex: 1,
       symbolOffset: [symbolOffsetX, -3],
       itemStyle: {
-        color: props.theme.color[i]
+        color: theme.color[i]
       }
     }
 
@@ -111,7 +115,7 @@ const mergeOption = async () => {
       datasetIndex: 2,
       symbolOffset: [symbolOffsetX, 3],
       itemStyle: {
-        color: props.theme.color[i]
+        color: theme.color[i]
       }
     }
   }

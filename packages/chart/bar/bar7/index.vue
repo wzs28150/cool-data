@@ -5,13 +5,13 @@
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="props.theme"
+    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { CustomChart } from "echarts/charts";
+import { BarChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -24,9 +24,12 @@ import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
+import easyv from "../../../theme/easyv.js"
+const defaultTheme = easyv.theme
+
 use([
   CanvasRenderer,
-  CustomChart,
+  BarChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,

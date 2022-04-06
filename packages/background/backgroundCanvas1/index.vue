@@ -19,7 +19,6 @@ const props = defineProps({
   }
 })
 onMounted(() => {
-  console.log(props);
   config.value.fullScreen.enable = props.fullScreen
   config.value.particles.color.value = props.color
   // config.value.particles.links.color = props.color

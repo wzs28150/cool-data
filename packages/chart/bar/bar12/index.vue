@@ -5,7 +5,7 @@
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="props.theme"
+    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
@@ -25,6 +25,9 @@ import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import { toRgb } from '../../../util/color';
+import easyv from "../../../theme/easyv.js"
+const defaultTheme = easyv.theme
+
 use([
   CanvasRenderer,
   BarChart,
@@ -87,11 +90,12 @@ const mergeOption = async () => {
     let seriesItemOption = deepClone(seriesItem, true);
     let colorStart = null
     let colorEnd = null
-    if (typeof (props.theme.color[i]) == 'object') {
-      colorStart = props.theme.color[i].colorStops[0].color
-      colorEnd = props.theme.color[i].colorStops[1].color
+    let theme = props.theme ?? defaultTheme
+    if (typeof (theme.color[i]) == 'object') {
+      colorStart = theme.color[i].colorStops[0].color
+      colorEnd = theme.color[i].colorStops[1].color
     } else {
-      colorStart = props.theme.color[i]
+      colorStart = theme.color[i]
     }
     seriesItemOption.itemStyle.color = new graphic.LinearGradient(1, 0, 0, 0, [
       { offset: 0, color: toRgb(colorStart, 1) },

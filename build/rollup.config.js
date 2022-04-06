@@ -1,7 +1,7 @@
 import nodeResolve from "@rollup/plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
-import { terser } from "rollup-plugin-terser"
+import { terser } from "rollup-plugin-terser";
 import vuePlugin from "rollup-plugin-vue";
 import fs from "fs"; // 写文件
 import { resolve, relative, basename, dirname } from "path";
@@ -56,7 +56,7 @@ const readFile = (path, filesList) => {
 };
 const config = geFileList(input).map(({ name, inputDir, outputDir }) => ({
   input: `${inputDir}/index.js`,
-  external: ["vue","echarts"],
+  external: ["vue", "echarts"],
   plugins: [
     nodeResolve(),
     vuePlugin(),
@@ -69,19 +69,26 @@ const config = geFileList(input).map(({ name, inputDir, outputDir }) => ({
     name: "index",
     file: `${output}/${outputDir}/index.js`,
     format: "es",
+    plugins: [
+      terser({
+        format: {
+          comments: false,
+        },
+      }),
+    ],
   },
 }));
 config.push({
   input: `${input}/index.js`,
-  external: ["vue","echarts"],
-  globals: { 
-    vue: 'Vue' // 我们的仓库实际依赖vue, vue是不需要打包的，所以这里说明我们用了一个全局变量vue
+  external: ["vue", "echarts"],
+  globals: {
+    vue: "Vue", // 我们的仓库实际依赖vue, vue是不需要打包的，所以这里说明我们用了一个全局变量vue
   },
   plugins: [
     nodeResolve(),
     vuePlugin(),
     babel({
-      exclude: 'node_modules/**'
+      exclude: "node_modules/**",
     }),
     commonjs(),
   ],
@@ -97,7 +104,7 @@ config.push({
             comments: false,
           },
         }),
-      ]
+      ],
     },
     // {
     //   file: `${output}/index.umd.js`,
@@ -108,7 +115,7 @@ config.push({
     //   globals: {
     //     vue: "vue",
     //   },
-    //   exports: 'named' 
+    //   exports: 'named'
     // },
   ],
 });
