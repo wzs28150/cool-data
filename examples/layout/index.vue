@@ -2,7 +2,11 @@
   <el-container class="page" style="background-image: url('./bg.png');">
     <el-header class="page-header">
       <div class="logo">数据可视化组件</div>
-      <a href="/cool-data/docs"><el-icon><document /></el-icon>文档</a>
+      <a href="/cool-data/docs">
+        <el-icon>
+          <document />
+        </el-icon>文档
+      </a>
     </el-header>
     <el-container>
       <el-aside
@@ -12,87 +16,98 @@
         @select="handleSelect"
         width="200px"
       >
-        <el-menu
-          router
-          default-active="2"
-          class="el-menu-vertical-demo"
-          text-color="#fff"
-          background-color="transparent"
-          active-text-color="#4fd2dd"
-          style="border-right: 0;"
-          :unique-opened="true"
-        >
-          <el-menu-item index="/index">
-            <el-icon :size="20">
-              <full-screen />
-            </el-icon>
-            <span slot="title">边框</span>
-          </el-menu-item>
-          <el-menu-item index="/title">
-            <el-icon :size="20">
-              <house />
-            </el-icon>
-            <span slot="title">标题</span>
-          </el-menu-item>
-          <el-menu-item index="/moduleTitle">
-            <el-icon :size="20">
-              <house />
-            </el-icon>
-            <span slot="title">板块标题</span>
-          </el-menu-item>
-          <el-menu-item index="/decoration">
-            <el-icon :size="20">
-              <MagicStick />
-            </el-icon>
-            <span slot="title">装饰器</span>
-          </el-menu-item>
-          <el-menu-item index="/loading">
-            <el-icon :size="20">
-              <Loading />
-            </el-icon>
-            <span slot="title">加载</span>
-          </el-menu-item>
-          <el-menu-item index="/layout">
-            <el-icon :size="20">
-              <Document />
-            </el-icon>
-            <span slot="title">模板</span>
-          </el-menu-item>
-          <el-sub-menu index="/chart">
-            <template #title>
-              <el-icon>
-                <pie-chart />
+        <el-scrollbar style="height: calc(100vh - 60px - 40px); ">
+          <el-menu
+            router
+            default-active="2"
+            class="el-menu-vertical-demo"
+            text-color="#fff"
+            background-color="transparent"
+            active-text-color="#4fd2dd"
+            style="border-right: 0;"
+            :unique-opened="true"
+          >
+            <el-menu-item index="/index">
+              <el-icon :size="20">
+                <full-screen />
               </el-icon>
-              <span>图表</span>
-            </template>
-
-            <el-menu-item index="/chart/bar">柱状图</el-menu-item>
-            <el-menu-item index="/chart/pie">饼形图</el-menu-item>
-          </el-sub-menu>
-          <el-menu-item index="/font">
-            <el-icon>
-              <paperclip />
-            </el-icon>
-            <span>字体</span>
-          </el-menu-item>
-          <el-menu-item index="/color">
-            <el-icon>
-              <Brush />
-            </el-icon>
-            <span>颜色</span>
-          </el-menu-item>
-          <el-sub-menu index="/background">
-            <template #title>
-              <el-icon>
-                <Monitor />
+              <span slot="title">边框</span>
+            </el-menu-item>
+            <el-menu-item index="/title">
+              <el-icon :size="20">
+                <house />
               </el-icon>
-              <span>背景</span>
-            </template>
+              <span slot="title">标题</span>
+            </el-menu-item>
+            <el-menu-item index="/moduleTitle">
+              <el-icon :size="20">
+                <house />
+              </el-icon>
+              <span slot="title">板块标题</span>
+            </el-menu-item>
+            <el-menu-item index="/decoration">
+              <el-icon :size="20">
+                <MagicStick />
+              </el-icon>
+              <span slot="title">装饰器</span>
+            </el-menu-item>
+            <el-menu-item index="/loading">
+              <el-icon :size="20">
+                <Loading />
+              </el-icon>
+              <span slot="title">加载</span>
+            </el-menu-item>
+            <el-menu-item index="/layout">
+              <el-icon :size="20">
+                <Document />
+              </el-icon>
+              <span slot="title">模板</span>
+            </el-menu-item>
+            <el-sub-menu index="/chart">
+              <template #title>
+                <el-icon>
+                  <pie-chart />
+                </el-icon>
+                <span>图表</span>
+              </template>
 
-            <el-menu-item index="/background/index">背景图</el-menu-item>
-            <el-menu-item index="/background/canvas">背景效果</el-menu-item>
-          </el-sub-menu>
-        </el-menu>
+              <el-menu-item index="/chart/bar">柱状图</el-menu-item>
+              <el-menu-item index="/chart/pie">饼形图</el-menu-item>
+              <el-menu-item index="/chart/pie">折线图</el-menu-item>
+              <el-menu-item index="/chart/pie">曲线图</el-menu-item>
+              <el-menu-item index="/chart/pie">面积图</el-menu-item>
+              <el-menu-item index="/chart/pie">雷达图</el-menu-item>
+              <el-menu-item index="/chart/pie">仪表盘</el-menu-item>
+              <el-menu-item index="/chart/pie">水位图</el-menu-item>
+              <el-menu-item index="/chart/rotation">轮播</el-menu-item>
+              <el-menu-item index="/chart/pie">数字翻牌器</el-menu-item>
+              <el-menu-item index="/chart/pie">其他</el-menu-item>
+            </el-sub-menu>
+            <el-menu-item index="/font">
+              <el-icon>
+                <paperclip />
+              </el-icon>
+              <span>字体</span>
+            </el-menu-item>
+            <el-menu-item index="/color">
+              <el-icon>
+                <Brush />
+              </el-icon>
+              <span>颜色</span>
+            </el-menu-item>
+            <el-sub-menu index="/background">
+              <template #title>
+                <el-icon>
+                  <Monitor />
+                </el-icon>
+                <span>背景</span>
+              </template>
+
+              <el-menu-item index="/background/index">背景图</el-menu-item>
+              <el-menu-item index="/background/canvas">背景效果</el-menu-item>
+            </el-sub-menu>
+          </el-menu>
+        </el-scrollbar>
       </el-aside>
       <el-main class="page-main">
         <el-scrollbar style="height: calc(100vh - 60px - 40px); width: 100%; ">
@@ -144,8 +159,8 @@ html {
       text-decoration: none;
       display: flex;
       align-items: center;
-      line-height:60px;
-      i{
+      line-height: 60px;
+      i {
         margin-right: 5px;
       }
     }

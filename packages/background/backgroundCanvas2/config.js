@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-05 19:34:45
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-05 19:34:45
+ * @LastEditTime: 2022-04-07 10:37:35
  */
 const defaultOption = {
   fullScreen: {
@@ -82,10 +82,10 @@ const defaultOption = {
         enable: true,
         mode: 'bubble'
       },
-      onclick: {
-        enable: true,
-        mode: 'repulse'
-      },
+      // onclick: {
+      //   enable: true,
+      //   mode: 'repulse'
+      // },
       resize: true
     },
     modes: {

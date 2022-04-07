@@ -3,7 +3,7 @@
     <!-- <div class="module-title-module-main">
       <div class="module-title-4-title">{{ title }}</div>
     </div>-->
-    <svg class="border-svg-container" :width="width" :height="height">
+    <svg class="module-title-svg-container" :width="width" :height="height">
       <defs>
         <linearGradient
           :id="`module-title-4-linear-left-${id}`"

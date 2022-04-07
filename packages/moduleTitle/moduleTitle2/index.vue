@@ -1,6 +1,6 @@
 <template>
   <div class="module-title module-title-2" :ref="data.ref">
-    <svg class="border-svg-container" :width="width" :height="height">
+    <svg class="module-title-svg-container" :width="width" :height="height">
       <defs>
         <linearGradient
           :id="`module-title-2-linear-right-${id}`"

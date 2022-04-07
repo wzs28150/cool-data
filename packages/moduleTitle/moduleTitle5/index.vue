@@ -1,6 +1,6 @@
 <template>
   <div class="module-title module-title-5" :ref="data.ref">
-    <svg class="border-svg-container" :width="width" :height="height">
+    <svg class="module-title-svg-container" :width="width" :height="height">
       <defs>
         <filter :id="`module-title-5-light-${id}`" x="-120%" y="-120%" width="400%" height="400%">
           <feOffset result="offOut" in="SourceGraphic" dx="0" dy="0" />
