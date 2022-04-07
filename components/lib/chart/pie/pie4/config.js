@@ -64,7 +64,6 @@ const defaultOption = {
     
     data: [],
   },
-  tooltip: {},
   series: [
     {
       type: "bar",

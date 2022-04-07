@@ -2,6 +2,7 @@
   <el-container class="page" style="background-image: url('./bg.png');">
     <el-header class="page-header">
       <div class="logo">数据可视化组件</div>
+      <router-link>文档</router-link>
     </el-header>
     <el-container>
       <el-aside router class="page-aside" @select="handleSelect" width="200px">

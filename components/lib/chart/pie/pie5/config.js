@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-01 13:32:24
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-02 09:24:24
+ * @LastEditTime: 2022-04-07 09:06:08
  */
 const defaultOption = {
   // legend: {
@@ -71,7 +71,6 @@ const defaultOption = {
     },
     data: [],
   },
-  tooltip: {},
   series: [
     {
       type: "bar",

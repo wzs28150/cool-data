@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-01 13:32:24
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-01 15:03:18
+ * @LastEditTime: 2022-04-07 08:54:19
  */
 const defaultOption = {
   legend: {
@@ -83,7 +83,7 @@ const defaultOption = {
       },
       selectedMode: true,
       // silent: true,
-      selectedMode: "single",
+      // selectedMode: "single",
       selectedOffset: 20,
       itemStyle: {},
     },
