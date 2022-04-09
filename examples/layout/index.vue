@@ -81,7 +81,7 @@
               <el-menu-item index="/chart/pie">水位图</el-menu-item>
               <el-menu-item index="/chart/rotation">轮播</el-menu-item>
               <el-menu-item index="/chart/pie">数字翻牌器</el-menu-item>
-              <el-menu-item index="/chart/pie">其他</el-menu-item>
+              <el-menu-item index="/chart/other">其他</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/font">
               <el-icon>

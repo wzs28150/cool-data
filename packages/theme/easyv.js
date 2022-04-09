@@ -75,6 +75,13 @@ const easyv = {
         fontWeight: 'lighter'
       }
     },
+    scrollTable: {
+      color: {
+        headerBGC: '#00267b',
+        oddRowBGC: '#01114c',
+        evenRowBGC: '#060737'
+      }
+    },
     scatter: {
       itemStyle: {
         borderWidth: 0,

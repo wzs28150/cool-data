@@ -24,6 +24,8 @@ module.exports = {
         text: "组件",
         children: [
           "/components/borderBox.md",
+          "/components/title.md",
+          "/components/moduleTitle.md",
           "/components/chart.md",
           "/components/decoration.md",
           "/components/layout.md",

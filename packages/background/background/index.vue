@@ -5,7 +5,6 @@
 <script setup>
 import list from './bg';
 import { ref } from 'vue';
-console.log(list);
 const props = defineProps({
   img: {
     type: String

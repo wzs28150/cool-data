@@ -116,7 +116,7 @@ const routes = [
     ],
   },
 ];
-NProgress.configure({ showSpinner: false });
+// NProgress.configure({ showSpinner: false });
 const router = createRouter({
   scrollBehavior(/* to, from, savedPosition */) {
     return { top: 0 };

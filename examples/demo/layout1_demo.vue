@@ -17,30 +17,30 @@
       <title-1 title="大数据可视化系统名称" />
     </template>
     <template #main>
-      <BorderBox7 color=""  >内容</BorderBox7>
+      <BorderBox7>内容</BorderBox7>
     </template>
 
     <template #left>
       <div class="left-top">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
       <div class="left-middle">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
       <div class="left-bottom">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
     </template>
 
     <template #right>
       <div class="right-top">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
       <div class="right-middle">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
       <div class="right-bottom">
-        <BorderBox7  >内容</BorderBox7>
+        <BorderBox7>内容</BorderBox7>
       </div>
     </template>
   </layout-1>

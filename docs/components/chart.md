@@ -61,8 +61,6 @@ const option = ref({
   <bar-1 :option="option" />
 </template>
 <script>
-import { Theme } from "CoolData";
-const { easyv } = Theme;
 export default {
   data() {
     option: {

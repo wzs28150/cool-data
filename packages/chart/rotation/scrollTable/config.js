@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-07 16:32:03
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-07 16:46:36
+ * @LastEditTime: 2022-04-08 15:53:14
  */
 /*
  * @Title: 
@@ -45,6 +45,8 @@ const defaultOption = {
   //     ["京A12340", "134.2"],
   //   ],
   // },
+  header: [],
+  data: [],
   dataset: {
     dimensions: ["车牌号", "里程数(km)"],
     source: [
@@ -90,9 +92,17 @@ const defaultOption = {
       }
     ]
   },
+  rowNum: 5,
+  headerBGC: '#00BAFF',
+  oddRowBGC: '#003B51',
+  evenRowBGC: '#0A2732',
+  headerHeight: 45,
   index: true,
+  indexHeader: '#',
+  carousel: 'single',
   columnWidth: [50],
   align: ["center", "left", "center"],
   waitTime: 3000,
+  hoverPause: true
 };
 export default defaultOption;
