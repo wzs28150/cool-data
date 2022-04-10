@@ -119,7 +119,7 @@ const mergeColor = () => {
 
 onMounted(() => {
   mergeColor()
-  data.titleWidth = text.value.clientWidth * 2
+  data.titleWidth = text.value.getBoundingClientRect().width
 })
 
 </script>

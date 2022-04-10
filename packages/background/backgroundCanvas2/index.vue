@@ -6,6 +6,7 @@
 
 import { ref, onMounted } from "vue";
 import defaultConfig from './config';
+import { ParticlesComponent as Particles } from "particles.vue3";
 const config = ref(defaultConfig)
 
 const props = defineProps({

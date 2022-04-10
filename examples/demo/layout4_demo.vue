@@ -77,7 +77,7 @@
           <div class="pannel">
             <ModuleTitle7 title="板块标题" />
             <div class="chart">
-              <scroll-table />
+              <scrollRankingBar />
             </div>
           </div>
         </border-box-13>

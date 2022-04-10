@@ -3,7 +3,7 @@
     <el-col v-for="(item, index) in component" :key="index" :span="6">
       <div class="item">
         <div class="inner">
-          <component :is="item.name" backgroundColor="rgba(6, 30, 93, 0.5)">
+          <component :is="item.name" backgroundColor="rgba(6, 30, 93, 0.5)" >
             <div
               class="copy"
               :data-clipboard-text="`<${item.name} color='' backgroundColor='' ${item.reverse ? 'reverse=\'true\'' : ''}>内容</${item.name}>`"
@@ -29,6 +29,7 @@ import { borderBoxComponents } from "@packages";
 import Clipboard from "clipboard";
 import { DocumentCopy } from "@element-plus/icons-vue";
 
+console.log(borderBoxComponents);
 const component = borderBoxComponents.map((item)=>{
   return {
     name: item.name,

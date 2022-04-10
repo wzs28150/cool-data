@@ -1,5 +1,6 @@
 import nodeResolve from "@rollup/plugin-node-resolve";
 import babel from "rollup-plugin-babel";
+import image from "@rollup/plugin-image";
 import commonjs from "rollup-plugin-commonjs";
 import { terser } from "rollup-plugin-terser";
 import vuePlugin from "rollup-plugin-vue";
@@ -56,55 +57,57 @@ const readFile = (path, filesList) => {
 };
 const config = geFileList(input).map(({ name, inputDir, outputDir }) => ({
   input: `${inputDir}/index.js`,
-  external: ["vue", "echarts"],
+  external: ["vue", "echarts", "particles.vue3"],
   plugins: [
     nodeResolve(),
+    image(),
     vuePlugin(),
     babel({
+      runtimeHelpers: true,
       exclude: "node_modules/**",
+      presets: ["@babel/preset-env"],
     }),
     commonjs(),
+    terser({
+      format: {
+        comments: false,
+      },
+    }),
   ],
   output: {
     name: "index",
     file: `${output}/${outputDir}/index.js`,
     format: "es",
-    plugins: [
-      terser({
-        format: {
-          comments: false,
-        },
-      }),
-    ],
   },
 }));
 config.push({
   input: `${input}/index.js`,
-  external: ["vue", "echarts"],
+  external: ["vue", "echarts", "particles.vue3"],
   globals: {
     vue: "Vue", // 我们的仓库实际依赖vue, vue是不需要打包的，所以这里说明我们用了一个全局变量vue
   },
   plugins: [
     nodeResolve(),
     vuePlugin(),
+    image(),
     babel({
+      runtimeHelpers: true,
       exclude: "node_modules/**",
+      presets: ["@babel/preset-env"],
     }),
     commonjs(),
+    terser({
+      format: {
+        comments: false,
+      },
+    }),
   ],
   output: [
     {
-      name: "CoolData",
+      name: "CoolDataPlus",
       file: `${output}/index.js`,
       format: "es",
-      sourcemap: true,
-      plugins: [
-        terser({
-          format: {
-            comments: false,
-          },
-        }),
-      ],
+      sourcemap: false,
     },
     // {
     //   file: `${output}/index.umd.js`,

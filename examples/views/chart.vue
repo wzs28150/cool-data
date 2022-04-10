@@ -25,7 +25,7 @@ import { useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
 const { easyv } = Theme;
 const router = useRouter()
-
+console.log(chartComponents);
 const component = computed(() => {
   return chartComponents.filter((item) => {
     return item.type == router.currentRoute.value.params.type

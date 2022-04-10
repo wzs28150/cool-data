@@ -42,7 +42,7 @@ const props = defineProps({
   },
   // 数据集
   dataset: {
-    type: Array,
+    type: [Array, Object],
     default: () => {
       return []
     }

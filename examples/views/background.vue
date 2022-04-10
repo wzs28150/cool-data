@@ -2,7 +2,7 @@
   <el-row class="list" :gutter="20">
     <el-col
       type="flex"
-      v-for="(item, index) in backgroundComponents[0]['list']"
+      v-for="(item, index) in list"
       :key="index"
       :span="6"
     >
@@ -11,7 +11,7 @@
           <el-image
             style="width: 100%; height: 100%"
             :src="item"
-            :preview-src-list="backgroundComponents[0]['list']"
+            :preview-src-list="list"
             lazy
           >
             <div slot="placeholder" class="image-slot">
@@ -45,7 +45,10 @@
 import { backgroundComponents } from "@packages";
 import { DocumentCopy, Download } from "@element-plus/icons-vue";
 import Clipboard from "clipboard";
-
+const list = backgroundComponents[0]['list'].map((item)=>{
+  return 'packages/' + item
+})
+console.log(list);
 const downloadImg = (url, name) => {
   const ele = document.createElement("a");
   ele.setAttribute("href", url);

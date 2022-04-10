@@ -17,8 +17,8 @@
       <polygon
         :fill="props.backgroundColor"
         :points="`
-          20, 32 ${width * 0.5 - props.titleWidth / 2}, 32 ${width * 0.5 - props.titleWidth / 2 + 20}, 53
-          ${width * 0.5 + props.titleWidth / 2 - 20}, 53 ${width * 0.5 + props.titleWidth / 2}, 32
+          20, 32 ${width * 0.5 - data.titleWidth / 2}, 32 ${width * 0.5 - data.titleWidth / 2 + 20}, 53
+          ${width * 0.5 + data.titleWidth / 2 - 20}, 53 ${width * 0.5 + data.titleWidth / 2}, 32
           ${width - 20}, 32 ${width - 8}, 48 ${width - 8}, ${height - 25} ${width - 20}, ${height - 8}
           20, ${height - 8} 8, ${height - 25} 8, 50
         `"
@@ -28,17 +28,17 @@
         :stroke="data.mergedColor[0]"
         :filter="`url(#${data.filterId})`"
         :points="`
-          ${(width - props.titleWidth) / 2}, 30
+          ${(width - data.titleWidth) / 2}, 30
           20, 30 7, 50 7, ${50 + (height - 167) / 2}
           13, ${55 + (height - 167) / 2} 13, ${135 + (height - 167) / 2}
           7, ${140 + (height - 167) / 2} 7, ${height - 27}
           20, ${height - 7} ${width - 20}, ${height - 7} ${width - 7}, ${height - 27}
           ${width - 7}, ${140 + (height - 167) / 2} ${width - 13}, ${135 + (height - 167) / 2}
           ${width - 13}, ${55 + (height - 167) / 2} ${width - 7}, ${50 + (height - 167) / 2}
-          ${width - 7}, 50 ${width - 20}, 30 ${(width + props.titleWidth) / 2}, 30
-          ${(width + props.titleWidth) / 2 - 20}, 7 ${(width - props.titleWidth) / 2 + 20}, 7
-          ${(width - props.titleWidth) / 2}, 30 ${(width - props.titleWidth) / 2 + 20}, 52
-          ${(width + props.titleWidth) / 2 - 20}, 52 ${(width + props.titleWidth) / 2}, 30
+          ${width - 7}, 50 ${width - 20}, 30 ${(width + data.titleWidth) / 2}, 30
+          ${(width + data.titleWidth) / 2 - 20}, 7 ${(width - data.titleWidth) / 2 + 20}, 7
+          ${(width - data.titleWidth) / 2}, 30 ${(width - data.titleWidth) / 2 + 20}, 52
+          ${(width + data.titleWidth) / 2 - 20}, 52 ${(width + data.titleWidth) / 2}, 30
         `"
       />
 
@@ -46,8 +46,8 @@
         :stroke="data.mergedColor[0]"
         fill="transparent"
         :points="`
-          ${(width + props.titleWidth) / 2 - 5}, 30 ${(width + props.titleWidth) / 2 - 21}, 11
-          ${(width + props.titleWidth) / 2 - 27}, 11 ${(width + props.titleWidth) / 2 - 8}, 34
+          ${(width + data.titleWidth) / 2 - 5}, 30 ${(width + data.titleWidth) / 2 - 21}, 11
+          ${(width + data.titleWidth) / 2 - 27}, 11 ${(width + data.titleWidth) / 2 - 8}, 34
         `"
       />
 
@@ -55,8 +55,8 @@
         :stroke="data.mergedColor[0]"
         fill="transparent"
         :points="`
-          ${(width - props.titleWidth) / 2 + 5}, 30 ${(width - props.titleWidth) / 2 + 22}, 49
-          ${(width - props.titleWidth) / 2 + 28}, 49 ${(width - props.titleWidth) / 2 + 8}, 26
+          ${(width - data.titleWidth) / 2 + 5}, 30 ${(width - data.titleWidth) / 2 + 22}, 49
+          ${(width - data.titleWidth) / 2 + 28}, 49 ${(width - data.titleWidth) / 2 + 8}, 26
         `"
       />
 
@@ -65,9 +65,9 @@
         :fill="fade(data.mergedColor[1] || data.defaultColor[1], 30)"
         :filter="`url(#${data.filterId})`"
         :points="`
-          ${(width + props.titleWidth) / 2 - 11}, 37 ${(width + props.titleWidth) / 2 - 32}, 11
-          ${(width - props.titleWidth) / 2 + 23}, 11 ${(width - props.titleWidth) / 2 + 11}, 23
-          ${(width - props.titleWidth) / 2 + 33}, 49 ${(width + props.titleWidth) / 2 - 22}, 49
+          ${(width + data.titleWidth) / 2 - 11}, 37 ${(width + data.titleWidth) / 2 - 32}, 11
+          ${(width - data.titleWidth) / 2 + 23}, 11 ${(width - data.titleWidth) / 2 + 11}, 23
+          ${(width - data.titleWidth) / 2 + 33}, 49 ${(width + data.titleWidth) / 2 - 22}, 49
         `"
       />
 
@@ -76,8 +76,8 @@
         :fill="data.mergedColor[0]"
         opacity="1"
         :points="`
-          ${(width - props.titleWidth) / 2 - 10}, 37 ${(width - props.titleWidth) / 2 - 31}, 37
-          ${(width - props.titleWidth) / 2 - 25}, 46 ${(width - props.titleWidth) / 2 - 4}, 46
+          ${(width - data.titleWidth) / 2 - 10}, 37 ${(width - data.titleWidth) / 2 - 31}, 37
+          ${(width - data.titleWidth) / 2 - 25}, 46 ${(width - data.titleWidth) / 2 - 4}, 46
         `"
       >
         <animate
@@ -94,8 +94,8 @@
         :fill="data.mergedColor[0]"
         opacity="0.7"
         :points="`
-          ${(width - props.titleWidth) / 2 - 40}, 37 ${(width - props.titleWidth) / 2 - 61}, 37
-          ${(width - props.titleWidth) / 2 - 55}, 46 ${(width - props.titleWidth) / 2 - 34}, 46
+          ${(width - data.titleWidth) / 2 - 40}, 37 ${(width - data.titleWidth) / 2 - 61}, 37
+          ${(width - data.titleWidth) / 2 - 55}, 46 ${(width - data.titleWidth) / 2 - 34}, 46
         `"
       >
         <animate
@@ -112,8 +112,8 @@
         :fill="data.mergedColor[0]"
         opacity="0.5"
         :points="`
-          ${(width - props.titleWidth) / 2 - 70}, 37 ${(width - props.titleWidth) / 2 - 91}, 37
-          ${(width - props.titleWidth) / 2 - 85}, 46 ${(width - props.titleWidth) / 2 - 64}, 46
+          ${(width - data.titleWidth) / 2 - 70}, 37 ${(width - data.titleWidth) / 2 - 91}, 37
+          ${(width - data.titleWidth) / 2 - 85}, 46 ${(width - data.titleWidth) / 2 - 64}, 46
         `"
       >
         <animate
@@ -130,8 +130,8 @@
         :fill="data.mergedColor[0]"
         opacity="1"
         :points="`
-          ${(width + props.titleWidth) / 2 + 30}, 37 ${(width + props.titleWidth) / 2 + 9}, 37
-          ${(width + props.titleWidth) / 2 + 3}, 46 ${(width + props.titleWidth) / 2 + 24}, 46
+          ${(width + data.titleWidth) / 2 + 30}, 37 ${(width + data.titleWidth) / 2 + 9}, 37
+          ${(width + data.titleWidth) / 2 + 3}, 46 ${(width + data.titleWidth) / 2 + 24}, 46
         `"
       >
         <animate
@@ -148,8 +148,8 @@
         :fill="data.mergedColor[0]"
         opacity="0.7"
         :points="`
-          ${(width + props.titleWidth) / 2 + 60}, 37 ${(width + props.titleWidth) / 2 + 39}, 37
-          ${(width + props.titleWidth) / 2 + 33}, 46 ${(width + props.titleWidth) / 2 + 54}, 46
+          ${(width + data.titleWidth) / 2 + 60}, 37 ${(width + data.titleWidth) / 2 + 39}, 37
+          ${(width + data.titleWidth) / 2 + 33}, 46 ${(width + data.titleWidth) / 2 + 54}, 46
         `"
       >
         <animate
@@ -166,8 +166,8 @@
         :fill="data.mergedColor[0]"
         opacity="0.5"
         :points="`
-          ${(width + props.titleWidth) / 2 + 90}, 37 ${(width + props.titleWidth) / 2 + 69}, 37
-          ${(width + props.titleWidth) / 2 + 63}, 46 ${(width + props.titleWidth) / 2 + 84}, 46
+          ${(width + data.titleWidth) / 2 + 90}, 37 ${(width + data.titleWidth) / 2 + 69}, 37
+          ${(width + data.titleWidth) / 2 + 63}, 46 ${(width + data.titleWidth) / 2 + 84}, 46
         `"
       >
         <animate
@@ -187,6 +187,7 @@
         font-size="18"
         text-anchor="middle"
         dominant-baseline="middle"
+        ref="text"
       >{{ title }}</text>
 
       <polygon
@@ -217,7 +218,7 @@
 <script setup name="BorderBox11">
 import autoResize from '../../util/autoResize';
 import { uuid, deepMerge, deepClone } from '../../util/index'
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import { fade } from '../../util/color';
 
 const props = defineProps({
@@ -225,13 +226,9 @@ const props = defineProps({
     type: Array,
     default: () => ([])
   },
-  titleWidth: {
-    type: Number,
-    default: 90
-  },
   title: {
     type: String,
-    default: ''
+    default: '标题标题'
   },
   backgroundColor: {
     type: String,
@@ -244,12 +241,13 @@ const props = defineProps({
 })
 
 const id = uuid()
-
+const text = ref()
 const data = reactive({
   ref: 'border-box-11',
   filterId: `border-box-11-filterId-${id}`,
   defaultColor: ['#8aaafb', '#1f33a2'],
-  mergedColor: []
+  mergedColor: [],
+  titleWidth: 0
 })
 // 处理尺寸
 const { width, height } = autoResize(data.ref)
@@ -260,5 +258,7 @@ const mergeColor = () => {
 
 onMounted(() => {
   mergeColor()
+  data.titleWidth = text.value.getBoundingClientRect().width + 80
+  console.log(data.titleWidth);
 })
 </script>

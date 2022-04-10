@@ -6,7 +6,7 @@ const cssmin = require('gulp-cssmin')
 const {
   clean,
   copyfont,
-  minifontCss,
+  copybg,
   config: { input, output }
 } = require('./gulpfile.base.js') // 基础方法
 // 编译 LESS
@@ -20,4 +20,4 @@ const compile = () =>
     )
     .pipe(cssmin())
     .pipe(dest(output))
-exports.build = series(clean, parallel(compile, copyfont, minifontCss))
+exports.build = series(clean, parallel(compile, copyfont,copybg))
