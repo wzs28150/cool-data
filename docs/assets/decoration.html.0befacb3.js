@@ -1,0 +1,1 @@
+const e={key:"v-8846f22e",path:"/components/decoration.html",title:"\u88C5\u9970\u5668",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u88C5\u9970\u56681",slug:"\u88C5\u9970\u56681",children:[]}],git:{updatedTime:1649646006e3,contributors:[{name:"wzs28150",email:"wz666s@163.com",commits:1}]},filePathRelative:"components/decoration.md"};export{e as data};

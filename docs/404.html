@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="generator" content="VuePress 2.0.0-beta.37">
+    <style>
+      :root {
+        --c-bg: #fff;
+      }
+      html.dark {
+        --c-bg: #22272e;
+      }
+      html, body {
+        background-color: var(--c-bg);
+      }
+    </style>
+    <script>
+      const userMode = localStorage.getItem('vuepress-color-scheme');
+			const systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			if (userMode === 'dark' || (userMode !== 'light' && systemDarkMode)) {
+				document.documentElement.classList.toggle('dark', true);
+			}
+    </script>
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"><title>Cool-Datav</title><meta name="description" content="Cool-Datav——一个专注可视化大屏的组件">
+    <link rel="modulepreload" href="/cool-data/docs/assets/app.bce09d20.js"><link rel="modulepreload" href="/cool-data/docs/assets/404.html.93146c89.js"><link rel="modulepreload" href="/cool-data/docs/assets/404.html.a34b9ad5.js">
+    <link rel="stylesheet" href="/cool-data/docs/assets/style.91a36717.css">
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme-container"><div class="theme-default-content"><h1>404</h1><blockquote>How did we get here?</blockquote><a href="/cool-data/docs/" class="">Take me home</a></div></div><!----><!--]--></div>
+    <script type="module" src="/cool-data/docs/assets/app.bce09d20.js" defer></script>
+  </body>
+</html>
