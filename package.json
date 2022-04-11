@@ -1,0 +1,46 @@
+{
+    "name": "cooldatav-cli",
+    "version": "1.5.0",
+    "description": "A cli for cooldatav",
+    "main": "index.js",
+    "directories": {
+        "lib": "lib"
+    },
+    "bin": {
+        "cooldatav": "./bin/cooldatav.js"
+    },
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wzs28150/cooldatav-cli.git"
+    },
+    "keywords": [
+        "weapp",
+        "cli",
+        "cooldatav",
+        "template",
+        "generate"
+    ],
+    "author": "wzs",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/wzs28150/cooldatav-cli/issues"
+    },
+    "homepage": "https://github.com/wzs28150/cooldatav-cli#readme",
+    "dependencies": {
+        "chalk": "^1.1.3",
+        "commander": "^2.20.3",
+        "cross-npm-spawn": "^1.1.1",
+        "cross-spawn": "^5.1.0",
+        "empty-dir": "^0.2.1",
+        "fs-exists-sync": "^0.1.0",
+        "inquirer": "^6.5.2",
+        "jsdom": "^9.12.0",
+        "ora": "^1.4.0",
+        "through2": "^3.0.1",
+        "validate-npm-package-name": "^3.0.0",
+        "vinyl-fs": "^2.4.4",
+        "webpack": "^2.7.0",
+        "which": "^1.3.1"
+    }
+}
