@@ -7,16 +7,52 @@
 
 ## 快速开始
 
-> 在 main.js 中引入组件库
+### 安装
 
-```javascript
+<CodeGroup>
+  <CodeGroupItem title="Vue3" active>
+
+```sh
+npm i cool-datav-plus -S
+```
+
+  </CodeGroupItem>
+  <CodeGroupItem title="Vue2" >
+
+```sh
+npm i cool-datav -S
+```
+
+  </CodeGroupItem>
+</CodeGroup>
+
+### 在 main.js 中引入组件库
+
+<CodeGroup>
+  <CodeGroupItem title="Vue3" active>
+
+```js
 // 全部引入
-import 'cool-data/dist/css/index.css'
-import CoolData from "cool-data";
-Vue.use(CoolData);
-
+import CoolDatavPlus from 'cool-datav-plus/lib/index';
+import 'cool-datav-plus/lib/css/index.css';
 // 按需引入
 import 'cool-data/dist/css/xxx.css'
+import { xxx } from "cool-datav-plus";
+Vue.use(xxx);
+``` 
+
+  </CodeGroupItem>
+  <CodeGroupItem title="Vue2" >
+
+```js
+// 全部引入
+import 'cool-datav/dist/css/index.css'
+import CoolDatav from "cool-data";
+Vue.use(CoolData);
+// 按需引入
+import 'cool-datav/dist/css/xxx.css'
 import { xxx } from "cool-data";
 Vue.use(xxx);
-```
+``` 
+  </CodeGroupItem>
+</CodeGroup>
