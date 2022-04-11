@@ -1,3 +1,10 @@
+
+let origin = ''
+let isClient = typeof window !== "undefined";
+if (isClient) {
+  console.log(window.location.host);
+  origin = window.location.hostname
+}
 module.exports = {
   lang: "zh-CN",
   title: "Cool-Datav",
@@ -29,36 +36,33 @@ module.exports = {
           "/components/chart.md",
           "/components/decoration.md",
           "/components/layout.md",
-          "/components/loading.md"
+          "/components/loading.md",
         ],
       },
       {
         text: "图表组件",
-        children: [
-          "/components/bar.md",
-          "/components/pie.md"
-        ],
+        children: ["/components/bar.md", "/components/pie.md"],
       },
       {
         text: "案例",
-        link: "https://wzs28150.github.io/cool-data/demo/index.html"
+        link: origin == 'wzs28150.github.io'? 'https://wzs28150.github.io': ( origin == 'harbin_kuchuang_network_wz666s.gitee.io'? 'https://harbin_kuchuang_network_wz666s.gitee.io' : '') + "/../case/index.html#/index",
       },
       {
-        text: "v1.0.8",
+        text: "v0.1.0",
         children: [
           {
-            text: "v1.0.8",
-            link: "/version.md#v1-0-5",
-          }
+            text: "v0.1.0",
+            link: "/version.md#v0.1.0",
+          },
         ],
       },
       {
         text: "github",
-        link: "https://github.com/wzs28150/cool-data",
+        link: "https://github.com/wzs28150/cool-data/docs",
       },
       {
         text: "gitee",
-        link: "https://gitee.com/harbin_kuchuang_network_wz666s/cool-data",
+        link: "https://gitee.com/harbin_kuchuang_network_wz666s/cool-data/docs",
       },
     ],
   },
