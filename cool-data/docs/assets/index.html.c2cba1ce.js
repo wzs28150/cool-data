@@ -1,1 +1,0 @@
-const e={key:"v-8daa1a0e",path:"/",title:"Cool-Data",lang:"zh-CN",frontmatter:{},excerpt:"",headers:[{level:2,title:"\u5FEB\u901F\u5F00\u59CB",slug:"\u5FEB\u901F\u5F00\u59CB",children:[]}],git:{updatedTime:164888669e4,contributors:[{name:"wzs28150",email:"wz666s@163.com",commits:1}]},filePathRelative:"index.md"};export{e as data};

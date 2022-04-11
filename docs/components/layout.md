@@ -18,14 +18,14 @@
 ## 模板一
 
 <br />
-<img :src="$withBase('/img/layout2.jpg')" width="100%" />
+<img :src="$withBase('/images/layout1.jpg')"  />
 
 ### 设置
 
 <div class="table-show">
 
-| 参数           | 说明                                                                                              | 类型    | 是否必要 | 默认值 |
-| -------------- | ------------------------------------------------------------------------------------------------- | ------- | -------- | ------ | ----- |
+| 参数             | 说明 | 类型    | 是否必要 | 默认值 |
+| ------------ | -------- |-------- |-------- |-------- |
 | leftSideWidth  | 左侧区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `22%` |
 | rightSideWidth | 右侧区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `22%` |
 | titleHeight    | 标题高度, 如设置数字则默认单位 px                                                                 | `String | Number`  | false  | `60`  |
@@ -49,14 +49,14 @@
 ## 模板二
 
 <br />
-<img :src="$withBase('/img/layout3.jpg')" width="100%" />
+<img :src="$withBase('/images/layout2.jpg')"  />
 
 ### 设置
 
 <div class="table-show">
 
-| 参数             | 说明                                                                                              | 类型    | 是否必要 | 默认值 |
-| ---------------- | ------------------------------------------------------------------------------------------------- | ------- | -------- | ------ | ------- |
+| 参数             | 说明 | 类型    | 是否必要 | 默认值 |
+| ------------ | -------- |-------- |-------- |-------- |
 | bottomSideHeight | 底部区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `30%`   |
 | sideWidth        | 侧边区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `50%`   |
 | titleHeight      | 标题高度, 如设置数字则默认单位 px                                                                 | `String | Number`  | false  | `60`    |
@@ -81,18 +81,17 @@
 ## 模板三
 
 <br />
-<img :src="$withBase('/img/layout4.jpg')" width="100%" />
+<img :src="$withBase('/images/layout3.jpg')"  />
 
 ### 设置
 
 <div class="table-show">
 
-| 参数             | 说明                                                                                              | 类型    | 是否必要 | 默认值 |
-| ---------------- | ------------------------------------------------------------------------------------------------- | ------- | -------- | ------ | ------- |
-| bottomSideHeight | 底部区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `30%`   |
- titleHeight      | 标题高度, 如设置数字则默认单位 px                                                                 | `String | Number`  | false  | `60`    |
- immerse          | 设置是否沉浸, 如设置`true`则为沉浸模式, 主区域铺面整屏, 如设置`false`则为非沉浸模式, 主区域为区块 | `String | Number`  | false  | `60`    |
-
+| 参数             | 说明 | 类型    | 是否必要 | 默认值 |
+| ------------ | -------- |-------- |-------- |-------- |
+| bottomSideHeight | 底部区域宽度, 如设置数字则默认单位 px                                                             | `String | Number`  | false  | `30%` |
+| titleHeight      | 标题高度, 如设置数字则默认单位 px                                                                 | `String | Number`  | false  | `60`  |
+| immerse          | 设置是否沉浸, 如设置`true`则为沉浸模式, 主区域铺面整屏, 如设置`false`则为非沉浸模式, 主区域为区块 | `String | Number`  | false  | `60`  |
 </div>
 
 ### 插槽

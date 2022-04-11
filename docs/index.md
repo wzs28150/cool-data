@@ -1,4 +1,4 @@
-# Cool-Data
+# Cool-Datav
 
 <!-- <a href="https://www.npmjs.com/package/coolui-scroller"><img src="https://img.shields.io/npm/v/coolui-scroller.svg" alt="Version"></a>&nbsp;
 <a href="https://www.npmjs.com/package/coolui-scroller"><img src="https://img.shields.io/npm/l/coolui-scroller.svg" alt="License"></a>&nbsp;
@@ -36,7 +36,7 @@ npm i cool-datav -S
 import CoolDatavPlus from 'cool-datav-plus/lib/index';
 import 'cool-datav-plus/lib/css/index.css';
 // 按需引入
-import 'cool-data/dist/css/xxx.css'
+import 'cool-datav-plus/lib/css/xxx.css'
 import { xxx } from "cool-datav-plus";
 Vue.use(xxx);
 ``` 
@@ -56,3 +56,21 @@ Vue.use(xxx);
 ``` 
   </CodeGroupItem>
 </CodeGroup>
+
+### 使用cli创建项目
+
+#### 全局安装cli
+```sh
+npm i cooldatav-cli -g
+```
+#### 利用cli命令，根据提示创建，
+```sh
+cooldatav init <你的项目名称>
+```
+#### 截图
+<br />
+<img :src="$withBase('/images/cli1.png')" />
+<img :src="$withBase('/images/cli2.png')" />
+<img :src="$withBase('/images/cli3.png')" />
+<img :src="$withBase('/images/cli4.png')" />
+<img :src="$withBase('/images/cli5.png')" />

@@ -29,7 +29,7 @@
           :cy="height * 0.5"
           :stroke="data.mergedColor[0]"
           stroke-width="2"
-          :fill="data.mergedColor[2]"
+          :fill="data.mergedColor[1]"
           :fill-opacity="1"
           :filter="`url(#inset-shadow-${id})`"
         />
@@ -119,7 +119,7 @@ const text = ref()
 const data = reactive({
   ref: 'decoration-1',
   filterId: `decoration-1-filterId-${id}`,
-  defaultColor: ['#8aaafb', '#ffffff', '#08192d'],
+  defaultColor: ['#8aaafb', '#08192d'],
   mergedColor: []
 })
 // 处理尺寸

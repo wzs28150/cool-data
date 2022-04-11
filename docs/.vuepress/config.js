@@ -1,7 +1,7 @@
 module.exports = {
   lang: "zh-CN",
-  title: "Cool-Data",
-  description: "Cool-Data——一个专注可视化大屏的组件",
+  title: "Cool-Datav",
+  description: "Cool-Datav——一个专注可视化大屏的组件",
   base: "/cool-data/docs/",
   dest: "./cool-data/docs/",
   head: [
