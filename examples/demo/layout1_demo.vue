@@ -25,8 +25,8 @@
         </div>
       </border-box-11>
       <border-box-11 title="标题标题">
-        <div style="padding-top:40px; height: 100%; box-sizing: border-box;">
-          <pie-2 style=" flex: 1;" />
+        <div style="margin-top:40px; height: calc(100% - 40px); ">
+          <pie-8 style=" flex: 1;" />
         </div>
       </border-box-11>
       <border-box-11 title="标题标题">

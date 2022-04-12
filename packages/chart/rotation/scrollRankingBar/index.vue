@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-scroll-ranking-board"  :ref="thisData.ref">
+  <div class="scroll-ranking-bar"  :ref="thisData.ref">
     <div class="dv-scroll-ranking-board-inner" :style="`height: ${height}px;`">
       <div
         class="row-item"
@@ -134,7 +134,7 @@ const calcHeights = (onresize = false) => {
   // console.log(height.value);
   const { rowNum, data } = mergedConfig.value
   const avgHeight = height.value / rowNum
-  console.log(avgHeight);
+  // console.log(avgHeight);
   thisData.avgHeight = avgHeight
   if (!onresize) thisData.heights = new Array(data.length).fill(avgHeight)
 }

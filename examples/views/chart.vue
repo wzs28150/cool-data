@@ -3,12 +3,13 @@
     <el-col type="flex" v-for="(item, index) in component" :key="index" :span="6">
       <div class="item" v-if="item.type == $route.params.type">
         <div class="inner">
-          <component :is="item.name" :theme="easyv"></component>
-          <div
-            class="copy"
-            :data-clipboard-text="`<${item.name} :dataset='' :theme='' :option='' />`"
-            @click="copy"
-          >
+          <template v-if="item.type == 'digitalflop'">
+            <component :is="item.name" :num="num"></component>
+            <div class="digitalflopclick" @click="changeNum" style="">点击切换数字</div>
+          </template>
+
+          <component v-else :is="item.name" :theme="easyv"></component>
+          <div class="copy" :data-clipboard-text="`<${item.name} :dataset='' :theme='' :option='' />`" @click="copy">
             <div class="item-title">{{ item.title }}</div>
             <div class="copy-tip">点击复制代码</div>
           </div>
@@ -25,7 +26,8 @@ import { useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
 const { easyv } = Theme;
 const router = useRouter()
-console.log(chartComponents);
+const num = ref(123.44)
+// console.log(chartComponents);
 const component = computed(() => {
   return chartComponents.filter((item) => {
     return item.type == router.currentRoute.value.params.type
@@ -55,16 +57,22 @@ const copy = () => {
     clipboard.destroy()
   })
 }
+
+const changeNum = () => {
+  num.value = Math.ceil(Math.random() * 10000) + '.' + Math.ceil(Math.random() * 100);
+}
 </script>
 
 <style lang="less" scoped>
 .list {
   width: 100%;
+
   .item {
     position: relative;
     background-color: rgba(6, 30, 93, 0.5);
     margin-bottom: 20px;
     overflow: hidden;
+
     &::after {
       content: "";
       display: block;
@@ -77,12 +85,14 @@ const copy = () => {
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
+
     &::before {
       content: "";
       display: block;
       width: 100%;
       padding-bottom: 80%;
     }
+
     .inner {
       position: absolute;
       width: 100%;
@@ -92,10 +102,23 @@ const copy = () => {
       padding-bottom: 40px;
       box-sizing: border-box;
       overflow: hidden;
-      & > div {
+
+      &>div {
         width: 100%;
         margin: 0 auto;
       }
+
+      .digitalflopclick {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #fff;
+        cursor: pointer;
+        text-align: right;
+        padding: 10px;
+        font-size: 14px;
+      }
+
       .copy {
         cursor: pointer;
         position: absolute;
@@ -114,12 +137,14 @@ const copy = () => {
         // opacity: 0;
         // visibility: hidden;
         transition: all 0.4s;
+
         .item-title {
           color: #fff;
           font-size: 14px;
           font-weight: bold;
           // margin-bottom: 10px;
         }
+
         .copy-tip {
           color: #fff;
           font-size: 14px;

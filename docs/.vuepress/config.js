@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         text: "图表组件",
-        children: ["/components/bar.md", "/components/pie.md"],
+        children: ["/components/bar.md", "/components/pie.md", "/components/digitalflop.md"],
       },
       {
         text: "案例",

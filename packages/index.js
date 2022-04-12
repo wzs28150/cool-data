@@ -31,9 +31,26 @@ import Pie3 from './chart/pie/pie3';
 import Pie4 from './chart/pie/pie4';
 import Pie5 from './chart/pie/pie5';
 import Pie6 from './chart/pie/pie6';
+import Pie7 from './chart/pie/pie7';
+import Pie8 from './chart/pie/pie8';
+
+import Line1 from './chart/line/line1';
+import Line2 from './chart/line/line2';
+import Line3 from './chart/line/line3';
+import Line4 from './chart/line/line4';
+import Line5 from './chart/line/line5';
+import Line6 from './chart/line/line6';
+
+import WaterLevel1 from './chart/waterlevel/waterlevel1';
 
 import ScrollRankingBar from './chart/rotation/scrollRankingBar';
+import ScrollRankingBar2 from './chart/rotation/scrollRankingBar2';
+import ScrollRankingBar3 from './chart/rotation/scrollRankingBar3';
+import ScrollRankingBar4 from './chart/rotation/scrollRankingBar4';
 import ScrollTable from './chart/rotation/scrollTable';
+
+import DigitalFlop1 from './chart/digitalflop/digitalflop1';
+import DigitalFlop2 from './chart/digitalflop/digitalflop2';
 
 import Title1 from './title/title1';
 import Title2 from './title/title2';
@@ -68,6 +85,20 @@ import Layout1 from './layout/layout1';
 import Layout2 from './layout/layout2';
 import Layout3 from './layout/layout3';
 import Layout4 from './layout/layout4';
+
+import classic from './theme/classic';
+import quiet from './theme/quiet';
+import soft from './theme/soft';
+import easyv from './theme/easyv';
+import purple from './theme/purple';
+import elegant from './theme/elegant';
+import bright from './theme/bright';
+import business from './theme/business';
+import nostalgia from './theme/nostalgia';
+import fresh from './theme/fresh';
+import gradual from './theme/gradual';
+import retro from './theme/retro';
+import news from './theme/news';
 
 // 边框组件
 export const borderBoxComponents = [
@@ -106,8 +137,22 @@ export const chartComponents = [
   Pie4,
   Pie5,
   Pie6,
+  Pie7,
+  Pie8,
+  Line1,
+  Line2,
+  Line3,
+  Line4,
+  Line5,
+  Line6,
+  WaterLevel1,
+  ScrollTable,
   ScrollRankingBar,
-  ScrollTable
+  ScrollRankingBar2,
+  ScrollRankingBar3,
+  ScrollRankingBar4,
+  DigitalFlop1,
+  DigitalFlop2
 ];
 
 // 标题组件
@@ -176,7 +221,21 @@ const components = [
   ...layoutComponents
 ];
 // 加载主题颜色
-export const Theme = {};
+export const Theme = {
+  classic: classic.theme,
+  quiet: quiet.theme,
+  soft: soft.theme,
+  easyv: easyv.theme,
+  purple: purple.theme,
+  elegant: elegant.theme,
+  bright: bright.theme,
+  business: business.theme,
+  nostalgia: nostalgia.theme,
+  fresh: fresh.theme,
+  gradual: gradual.theme,
+  retro: retro.theme,
+  news: news.theme,
+};
 
 
 const install = (app) => {

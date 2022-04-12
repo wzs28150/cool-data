@@ -73,14 +73,12 @@
 
               <el-menu-item index="/chart/bar">柱状图</el-menu-item>
               <el-menu-item index="/chart/pie">饼形图</el-menu-item>
-              <el-menu-item index="/chart/pie">折线图</el-menu-item>
-              <el-menu-item index="/chart/pie">曲线图</el-menu-item>
-              <el-menu-item index="/chart/pie">面积图</el-menu-item>
+              <el-menu-item index="/chart/line">折线图</el-menu-item>
               <el-menu-item index="/chart/pie">雷达图</el-menu-item>
               <el-menu-item index="/chart/pie">仪表盘</el-menu-item>
-              <el-menu-item index="/chart/pie">水位图</el-menu-item>
+              <el-menu-item index="/chart/waterlevel">水位图</el-menu-item>
               <el-menu-item index="/chart/rotation">轮播</el-menu-item>
-              <el-menu-item index="/chart/pie">数字翻牌器</el-menu-item>
+              <el-menu-item index="/chart/digitalflop">数字翻牌器</el-menu-item>
               <el-menu-item index="/chart/other">其他</el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/font">
