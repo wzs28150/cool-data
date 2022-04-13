@@ -42,6 +42,11 @@ import Line5 from './chart/line/line5';
 import Line6 from './chart/line/line6';
 
 import WaterLevel1 from './chart/waterlevel/waterlevel1';
+import WaterLevel2 from './chart/waterlevel/waterlevel2';
+
+import Gauge1 from './chart/gauge/gauge1';
+import Gauge2 from './chart/gauge/gauge2';
+import Gauge3 from './chart/gauge/gauge3';
 
 import ScrollRankingBar from './chart/rotation/scrollRankingBar';
 import ScrollRankingBar2 from './chart/rotation/scrollRankingBar2';
@@ -146,13 +151,17 @@ export const chartComponents = [
   Line5,
   Line6,
   WaterLevel1,
+  WaterLevel2,
   ScrollTable,
   ScrollRankingBar,
   ScrollRankingBar2,
   ScrollRankingBar3,
   ScrollRankingBar4,
   DigitalFlop1,
-  DigitalFlop2
+  DigitalFlop2,
+  Gauge1,
+  Gauge2,
+  Gauge3
 ];
 
 // 标题组件

@@ -26,7 +26,7 @@ import { DocumentCopy } from "@element-plus/icons-vue";
 const fontList = ref([
   'acens',
   'avenir-next',
-  'igital-7',
+  'digital-7',
   'din',
   'segoeui',
   'ds-digital'
