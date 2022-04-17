@@ -13,11 +13,11 @@
 <script setup>
 import { layoutComponents } from "@packages";
 
-const component = layoutComponents.map((item)=>{
+const component = Object.keys(layoutComponents).map((item) => {
   return {
-    name: item.name,
-    title: item.title,
-    pic: item.pic
+    name: layoutComponents[item].name,
+    title: layoutComponents[item].title,
+    pic: layoutComponents[item].pic,
   }
 })
 console.log(component);

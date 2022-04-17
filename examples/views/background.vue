@@ -45,7 +45,7 @@
 import { backgroundComponents } from "@packages";
 import { DocumentCopy, Download } from "@element-plus/icons-vue";
 import Clipboard from "clipboard";
-const list = backgroundComponents[0]['list'].map((item)=>{
+const list = backgroundComponents['Background']['list'].map((item)=>{
   return 'packages/' + item
 })
 console.log(list);

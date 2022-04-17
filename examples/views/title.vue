@@ -28,10 +28,10 @@
 import { titleComponents } from "@packages";
 import Clipboard from "clipboard";
 import { DocumentCopy } from "@element-plus/icons-vue";
-const component = titleComponents.map((item)=>{
+const component = Object.keys(titleComponents).map((item) => {
   return {
-    name: item.name,
-    height: item.height
+    name: titleComponents[item].name,
+    height: titleComponents[item].height
   }
 })
 

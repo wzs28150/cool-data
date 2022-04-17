@@ -1,6 +1,6 @@
 <template>
   <v-chart
-    ref="bar2"
+    ref="pie1"
     class="chart"
     autoresize
     :init-options="initOptions"
@@ -11,7 +11,7 @@
 <script setup>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart } from "echarts/charts";
+import { PieChart, GaugeChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -28,7 +28,8 @@ const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
-  BarChart,
+  PieChart,
+  GaugeChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -39,7 +40,7 @@ use([
 const props = defineProps({
   option: {
     type: Object,
-    default: ()=>{
+    default: () => {
       return {}
     }
   },
@@ -47,21 +48,22 @@ const props = defineProps({
   dataset: {
     type: [Array, Object],
     default: () => {
-      return []
+      return [];
     }
   },
-  // 主题设置
   theme: {
-    type: Object,
-    default: ()=>{
-      return easyv
-    }
+    type: [Object, null],
+    default: null
+  },
+  title: {
+    type: String,
+    default: ''
   }
 })
 
 const id = uuid()
 const initOptions = reactive({
-  renderer: 'canvas',
+  renderer: 'svg',
   id
 })
 
@@ -73,18 +75,37 @@ let mergedOption = computed(() => {
 const mergeOption = async () => {
   const { dataset } = props
 
-  if (dataset.length > 0) {
+  if (dataset.dimensions) {
     mergedOption.value.dataset = dataset
   }
 
-  const dataLen = mergedOption.value.dataset.dimensions.length
-  const seriesItem = mergedOption.value.series[0]
-  for (let i = 0; i < dataLen - 1; i++) {
-    mergedOption.value.series[i] = seriesItem
+  addLegend()
+  addTitle()
+}
+
+const addLegend = () => {
+  const { legend, dataset } = mergedOption.value
+  legend.formatter = (name) => {
+    const item = dataset.source.filter((item) => item[dataset.dimensions[0]] === name)[0];
+    return (
+      name + `\n(${item[dataset.dimensions[1]]}条)`
+    );
   }
 }
 
-onMounted(async() => {
+const addTitle = () => {
+  let { title, dataset } = mergedOption.value
+  if (props.title) {
+    title.subtext = props.title
+  }
+  let total = 0
+  dataset.source.map(item => {
+
+  })
+  title.text = total
+}
+
+onMounted(async () => {
   mergeOption();
 })
 </script>

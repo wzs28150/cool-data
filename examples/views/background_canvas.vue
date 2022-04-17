@@ -25,13 +25,17 @@
 
 <script setup>
 import { backgroundComponents } from "@packages";
-const component = backgroundComponents.filter((item)=>{
-  return item.name != "Background"
-}).map((item)=>{
-  return {
-    name: item.name,
-    reverse: item.props.reverse?item.props.reverse:false
-  }
+import {computed} from "vue"
+const component = computed(() => {
+  let componentArr = []
+  Object.keys(backgroundComponents).map((item) => {
+    if (backgroundComponents[item].name != "Background") {
+      componentArr.push({
+        name: backgroundComponents[item].name,
+      })
+    }
+  })
+  return componentArr
 })
 </script>
 

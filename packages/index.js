@@ -33,6 +33,7 @@ import Pie5 from './chart/pie/pie5';
 import Pie6 from './chart/pie/pie6';
 import Pie7 from './chart/pie/pie7';
 import Pie8 from './chart/pie/pie8';
+import Pie9 from './chart/pie/pie9';
 
 import Line1 from './chart/line/line1';
 import Line2 from './chart/line/line2';
@@ -43,6 +44,9 @@ import Line6 from './chart/line/line6';
 
 import WaterLevel1 from './chart/waterlevel/waterlevel1';
 import WaterLevel2 from './chart/waterlevel/waterlevel2';
+
+import Radar1 from './chart/radar/radar1';
+import Radar2 from './chart/radar/radar2';
 
 import Gauge1 from './chart/gauge/gauge1';
 import Gauge2 from './chart/gauge/gauge2';
@@ -106,7 +110,7 @@ import retro from './theme/retro';
 import news from './theme/news';
 
 // 边框组件
-export const borderBoxComponents = [
+export const borderBoxComponents = {
   BorderBox1,
   BorderBox2,
   BorderBox3,
@@ -120,10 +124,10 @@ export const borderBoxComponents = [
   BorderBox11,
   BorderBox12,
   BorderBox13
-];
+};
 
 // 图表组件
-export const chartComponents = [
+export const chartComponents = {
   Bar1,
   Bar2,
   Bar3,
@@ -144,6 +148,7 @@ export const chartComponents = [
   Pie6,
   Pie7,
   Pie8,
+  Pie9,
   Line1,
   Line2,
   Line3,
@@ -161,11 +166,13 @@ export const chartComponents = [
   DigitalFlop2,
   Gauge1,
   Gauge2,
-  Gauge3
-];
+  Gauge3,
+  Radar1,
+  Radar2
+};
 
 // 标题组件
-export const titleComponents = [
+export const titleComponents = {
   Title1,
   Title2,
   Title3,
@@ -173,53 +180,50 @@ export const titleComponents = [
   Title5,
   Title6,
   Title7,
-  Title8,
-];
+  Title8
+};
 
 // 模块标题组件
-export const moduleTitleComponents = [
+export const moduleTitleComponents = {
   ModuleTitle1,
   ModuleTitle2,
   ModuleTitle3,
   ModuleTitle4,
   ModuleTitle5,
   ModuleTitle6,
-  ModuleTitle7,
-];
+  ModuleTitle7
+};
 
 // 装饰器组件
-export const decorationComponents = [
+export const decorationComponents = {
   Decoration1
-];
+};
 
 // 背景组件
-export const backgroundComponents = [
+export const backgroundComponents = {
   Background,
   BackgroundCanvas1,
   BackgroundCanvas2,
   BackgroundCanvas3
-];
-
+};
 
 // 加载组件
-export const loadingComponents = [
+export const loadingComponents = {
   Loading1,
   Loading2,
   Loading3,
-  Loading4,
-];
-
+  Loading4
+};
 
 // 加载模板组件
-export const layoutComponents = [
+export const layoutComponents = {
   Layout1,
   Layout2,
   Layout3,
-  Layout4,
-];
+  Layout4
+};
 
-
-const components = [
+const components = {
   ...borderBoxComponents,
   ...chartComponents,
   ...titleComponents,
@@ -228,7 +232,7 @@ const components = [
   ...backgroundComponents,
   ...loadingComponents,
   ...layoutComponents
-];
+};
 // 加载主题颜色
 export const Theme = {
   classic: classic.theme,
@@ -243,21 +247,110 @@ export const Theme = {
   fresh: fresh.theme,
   gradual: gradual.theme,
   retro: retro.theme,
-  news: news.theme,
+  news: news.theme
 };
-
 
 const install = (app) => {
   // console.log(app);
   if (install.installed) return;
-  components.forEach((component) => app.component(component.name, component));
+  Object.keys(components).forEach((item) =>
+    app.component(components[item].name, components[item])
+  );
 };
 
-if (typeof window !== "undefined" && window.Vue) {
-  install(window.Vue.createApp({}));
+const CoolDataPlus = {
+  version: '0.4.1',
+  install
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue);
 }
 
-export default {
+export {
   install,
-  ...components,
+  BorderBox1,
+  BorderBox2,
+  BorderBox3,
+  BorderBox4,
+  BorderBox5,
+  BorderBox6,
+  BorderBox7,
+  BorderBox8,
+  BorderBox9,
+  BorderBox10,
+  BorderBox11,
+  BorderBox12,
+  BorderBox13,
+  Bar1,
+  Bar2,
+  Bar3,
+  Bar4,
+  Bar5,
+  Bar6,
+  Bar7,
+  Bar8,
+  Bar9,
+  Bar10,
+  Bar11,
+  Bar12,
+  Pie1,
+  Pie2,
+  Pie3,
+  Pie4,
+  Pie5,
+  Pie6,
+  Pie7,
+  Pie8,
+  Pie9,
+  Line1,
+  Line2,
+  Line3,
+  Line4,
+  Line5,
+  Line6,
+  WaterLevel1,
+  WaterLevel2,
+  ScrollTable,
+  ScrollRankingBar,
+  ScrollRankingBar2,
+  ScrollRankingBar3,
+  ScrollRankingBar4,
+  DigitalFlop1,
+  DigitalFlop2,
+  Gauge1,
+  Gauge2,
+  Gauge3,
+  Radar1,
+  Radar2,
+  Title1,
+  Title2,
+  Title3,
+  Title4,
+  Title5,
+  Title6,
+  Title7,
+  Title8,
+  ModuleTitle1,
+  ModuleTitle2,
+  ModuleTitle3,
+  ModuleTitle4,
+  ModuleTitle5,
+  ModuleTitle6,
+  ModuleTitle7,
+  Decoration1,
+  Background,
+  BackgroundCanvas1,
+  BackgroundCanvas2,
+  BackgroundCanvas3,
+  Loading1,
+  Loading2,
+  Loading3,
+  Loading4,
+  Layout1,
+  Layout2,
+  Layout3,
+  Layout4
 };
+
+export default CoolDataPlus;

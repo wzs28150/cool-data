@@ -7,8 +7,10 @@ import {uglify} from 'rollup-plugin-uglify';
 import cleanup from 'rollup-plugin-cleanup';
 import vuePlugin from "rollup-plugin-vue";
 import fs from "fs"; // 写文件
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import { resolve, relative, basename, dirname } from "path";
 
+const isProd = process.env.NODE_ENV === "production"
 const input = resolve(__dirname, "../packages"); // 入口文件
 const output = resolve(__dirname, "../lib"); // 输出文件
 const geFileList = (path) => {
@@ -86,27 +88,25 @@ let config = []
 // }));
 config.push({
   input: `${input}/index.js`,
-  external: ["vue", "echarts", "particles.vue3"],
-  globals: {
-    vue: "Vue", // 我们的仓库实际依赖vue, vue是不需要打包的，所以这里说明我们用了一个全局变量vue
-  },
+  external: ["vue", "echarts", "particles.vue3", /@babel\/runtime/],
   plugins: [
+    peerDepsExternal({
+      includeDependencies: true,
+    }),
     nodeResolve(),
     vuePlugin(),
     image(),
     babel({
       runtimeHelpers: true,
-      exclude: "node_modules/**",
+      exclude: "**/node_modules/**",
       presets: ["@babel/preset-env"],
     }),
-    commonjs(),
+    commonjs({sourceMap: !isProd}),
     terser({
       format: {
         comments: false,
       },
-    }),
-    uglify(),
-    cleanup()
+    })
   ],
   output: [
     {
@@ -118,60 +118,58 @@ config.push({
     // {
     //   file: `${output}/index.umd.js`,
     //   // exports: "default",
-    //   name: "CoolData",
-    //   // sourcemap: true,
+    //   name: "CoolDataPlus",
+    //   sourcemap: true,
     //   format: "umd",
     //   globals: {
     //     vue: "vue",
+    //     echarts: "echarts"
     //   },
-    //   exports: 'named'
+    //   // exports: 'named'
     // },
   ],
 });
 
-config.push({
-  input: `${input}/chart.js`,
-  external: ["vue", "echarts", "particles.vue3"],
-  globals: {
-    vue: "Vue",
-    echarts: "echarts"
-  },
-  plugins: [
-    nodeResolve(),
-    vuePlugin(),
-    image(),
-    babel({
-      runtimeHelpers: true,
-      exclude: "node_modules/**",
-      presets: ["@babel/preset-env"],
-    }),
-    commonjs(),
-    terser({
-      format: {
-        comments: false,
-      },
-    }),
-    uglify(),
-    cleanup()
-  ],
-  output: [
-    {
-      name: "CoolDataPlusChart",
-      file: `${output}/chart.js`,
-      format: "es",
-      sourcemap: true,
-    },
-    // {
-    //   file: `${output}/index.umd.js`,
-    //   // exports: "default",
-    //   name: "CoolData",
-    //   // sourcemap: true,
-    //   format: "umd",
-    //   globals: {
-    //     vue: "vue",
-    //   },
-    //   exports: 'named'
-    // },
-  ],
-});
+// config.push({
+//   input: `${input}/chart.js`,
+//   external: ["vue", "echarts"],
+//   plugins: [
+//     nodeResolve(),
+//     vuePlugin(),
+//     image(),
+//     babel({
+//       runtimeHelpers: true,
+//       exclude: "node_modules/**",
+//       presets: ["@babel/preset-env"],
+//     }),
+//     commonjs(),
+//     terser({
+//       format: {
+//         comments: false,
+//       },
+//     }),
+//     uglify(),
+//     cleanup()
+//   ],
+//   output: [
+//     {
+//       name: "CoolDataPlusChart",
+//       file: `${output}/chart.js`,
+//       format: "es",
+//       sourcemap: true,
+//     },
+//     // {
+//     //   file: `${output}/index.umd.js`,
+//     //   // exports: "default",
+//     //   name: "CoolData",
+//     //   // sourcemap: true,
+//     //   format: "umd",
+//     //   globals: {
+//     //     vue: "vue",
+//     //     echarts: "echarts"
+//     //   },
+//     //   exports: 'named'
+//     // },
+//   ],
+// });
 export default config;

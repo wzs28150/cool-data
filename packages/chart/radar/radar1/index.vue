@@ -1,41 +1,38 @@
 <template>
   <v-chart
-    ref="bar9"
+    ref="radar1"
     class="chart"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
 import { use, graphic } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart, ScatterChart } from "echarts/charts";
+import { RadarChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  TransformComponent,
   DatasetComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
-import { toRgb } from '../../../util/color';
 import easyv from "../../../theme/easyv.js"
+import { toRgb } from '../../../util/color';
 
 use([
   CanvasRenderer,
-  BarChart,
-  ScatterChart,
+  RadarChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  TransformComponent,
   DatasetComponent
 ]);
 
@@ -79,39 +76,53 @@ const mergeOption = async () => {
   if (dataset.length > 0) {
     mergedOption.value.dataset = dataset
   }
-  const dataLen = mergedOption.value.dataset.dimensions.length - 1
-  mergedOption.value.dataset = [
-    mergedOption.value.dataset
-  ]
 
-  let seriesItem = mergedOption.value.series[0];
-  let dottedItem = mergedOption.value.series[1];
-  for (let i = 0; i < dataLen; i++) {
-    mergedOption.value.dataset[i + 1] = {
-      transform: {
-        type: 'filter',
-        config: { dimension: mergedOption.value.dataset[0].dimensions[i + 1], '>': 0 }
-      }
-    }
-    // 处理主题颜色渐变
-    let seriesItemOption = deepClone(seriesItem, true);
+  // const dataLen = mergedOption.value.dataset.dimensions.length
+  // const seriesItem = mergedOption.value.series[0]
+  // for (let i = 0; i < dataLen - 1; i++) {
+  //   mergedOption.value.series[i] = seriesItem
+  // }
+  addRadar()
+  setAreaBg()
+}
+// 添加雷达的坐标系
+const addRadar = () => {
+  const { radar, dataset } = mergedOption.value
+  console.log(dataset.dimensions);
+  radar.indicator = []
+  radar.radius = '70%'
+  radar.center = ['50%', '50%']
+  dataset.max.map((item, index) => {
+    radar.indicator.push({
+      name: dataset.dimensions[index + 1],
+      max: item
+    })
+  })
+}
+// 添加雷达的背景色
+const setAreaBg = () => {
+  const { dataset, series } = mergedOption.value
+  let { theme } = props
+  dataset.source.map((item, i) => {
     let color = null
-    let { theme } = props
     if (typeof (theme.color[i]) == 'object') {
       color = theme.color[i].colorStops[0].color
     } else {
       color = theme.color[i]
     }
-    seriesItemOption.itemStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
-      { offset: 0, color: toRgb(color, 1) },
-      { offset: 1, color: toRgb(color, 0.1) }
-    ])
-    mergedOption.value.series[i] = seriesItemOption
-    mergedOption.value.series[i + dataLen] = {
-      ...dottedItem,
-      datasetIndex: 1
-    }
-  }
+    console.log(color);
+    series.push({
+      type: 'radar',
+      areaStyle: {
+        color: new graphic.LinearGradient(0, 0, 1, 1, [
+          { offset: 0, color: toRgb(color, 1) },
+          { offset: 0.5, color: 'rgba(0,0,0,0)' },
+          { offset: 1, color: toRgb(color, 1) }
+        ]),
+        opacity: 1 // 区域透明度
+      }
+    })
+  })
 }
 
 onMounted(async () => {

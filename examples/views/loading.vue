@@ -24,9 +24,9 @@
 <script setup>
 import { loadingComponents } from "@packages";
 
-const component = loadingComponents.map((item) => {
+const component = Object.keys(loadingComponents).map((item) => {
   return {
-    name: item.name
+    name: loadingComponents[item].name
   }
 })
 </script>

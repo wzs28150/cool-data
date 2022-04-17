@@ -27,18 +27,32 @@ import { computed, ref } from 'vue';
 const { easyv } = Theme;
 const router = useRouter()
 const num = ref(123.44)
-// console.log(chartComponents);
+
 const component = computed(() => {
-  return chartComponents.filter((item) => {
-    return item.type == router.currentRoute.value.params.type
-  }).map((item) => {
-    return {
-      name: item.name,
-      type: item.type,
-      title: item.title
+  let componentArr = []
+  Object.keys(chartComponents).map((item) => {
+    if (chartComponents[item].type == router.currentRoute.value.params.type) {
+      componentArr.push({
+        name: chartComponents[item].name,
+        type: chartComponents[item].type,
+        title: chartComponents[item].title
+      })
     }
   })
+  return componentArr
 })
+
+// const component = computed(() => {
+//   return Object.keys(chartComponents).filter((item) => {
+//     return item.type == router.currentRoute.value.params.type
+//   }).map((item) => {
+//     return {
+//       name: item.name,
+//       type: item.type,
+//       title: item.title
+//     }
+//   })
+// })
 // console.log(router.currentRoute.value.params.type);
 const copy = () => {
   const clipboard = new Clipboard('.copy');

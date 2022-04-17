@@ -38,10 +38,10 @@
 import { moduleTitleComponents } from "@packages";
 import Clipboard from "clipboard";
 import { DocumentCopy,PieChart } from "@element-plus/icons-vue";
-const component = moduleTitleComponents.map((item) => {
+const component = Object.keys(moduleTitleComponents).map((item) => {
   return {
-    name: item.name,
-    btnList: item.mock.btnList
+    name: moduleTitleComponents[item].name,
+    btnList: moduleTitleComponents[item].mock.btnList,
   }
 })
 const copy = () => {

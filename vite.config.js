@@ -5,17 +5,19 @@ import legacy from "@vitejs/plugin-legacy";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import DefineOptions from 'unplugin-vue-define-options/vite'
 // https://vitejs.dev/config/
 export default defineConfig(({command})=>{
 
   const plugins = [
     vue(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver()]
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver()]
     }),
+    DefineOptions()
   ];
 
   // @vitejs/plugin-legacy
@@ -31,8 +33,8 @@ export default defineConfig(({command})=>{
       extensions: ['.js','.mjs'],
       alias: {
         "@": path.resolve(__dirname, "./examples"),
-        "@packages": path.resolve(__dirname, "./packages"),
-      },
+        "@packages": path.resolve(__dirname, "./packages")
+      }
     },
     server: {
       host: "0.0.0.0",
@@ -46,7 +48,7 @@ export default defineConfig(({command})=>{
         "vue-router",
         "element-plus"
       ],
-      exclude: [],
-    },
+      exclude: []
+    }
   }
 })

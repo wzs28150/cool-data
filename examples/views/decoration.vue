@@ -29,11 +29,10 @@
 import { decorationComponents } from "@packages";
 import Clipboard from "clipboard";
 import { DocumentCopy } from "@element-plus/icons-vue";
-// console.log(decorationComponents);
-const component = decorationComponents.map((item) => {
+const component = Object.keys(decorationComponents).map((item) => {
   return {
-    name: item.name,
-    height: item.height
+    name: decorationComponents[item].name,
+    height: decorationComponents[item].height,
   }
 })
 const copy = () => {
