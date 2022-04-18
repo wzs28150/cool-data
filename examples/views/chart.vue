@@ -1,26 +1,22 @@
 <template>
-  <el-row class="list" :gutter="20">
-    <el-col type="flex" v-for="(item, index) in component" :key="index" :span="6">
-      <div class="item" v-if="item.type == $route.params.type">
-        <div class="inner">
-          <template v-if="item.type == 'digitalflop'">
-            <component :is="item.name" :num="num"></component>
-            <div class="digitalflopclick" @click="changeNum" style="">点击切换数字</div>
-          </template>
-
-          <component v-else :is="item.name" :theme="easyv"></component>
-          <div class="copy" :data-clipboard-text="`<${item.name} :dataset='' :theme='' :option='' />`" @click="copy">
-            <div class="item-title">{{ item.title }}</div>
-            <div class="copy-tip">点击复制代码</div>
-          </div>
-        </div>
+  <el-row
+    class="list"
+    :gutter="20"
+  >
+    <el-col
+      :key="index"
+      type="flex"
+      :span="6"
+    >
+      <div class="item">
+        <div class="inner" />
       </div>
     </el-col>
   </el-row>
 </template>
 
 <script setup>
-import { chartComponents, Theme } from "@packages";
+import { Theme } from "@packages";
 import Clipboard from "clipboard";
 import { useRouter } from 'vue-router';
 import { computed, ref } from 'vue';
@@ -28,19 +24,19 @@ const { easyv } = Theme;
 const router = useRouter()
 const num = ref(123.44)
 
-const component = computed(() => {
-  let componentArr = []
-  Object.keys(chartComponents).map((item) => {
-    if (chartComponents[item].type == router.currentRoute.value.params.type) {
-      componentArr.push({
-        name: chartComponents[item].name,
-        type: chartComponents[item].type,
-        title: chartComponents[item].title
-      })
-    }
-  })
-  return componentArr
-})
+// const component = computed(() => {
+//   let componentArr = []
+//   Object.keys(chartComponents).map((item) => {
+//     if (chartComponents[item].type == router.currentRoute.value.params.type) {
+//       componentArr.push({
+//         name: chartComponents[item].name,
+//         type: chartComponents[item].type,
+//         title: chartComponents[item].title
+//       })
+//     }
+//   })
+//   return componentArr
+// })
 
 // const component = computed(() => {
 //   return Object.keys(chartComponents).filter((item) => {

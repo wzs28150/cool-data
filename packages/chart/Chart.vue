@@ -1,6 +1,12 @@
 <template>
-  <div ref="chart" class="chart">
-    <div id="main" class="chart" />
+  <div
+    ref="chart"
+    class="chart"
+  >
+    <div
+      id="main"
+      class="chart"
+    />
     <div>
       <slot />
     </div>
@@ -11,7 +17,7 @@ import { ref, onMounted, getCurrentInstance, reactive, watch, computed } from 'v
 import { use, init } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { BarChart, LineChart } from "echarts/charts";
-import { deepMerge, deepClone } from '../../util/index'
+import { deepMerge, deepClone } from '../util/index'
 import {
   TitleComponent,
   TooltipComponent,
