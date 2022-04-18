@@ -19,9 +19,9 @@
 </template>
 
 <script setup>
-import { Theme } from "@packages";
+// import { Theme } from "@packages";
 import { ref } from 'vue';
-const { easyv } = Theme;
+// const { easyv } = Theme;
 
 const horizontal = ref(true)
 const dataset = ref([
