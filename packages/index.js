@@ -12,12 +12,12 @@ import gradual from './theme/gradual';
 import retro from './theme/retro';
 import news from './theme/news';
 
-import Chart from './chart/Chart.vue';
-import Title from './chart/Title.vue';
-import XAxis from './chart/XAxis.vue';
-import YAxis from './chart/YAxis.vue';
-import Bar from './chart/Bar.vue';
-import Line from './chart/Bar.vue';
+import Chart from './chart/Chart';
+import Title from './chart/Title';
+import XAxis from './chart/XAxis';
+import YAxis from './chart/YAxis';
+import Bar from './chart/Bar';
+import Line from './chart/Line';
 
 const components = {
   Chart,
