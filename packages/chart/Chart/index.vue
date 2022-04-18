@@ -1,12 +1,6 @@
 <template>
-  <div
-    ref="chart"
-    class="chart"
-  >
-    <div
-      id="main"
-      class="chart"
-    />
+  <div ref="chart" class="chart">
+    <div id="main" class="chart" />
     <div>
       <slot />
     </div>
@@ -14,10 +8,11 @@
 </template>
 <script setup>
 import { ref, onMounted, getCurrentInstance, reactive, watch, computed } from 'vue';
-import { use, init } from "echarts/core";
+import { use, init, registerTheme } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { BarChart, LineChart } from "echarts/charts";
 import { deepMerge, deepClone } from '../../util/index'
+import { Theme } from "@packages";
 import {
   TitleComponent,
   TooltipComponent,
@@ -37,6 +32,7 @@ use([
   DatasetComponent,
   TransformComponent
 ]);
+
 const chart = ref()
 const option = ref({
   title: {},
@@ -62,10 +58,12 @@ const props = defineProps({
   theme: {
     type: Object,
     default: () => {
-      return easyv
+      return Theme.easyv
     }
   }
 })
+registerTheme('easyv', props.theme)
+
 const instance = getCurrentInstance()
 instance.config = reactive({
   grid: {
@@ -82,30 +80,29 @@ instance.config = reactive({
   ]
 })
 let myChart = ref()
-// watch(()=>props.dataset,()=>{
-//   instance.config.dataset = props.dataset
-// },{
-//   deep: true
-// })
-// watch(()=>instance.config ,()=>{
-//   myChart.value.setOption({
-//     ...config
-//   });
-// },{
-//   deep: true
-// })
-
-const configs = computed(()=>{
-  return deepMerge(deepClone(option.value, true), instance.config || [])
+// 监听配置变化
+watch(() => instance.config, () => {
+  if (myChart.value) {
+    initChart()
+  }
+}, {
+  deep: true
 })
+// 初始化图表
+const initChart = () => {
+  if (myChart.value) {
+    myChart.value.dispose();
+  }
+  const configs = deepMerge(deepClone(option.value, true), instance.config || []);
+  myChart.value = init(document.getElementById('main'), 'easyv');
+  myChart.value.setOption({
+    ...configs
+  });
+}
 
 onMounted(() => {
   instance.config.dataset = props.dataset
-  console.log(configs.value);
-  myChart.value = init(document.getElementById('main'));
-  myChart.value.setOption({
-    ...configs.value
-  });
+  initChart()
 })
 
 </script>

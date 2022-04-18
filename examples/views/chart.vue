@@ -3,7 +3,7 @@
     <el-col :key="index" type="flex" :span="6">
       <div class="item">
         <div class="inner">
-          <!-- <chart :horizontal="horizontal" :dataset="dataset">
+          <chart :horizontal="horizontal" :dataset="dataset">
             <Title text="我是标题" />
             <XAxis type="category" />
             <YAxis />
@@ -11,7 +11,10 @@
             <Bar name="系列2" />
             <Bar name="系列2" />
             <Line name="系列3" :dataset-index="1" />
-          </chart> -->
+            <div class="change" @click="change">
+              切换
+            </div>
+          </chart>
         </div>
       </div>
     </el-col>
@@ -19,11 +22,8 @@
 </template>
 
 <script setup>
-// import { Theme } from "@packages";
 import { ref } from 'vue';
-// const { easyv } = Theme;
-
-const horizontal = ref(true)
+const horizontal = ref(false)
 const dataset = ref([
   {
     dimensions: ["product", "系列1", "系列2", "系列3"],
@@ -41,6 +41,10 @@ const dataset = ref([
     }
   }
 ])
+
+const change = () =>{
+  horizontal.value = !horizontal.value
+}
 </script>
 
 <style lang="less" scoped>
@@ -52,6 +56,15 @@ const dataset = ref([
     background-color: rgba(6, 30, 93, 0.5);
     margin-bottom: 20px;
     overflow: hidden;
+
+    .change{
+      position: absolute;
+      color: #fff;
+      z-index: 55;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
 
     &::after {
       content: "";
