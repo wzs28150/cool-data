@@ -64,7 +64,12 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export {
   install,
-  Bar
+  Chart,
+  Title,
+  XAxis,
+  YAxis,
+  Bar,
+  Line
 }
 
 export default CoolDataChartPlus;

@@ -1,13 +1,14 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "@/config/routes";
-import CoolDatavPlus from "@packages";
+import CoolDatavChartPlus from "@packages";
 // import CoolDatavPlus from "../lib/index";
 // import {Bar1,Bar2} from "@packages";
 import "@packages/css/index.less";
 const app = createApp(App);
 app.use(router);
-app.use(CoolDatavPlus);
+app.use(CoolDatavChartPlus);
+console.log(CoolDatavChartPlus);
 // app.use(Bar1);
 // app.use(Bar2);
 app.mount("#app");

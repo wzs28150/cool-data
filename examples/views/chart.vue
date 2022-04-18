@@ -1,15 +1,18 @@
 <template>
-  <el-row
-    class="list"
-    :gutter="20"
-  >
-    <el-col
-      :key="index"
-      type="flex"
-      :span="6"
-    >
+  <el-row class="list" :gutter="20">
+    <el-col :key="index" type="flex" :span="6">
       <div class="item">
-        <div class="inner" />
+        <div class="inner">
+          <!-- <chart :horizontal="horizontal" :dataset="dataset">
+            <Title text="我是标题" />
+            <XAxis type="category" />
+            <YAxis />
+            <Bar name="系列1" />
+            <Bar name="系列2" />
+            <Bar name="系列2" />
+            <Line name="系列3" :dataset-index="1" />
+          </chart> -->
+        </div>
       </div>
     </el-col>
   </el-row>
@@ -17,60 +20,27 @@
 
 <script setup>
 import { Theme } from "@packages";
-import Clipboard from "clipboard";
-import { useRouter } from 'vue-router';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 const { easyv } = Theme;
-const router = useRouter()
-const num = ref(123.44)
 
-// const component = computed(() => {
-//   let componentArr = []
-//   Object.keys(chartComponents).map((item) => {
-//     if (chartComponents[item].type == router.currentRoute.value.params.type) {
-//       componentArr.push({
-//         name: chartComponents[item].name,
-//         type: chartComponents[item].type,
-//         title: chartComponents[item].title
-//       })
-//     }
-//   })
-//   return componentArr
-// })
-
-// const component = computed(() => {
-//   return Object.keys(chartComponents).filter((item) => {
-//     return item.type == router.currentRoute.value.params.type
-//   }).map((item) => {
-//     return {
-//       name: item.name,
-//       type: item.type,
-//       title: item.title
-//     }
-//   })
-// })
-// console.log(router.currentRoute.value.params.type);
-const copy = () => {
-  const clipboard = new Clipboard('.copy');
-  clipboard.on('success', () => {
-    ElMessage({
-      message: '复制成功',
-      type: 'success'
-    });
-    // 释放内存
-    clipboard.destroy()
-  })
-  clipboard.on('error', () => {
-    // 不支持复制
-    console.log('该浏览器不支持自动复制')
-    // 释放内存
-    clipboard.destroy()
-  })
-}
-
-const changeNum = () => {
-  num.value = Math.ceil(Math.random() * 10000) + '.' + Math.ceil(Math.random() * 100);
-}
+const horizontal = ref(true)
+const dataset = ref([
+  {
+    dimensions: ["product", "系列1", "系列2", "系列3"],
+    source: [
+      { product: "类别1", 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
+      { product: "类别2", 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
+      { product: "类别3", 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
+      { product: "类别4", 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
+    ]
+  },
+  {
+    transform: {
+      type: 'filter',
+      config: { dimension: '系列3', '>': 200 }
+    }
+  }
+])
 </script>
 
 <style lang="less" scoped>
