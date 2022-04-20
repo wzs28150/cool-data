@@ -1,47 +1,26 @@
-import {
-  ref,
-  getCurrentInstance,
-  onMounted,
-  onBeforeUnmount,
-} from "vue";
+import { ref, watch } from 'vue';
+import { throttle } from 'echarts/core';
+import { addListener, removeListener } from 'resize-detector';
 
-import { debounce } from "./index";
+export function useAutoresize(chart, autoresize, root) {
+  let resizeListener = null;
+  watch([root, chart, autoresize], ([root, chart, autoresize], _, cleanup) => {
+    if (root && chart && autoresize) {
+      resizeListener = throttle(() => {
+        chart.resize();
+      }, 100);
 
-export default function autoResize(refName, callback) {
-  const width = ref(0);
-  const height = ref(0);
-  const that = getCurrentInstance();
-
-  const initWH = () => {
-    const dom = that.refs[refName];
-    width.value = dom ? dom.clientWidth : 0;
-    height.value = dom ? dom.clientHeight : 0;
-    if (!dom) {
-      console.warn(
-        "cool-data: Failed to get dom node, component rendering may be abnormal!"
-      );
-    } else if (!width.value || !height.value) {
-      console.warn(
-        "cool-data: Component width or height is 0px, rendering abnormality may occur!"
-      );
+      addListener(root, resizeListener);
     }
-    if(callback){
-      callback(width.value, height.value)
-    }
-  };
 
-  const debounceInitWHFun = debounce(100, initWH);
-  onMounted(() => {
-    initWH();
-    window.addEventListener("resize", debounceInitWHFun);
+    cleanup(() => {
+      if (resizeListener && root) {
+        removeListener(root, resizeListener);
+      }
+    });
   });
-
-  onBeforeUnmount(() => {
-    window.removeEventListener("resize", debounceInitWHFun);
-  });
-
-  return {
-    width,
-    height,
-  };
 }
+
+export const autoresizeProps = {
+  autoresize: Boolean
+};

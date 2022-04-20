@@ -1,9 +1,6 @@
-<template>
-  <div v-if="1 == 2" />
-</template>
 <script>
 export default {
-  name: 'XAxis'
+  name: 'Line'
 }
 </script>
 <script setup >

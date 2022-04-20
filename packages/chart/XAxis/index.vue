@@ -7,25 +7,59 @@ export default {
 }
 </script>
 <script setup >
-import { getCurrentInstance } from 'vue';
+import { getCurrentInstance, watch } from 'vue';
 const props = defineProps({
   type: {
     type: String,
     default: 'category'
   },
+  axisLine: {
+    type: Boolean,
+    default: true
+  },
+  axisLabel: {
+    type: Boolean,
+    default: true
+  },
   splitLine: {
-    type: Object,
-    default:()=>{
-      return {
-        show: false
-      }
-    }
+    type: Boolean,
+    default: false
   }
 })
 const instance = getCurrentInstance()
-const { horizontal } = instance.parent.props
-instance.parent.config[horizontal ? 'yAxis' : 'xAxis'] = {
-  type: props.type,
-  splitLine: props.splitLine
+const setXAxis = (horizontal, value) => {
+  instance.parent.config[horizontal ? 'yAxis' : 'xAxis'] = {
+    type: value.type,
+    splitLine: {
+      show: value.splitLine,
+      lineStyle: {
+        type: 'dashed'
+      }
+    },
+    axisLabel: {
+      show: value.axisLabel
+    },
+    axisLine: {
+      show: value.axisLine
+    }
+  }
 }
+setXAxis(instance.parent.props.horizontal, props)
+watch(() => instance.parent.props.horizontal, (newVal) => {
+  setXAxis(newVal, props)
+}, {
+  deep: true
+})
+
+watch(
+  () => props,
+  (newVal) => {
+    console.log(newVal);
+    setXAxis(instance.parent.props.horizontal, newVal);
+  },
+  {
+    deep: true
+  }
+);
+
 </script>

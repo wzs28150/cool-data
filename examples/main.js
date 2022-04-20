@@ -8,7 +8,7 @@ import "@packages/css/index.less";
 const app = createApp(App);
 app.use(router);
 app.use(CoolDatavChartPlus);
-console.log(CoolDatavChartPlus);
+// console.log(CoolDatavChartPlus);
 // app.use(Bar1);
 // app.use(Bar2);
 app.mount("#app");

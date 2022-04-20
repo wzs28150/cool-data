@@ -14,10 +14,13 @@ import news from './theme/news';
 
 import Chart from './chart/Chart';
 import Title from './chart/Title';
+import Legend from './chart/Legend';
 import XAxis from './chart/XAxis';
 import YAxis from './chart/YAxis';
 import Bar from './chart/Bar';
 import Line from './chart/Line';
+
+import { deepClone, deepMerge, uuid } from './util';
 
 const components = {
   Chart,
@@ -25,8 +28,9 @@ const components = {
   XAxis,
   YAxis,
   Bar,
-  Line
-}
+  Line,
+  Legend
+};
 
 // 加载主题颜色
 export const Theme = {
@@ -66,10 +70,14 @@ export {
   install,
   Chart,
   Title,
+  Legend,
   XAxis,
   YAxis,
   Bar,
-  Line
-}
+  Line,
+  deepClone,
+  deepMerge,
+  uuid
+};
 
 export default CoolDataChartPlus;

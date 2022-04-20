@@ -17,6 +17,9 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'comma-dangle': [2, 'never'], //禁止使用拖尾逗号
-    'vue/max-attributes-per-line': 0
+    'vue/max-attributes-per-line': 0,
+    'vue/multi-word-component-names': 0,
+    'vue/singleline-html-element-content-newline':0
+    // 'vue/first-attribute-linebreak': 0
   }
 };
