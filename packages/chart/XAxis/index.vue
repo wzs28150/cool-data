@@ -4,10 +4,10 @@
 <script>
 export default {
   name: 'XAxis'
-}
+};
 </script>
-<script setup >
-import { getCurrentInstance, watch } from 'vue';
+<script setup>
+import { watch, inject } from 'vue';
 const props = defineProps({
   type: {
     type: String,
@@ -25,10 +25,11 @@ const props = defineProps({
     type: Boolean,
     default: false
   }
-})
-const instance = getCurrentInstance()
+});
+
+const { config } = inject('chart');
 const setXAxis = (horizontal, value) => {
-  instance.parent.config[horizontal ? 'yAxis' : 'xAxis'] = {
+  config[horizontal ? 'yAxis' : 'xAxis'] = {
     type: value.type,
     splitLine: {
       show: value.splitLine,
@@ -42,24 +43,25 @@ const setXAxis = (horizontal, value) => {
     axisLine: {
       show: value.axisLine
     }
+  };
+};
+// 初始设置
+setXAxis(config.horizontal, props);
+// 监听chart 方向改变
+watch(
+  () => config.horizontal,
+  (newVal) => {
+    setXAxis(newVal, props);
   }
-}
-setXAxis(instance.parent.props.horizontal, props)
-watch(() => instance.parent.props.horizontal, (newVal) => {
-  setXAxis(newVal, props)
-}, {
-  deep: true
-})
+);
 
 watch(
   () => props,
   (newVal) => {
-    console.log(newVal);
-    setXAxis(instance.parent.props.horizontal, newVal);
+    setXAxis(config.horizontal, newVal);
   },
   {
     deep: true
   }
 );
-
 </script>

@@ -11,7 +11,7 @@ function resetTextareaSize() {
     const {
       textlineEl, textEl, areaOffset
     } = this;
-    console.log(inputText);
+    // console.log(inputText);
     const txts = inputText.split('\n');
     const maxTxtSize = Math.max(...txts.map(it => it.length));
     const tlOffset = textlineEl.offset();

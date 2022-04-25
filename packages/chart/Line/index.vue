@@ -1,10 +1,17 @@
+<template>
+  <div v-if="1 == 2" />
+</template>
 <script>
 export default {
   name: 'Line'
 }
 </script>
 <script setup >
-import { getCurrentInstance, onMounted } from 'vue';
+import { getCurrentInstance, onMounted, inject, onUnmounted, ref } from 'vue';
+import { LineChart } from 'echarts/charts';
+import { use } from 'echarts/core';
+import { union, cloneDeep, merge } from 'lodash';
+use([LineChart]);
 const props = defineProps({
   color: {
     type: String,
@@ -19,14 +26,28 @@ const props = defineProps({
     default: null
   }
 })
+
+const { config,setSeries, delSeries } = inject('chart');
+const index = ref(null)
+const label = ref(null)
 const instance = getCurrentInstance()
-const lineConfig = {
+const lineConfig = ref({
   type: "line"
-}
+})
 onMounted(() => {
   if (props.datasetIndex) {
-    lineConfig.datasetIndex = props.datasetIndex
+    lineConfig.value.datasetIndex = props.datasetIndex
   }
-  instance.parent.config.series.push(lineConfig)
+  if (index.value == null) {
+    setSeries(lineConfig.value).then((res) => {
+      index.value = res.index;
+      label.value = res.label;
+    });
+  }
 })
+
+onUnmounted(() => {
+  // config.series.splice(index.value, 1);
+  delSeries(label.value);
+});
 </script>

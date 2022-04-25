@@ -7,7 +7,7 @@ export default {
 }
 </script>
 <script setup >
-import { getCurrentInstance, onMounted, onUnmounted, watch } from 'vue';
+import { onMounted, onUnmounted, watch, inject } from 'vue';
 const props = defineProps({
   text: {
     type: String,
@@ -22,9 +22,10 @@ const props = defineProps({
     default: 0
   }
 })
-const instance = getCurrentInstance()
+const { config } = inject('chart');
+
 const setTitle = () => {
-  instance.parent.config.title = {
+  config.title = {
     text: props.text,
     left: '10%',
     top: '5%',
@@ -32,11 +33,11 @@ const setTitle = () => {
       color: props.color
     }
   }
-  if(instance.parent.config.title.top){
-    instance.parent.config.grid.top = '20%'
+  if(config.title.top){
+    config.grid.top = '20%'
   }
-  if(instance.parent.config.legend.show){
-    instance.parent.config.legend.right = '10%'
+  if(config.legend.show){
+    config.legend.right = '10%'
   }
 }
 
@@ -52,12 +53,12 @@ onMounted(()=>{
 })
 
 onUnmounted(()=>{
-  instance.parent.config.title = {}
-  if (instance.parent.config.legend.show) {
-    instance.parent.config.grid.top = '20%'
-    instance.parent.config.legend.right = 'auto'
+  config.title = {}
+  if (config.legend.show) {
+    config.grid.top = '20%'
+    config.legend.right = 'auto'
   } else {
-    instance.parent.config.grid.top = '10%'
+    config.grid.top = '10%'
   }
 })
 </script>

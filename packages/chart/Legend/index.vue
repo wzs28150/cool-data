@@ -7,20 +7,20 @@ export default {
 }
 </script>
 <script setup>
-import { getCurrentInstance, onMounted, onUnmounted } from 'vue';
-const instance = getCurrentInstance()
+import { inject, onMounted, onUnmounted } from 'vue';
+const { config } = inject('chart');
 const setLegend = () => {
-  instance.parent.config.legend = {
+  config.legend = {
     show: true,
     textStyle: { color: "#fff" },
     top: "5%"
   }
 
-  if(instance.parent.config.legend.show){
-    instance.parent.config.grid.top = '20%'
+  if(config.legend.show){
+    config.grid.top = '20%'
   }
-  if(instance.parent.config.title.top){
-    instance.parent.config.legend.right = '10%'
+  if(config.title.top){
+    config.legend.right = '10%'
   }
 }
 onMounted(() => {
@@ -28,13 +28,13 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  instance.parent.config.legend = {
+  config.legend = {
     show: false
   }
-  if (instance.parent.config.title.top) {
-    instance.parent.config.grid.top = '20%'
+  if (config.title.top) {
+    config.grid.top = '20%'
   } else {
-    instance.parent.config.grid.top = '10%'
+    config.grid.top = '10%'
   }
 })
 </script>

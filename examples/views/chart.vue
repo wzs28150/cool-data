@@ -10,13 +10,25 @@
           >
             <Title v-if="data.title.show" :text="data.title.text" />
             <Legend v-if="data.legend.show" />
-            <XAxis type="category" :axis-line="data.xAxis.axisLine" :axis-label="data.xAxis.axisLabel" :split-line="data.xAxis.splitLine" />
-            <YAxis type="value" :axis-line="data.yAxis.axisLine" :axis-label="data.yAxis.axisLabel" :split-line="data.yAxis.splitLine" />
+            <XAxis
+              type="category"
+              :axis-line="data.xAxis.axisLine"
+              :axis-label="data.xAxis.axisLabel"
+              :split-line="data.xAxis.splitLine"
+            />
+            <YAxis
+              type="value"
+              :axis-line="data.yAxis.axisLine"
+              :axis-label="data.yAxis.axisLabel"
+              :split-line="data.yAxis.splitLine"
+            />
             <Bar
               v-for="(item, index) in data.list"
               :key="index"
+              :bg="item.bg"
               :round="item.round"
               :stack="item.stack"
+              :zebra="item.zebra"
             />
           </chart>
         </div>
@@ -85,25 +97,49 @@
                     type="primary"
                     style="margin-left: auto"
                     :icon="Edit"
-                    @click="dataShow=true"
+                    @click="dataShow = true"
                   />
                 </div>
               </el-collapse-item>
               <el-collapse-item title="轴,网格线" name="4">
                 <div class="setting-item">
                   <div class="setting-item-title">X轴:</div>
-                  <el-checkbox v-model="data.xAxis.axisLabel" label="轴标签" size="large" />
-                  <el-checkbox v-model="data.xAxis.axisLine" label="轴线" size="large" />
+                  <el-checkbox
+                    v-model="data.xAxis.axisLabel"
+                    label="轴标签"
+                    size="large"
+                  />
+                  <el-checkbox
+                    v-model="data.xAxis.axisLine"
+                    label="轴线"
+                    size="large"
+                  />
                 </div>
                 <div class="setting-item">
                   <div class="setting-item-title">Y轴:</div>
-                  <el-checkbox v-model="data.yAxis.axisLabel" label="轴标签" size="large" />
-                  <el-checkbox v-model="data.yAxis.axisLine" label="轴线" size="large" />
+                  <el-checkbox
+                    v-model="data.yAxis.axisLabel"
+                    label="轴标签"
+                    size="large"
+                  />
+                  <el-checkbox
+                    v-model="data.yAxis.axisLine"
+                    label="轴线"
+                    size="large"
+                  />
                 </div>
                 <div class="setting-item">
                   <div class="setting-item-title">网格线:</div>
-                  <el-checkbox v-model="data.xAxis.splitLine" label="纵向" size="large" />
-                  <el-checkbox v-model="data.yAxis.splitLine" label="横向" size="large" />
+                  <el-checkbox
+                    v-model="data.xAxis.splitLine"
+                    label="纵向"
+                    size="large"
+                  />
+                  <el-checkbox
+                    v-model="data.yAxis.splitLine"
+                    label="横向"
+                    size="large"
+                  />
                 </div>
               </el-collapse-item>
               <el-collapse-item title="Bar设置" name="5">
@@ -129,6 +165,24 @@
                       <div class="setting-item-title">圆角:</div>
                       <el-switch
                         v-model="item.round"
+                        class="switch"
+                        inactive-color="#999999"
+                        inline-prompt
+                        active-text="开"
+                        inactive-text="关"
+                      />
+                      <div class="setting-item-title">背景:</div>
+                      <el-switch
+                        v-model="item.bg"
+                        class="switch"
+                        inactive-color="#999999"
+                        inline-prompt
+                        active-text="开"
+                        inactive-text="关"
+                      />
+                      <div class="setting-item-title">斑马纹:</div>
+                      <el-switch
+                        v-model="item.zebra"
                         class="switch"
                         inactive-color="#999999"
                         inline-prompt
@@ -169,7 +223,9 @@
   <div v-if="dataShow" class="data-show">
     <SpreadsheetForm ref="spreadsheet" :dataset="data.dataset[0]" />
     <div class="data-show-btn">
-      <el-button type="primary" color="#0072ce" @click="dataChangeFinish">完成</el-button>
+      <el-button type="primary" color="#0072ce" @click="dataChangeFinish">
+        完成
+      </el-button>
     </div>
   </div>
 </template>
@@ -183,7 +239,8 @@ import 'codemirror/mode/vue/vue.js';
 import 'codemirror/theme/darcula.css';
 import { deepClone } from '@packages';
 import SpreadsheetForm from '../components/spreadsheet/index.vue';
-const spreadsheet = ref(null)
+import Bar from '../../packages/chart/Bar/index.vue';
+const spreadsheet = ref(null);
 const code = ref('');
 const codewapper = ref();
 const codeHeight = ref(0);
@@ -197,12 +254,14 @@ const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
 const barConfig = {
   round: false,
-  stack: null
+  stack: null,
+  bg: false,
+  zebra: false
 };
 
 const dataType = ref('静态数据');
 
-const dataShow = ref(false)
+const dataShow = ref(false);
 
 const data = reactive({
   horizontal: false,
@@ -222,12 +281,6 @@ const data = reactive({
         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
       ]
-    },
-    {
-      transform: {
-        type: 'filter',
-        config: { dimension: '系列3', '>': 200 }
-      }
     }
   ],
   xAxis: {
@@ -241,7 +294,47 @@ const data = reactive({
     splitLine: true
   },
   list: [deepClone(barConfig, true)]
+  // list: [
+  //   {
+  //     round: false,
+  //     stack: null,
+  //     bg: false
+  //   },
+  //   {
+  //     round: false,
+  //     stack: null,
+  //     bg: false
+  //   },
+  //   {
+  //     round: false,
+  //     stack: null,
+  //     bg: false
+  //   }
+  // ]
 });
+// const data = reactive({
+//   horizontal: false,
+//   title: { show: false, text: '我是标题' },
+//   legend: { show: false },
+//   dataset: [
+//     {
+//       dimensions: ['category', '系列1', '系列2', '系列3'],
+//       source: [
+//         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
+//         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
+//         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
+//         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
+//       ]
+//     },
+//     { transform: { type: 'filter', config: { dimension: '系列1', '>': 0 } } }
+//   ],
+//   xAxis: { axisLine: true, axisLabel: true, splitLine: false },
+//   yAxis: { axisLine: false, axisLabel: true, splitLine: true },
+//   list: [
+//     { round: false, stack: null, bg: false, zebra: true },
+//     { round: false, stack: null, bg: false, zebra: true }
+//   ]
+// });
 // 监听设置的改变
 watch(
   () => data,
@@ -272,7 +365,7 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Bar${item.round ? ' round' : ''}${
+    listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${item.zebra ? ' zebra' : ''}${
       item.stack ? ' :stack="' + item.stack + '"' : ''
     } />\n`;
   });
@@ -280,7 +373,17 @@ const setCode = (val) => {
     ? `\n\t\t<Title text="${val.title.text}" />`
     : '';
   let legendCode = val.legend.show ? `\n\t\t<Legend  />` : '';
-  code.value = `<template>\n\t<chart autoresize :horizontal="${val.horizontal}" :dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${data.xAxis.axisLine?'':' :axis-line="false"'}${data.xAxis.axisLabel?'':' :axis-label="false"'}${data.xAxis.splitLine?' :split-line="true"':''} />\n\t\t<YAxis type="value"${data.yAxis.axisLine?' :axis-line="true"':''}${data.yAxis.axisLabel?'':' :axis-label="false"'}${data.yAxis.splitLine?'':' :split-line="false"'} />\n${listCode}\t</chart>\n</template>`;
+  code.value = `<template>\n\t<chart autoresize :horizontal="${
+    val.horizontal
+  }" :dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
+    data.xAxis.axisLine ? '' : ' :axis-line="false"'
+  }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
+    data.xAxis.splitLine ? ' :split-line="true"' : ''
+  } />\n\t\t<YAxis type="value"${
+    data.yAxis.axisLine ? ' :axis-line="true"' : ''
+  }${data.yAxis.axisLabel ? '' : ' :axis-label="false"'}${
+    data.yAxis.splitLine ? '' : ' :split-line="false"'
+  } />\n${listCode}\t</chart>\n</template>`;
 
   code.value += `\n<script setup>\n\timport { ref } from 'vue';\n\tconst dataset = ref(${JSON.stringify(
     data.dataset,
@@ -291,12 +394,12 @@ const setCode = (val) => {
 
 setCode(data);
 
-const dataChangeFinish = ()=>{
+const dataChangeFinish = () => {
   // dataShow.value = false
-  data.dataset[0] = spreadsheet.value.getDataset()
+  data.dataset[0] = spreadsheet.value.getDataset();
   // console.log(dataset);
-  dataShow.value = false
-}
+  dataShow.value = false;
+};
 
 onMounted(() => {
   // 设置编辑器的高度
@@ -428,8 +531,8 @@ onMounted(() => {
       pointer-events: none;
     }
 
-    &:deep(.el-input){
-      .el-input__inner{
+    &:deep(.el-input) {
+      .el-input__inner {
         background-color: #061237;
         color: #cccccc;
       }
@@ -476,7 +579,7 @@ onMounted(() => {
         }
 
         .switch {
-          margin-top: 5px;
+          margin-right: 20px;
         }
       }
 
@@ -527,11 +630,11 @@ onMounted(() => {
   background-color: #061237;
   box-shadow: 0 0 20px #999;
   padding: 30px;
-  .data-show-btn{
+  .data-show-btn {
     display: flex;
     padding-top: 20px;
     justify-content: center;
-    .el-button{
+    .el-button {
       padding: 8px 30px;
     }
   }

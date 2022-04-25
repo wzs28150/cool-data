@@ -123,7 +123,6 @@ const rows2Dataset = (rows) => {
 
 const getDataset = ()=>{
   const d = xs.value.getData()
-  console.log(d);
   return rows2Dataset(d[0].rows)
   // return ''
 }

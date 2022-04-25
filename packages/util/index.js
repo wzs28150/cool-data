@@ -110,3 +110,52 @@ export function mulAdd(nums) {
 export function getCircleRadianPoint(x, y, radius, radian) {
   return [x + Math.cos(radian) * radius, y + Math.sin(radian) * radius];
 }
+
+
+export const groupAndSort = (groupFields, sortFields, list) => {
+  if (Array.isArray(list) && list.length <= 0) {
+    return [];
+  }
+  let tempList = [];
+  list = sortByFields(groupFields, list);
+  let tempGroupValue = list[0][groupFields];
+  for (let i = 0; i < list.length; i++) {
+    if (!list[i]) {
+      continue;
+    }
+    if (list[i][groupFields] != tempGroupValue) {
+      tempGroupValue = list[i][groupFields];
+    }
+    addObjToList(groupFields, sortFields, tempGroupValue, list[i], tempList);
+    list.splice(i, 1);
+    i--;
+  }
+  return tempList;
+};
+
+const addObjToList = (groupFields, sortFields, tempGroupValue, obj, list) => {
+  let tempLength = list.length;
+  for (let i = 0; i < list.length; i++) {
+    if (
+      list[i][groupFields] == tempGroupValue &&
+      obj[sortFields] <= list[i][sortFields]
+    ) {
+      list.splice(i, 0, obj);
+      return;
+    }
+  }
+  if (tempLength == list.length) {
+    list.push(obj);
+  }
+};
+const sortByFields = (sortFields, list) => {
+  return list.sort((a, b) => {
+    if (a[sortFields] < b[sortFields]) {
+      return -1;
+    }
+    if (a[sortFields] > b[sortFields]) {
+      return 1;
+    }
+    return 0;
+  });
+};

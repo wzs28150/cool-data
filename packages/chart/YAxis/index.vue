@@ -3,11 +3,11 @@
 </template>
 <script>
 export default {
-  name: 'XAxis'
+  name: 'YAxis'
 };
 </script>
 <script setup>
-import { getCurrentInstance, watch } from 'vue';
+import { watch, inject } from 'vue';
 const props = defineProps({
   type: {
     type: String,
@@ -25,21 +25,12 @@ const props = defineProps({
     type: Boolean,
     default: true
   }
-  // splitLine: {
-  //   type: Object,
-  //   default: () => {
-  //     return {
-  //       show: true,
-  //       lineStyle: {
-  //         type: 'dashed'
-  //       }
-  //     };
-  //   }
-  // }
 });
-const instance = getCurrentInstance();
+
+const { config } = inject('chart');
+
 const setYAxis = (horizontal, value) => {
-  instance.parent.config[horizontal ? 'xAxis' : 'yAxis'] = {
+  config[horizontal ? 'xAxis' : 'yAxis'] = {
     type: value.type,
     splitLine: {
       show: value.splitLine,
@@ -55,22 +46,21 @@ const setYAxis = (horizontal, value) => {
     }
   };
 };
-setYAxis(instance.parent.props.horizontal, props);
+// 初始设置
+setYAxis(config.horizontal, props);
+
+// 监听chart 方向改变
 watch(
-  () => instance.parent.props.horizontal,
+  () => config.horizontal,
   (newVal) => {
     setYAxis(newVal, props);
-  },
-  {
-    deep: true
   }
 );
 
 watch(
   () => props,
   (newVal) => {
-    console.log(newVal);
-    setYAxis(instance.parent.props.horizontal, newVal);
+    setYAxis(config.horizontal, newVal);
   },
   {
     deep: true
