@@ -80,12 +80,12 @@
         const offsetY = ev.clientY - rotateHandler.value.offsetTop;
         let rotation = item.value.rotation
         document.onmousemove = function (ev) {
-          // console.log(ev);
+          console.log(ev);
           ev.preventDefault();
           ev.stopPropagation();
           let delta = new Vector(
-            ev.clientX - offsetX,
-            ev.clientY - offsetY
+            ev.clientX,
+            ev.clientY
           );
           let up = new Vector(0, -item.value.h / 2 - roStickSize);
           let rotationRad = Vector.rad(rotation);
