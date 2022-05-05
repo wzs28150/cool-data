@@ -10,6 +10,7 @@
     "case": "node node_modules/cool-datav-plus/case.js"
   },
   "dependencies": {
+    "@minogin/vector": "^1.0.2",
     "axios": "^0.26.0",
     "cool-datav-plus": "^0.1.0",
     "element-plus": "^2.0.4",
@@ -19,12 +20,9 @@
     "vue-demi": "^0.12.5",
     "vue-draggable-next": "^2.1.1",
     "vue-router": "^4.0.12",
-    "vue3-draggable-resizable": "^1.6.3",
-    "vue3-resize-drag": "^0.3.0",
     "vue3-sketch-ruler": "^1.3.3",
     "vuex": "^4.0.2",
-    "vuex-module-decorators": "^2.0.0",
-    "yoyoo-ddr-vue3": "^1.0.2"
+    "vuex-module-decorators": "^2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

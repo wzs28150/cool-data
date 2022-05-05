@@ -980,6 +980,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@minogin/vector@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/@minogin/vector/-/vector-1.0.2.tgz#20a89cdbb261e53d09fa6392d40b267317151a46"
+  integrity sha512-iMlPme16/YbFmtcofRJS0RU17U7PL4pwIkEnCZ6heNGfQOwd7lMSgXUnZavI5SE4A3bllVISv99+KxNbOMbAow==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -4042,16 +4047,6 @@ vue-router@^4.0.12, vue-router@^4.0.14:
   dependencies:
     "@vue/devtools-api" "^6.0.0"
 
-vue3-draggable-resizable@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.npmjs.org/vue3-draggable-resizable/-/vue3-draggable-resizable-1.6.3.tgz#e4c66474b4b7c2c97140c6bdf6d8c43d26858e80"
-  integrity sha512-gUV03H4w6YkOxZJ/FKRAgJ+CPydHZedTG5edPU2kkztyof1rVFzJmKVJIE2RBChKQtCGPiMRMIPDXyFWTQK0pg==
-
-vue3-resize-drag@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.npmjs.org/vue3-resize-drag/-/vue3-resize-drag-0.3.0.tgz#4624afc87a06d90b8828d053b2f50fcea38aa697"
-  integrity sha512-mUWvlx37bxUNsUBIFeIc0kZNgB9w0pmAJuz05mNEzj6zsE7zkStipFolI/Mg3eqZERTe3Y9X2XANsz2Ltq6rtg==
-
 vue3-sketch-ruler@^1.3.3:
   version "1.3.3"
   resolved "https://registry.npmjs.org/vue3-sketch-ruler/-/vue3-sketch-ruler-1.3.3.tgz#de87f054e76165288d6f97a824cff8434c1f69d4"
@@ -4115,11 +4110,6 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
-
-yoyoo-ddr-vue3@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/yoyoo-ddr-vue3/-/yoyoo-ddr-vue3-1.0.2.tgz#6dbeea45ac0e69c5a3f798c04da5d3defd01e053"
-  integrity sha512-8oX9PSIXgwRxRUffPO5EPlu4jBl3z5j3ZCrp6rE9EW5uyA35OKgKIvJ8yKZoyULdobP79OjCQAWtkPD3ZFgPdA==
 
 zrender@5.3.1:
   version "5.3.1"

@@ -51,11 +51,13 @@
                   >
                     
                   </DraggableContainer> -->
-                  <dragResize v-for="(item, index) in project[0].chart" :id="index" :key="index" :page-index="0" class="chart-item">
-                    <div class="title">
-                      {{ item.title }}-{{ item.id }}-{{ item.w }}-{{ item.h }}
-                    </div>
-                  </dragResize>
+                  <div>
+                    <dragResize v-for="(item, index) in project[0].chart" :id="index" :key="index" :page-index="0" class="chart-item">
+                      <div class="title">
+                        {{ item.title }}-{{ item.id }}-{{ item.w }}-{{ item.h }}
+                      </div>
+                    </dragResize>
+                  </div>
                 </draggable>
               </div>
             </div>

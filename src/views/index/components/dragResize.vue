@@ -2,21 +2,19 @@
   <div
     ref="dragResizeDom"
     class="drag-resize active"
-    :style="`width: ${item.w}px; height: ${item.h}px; left: ${item.x}px; top: ${item.y}px;`"
-    @mousedown="moveStart"
-    @mousemove="moveing"
-    @mouseup="moveend"
+    :style="`width: ${item.w}px; height: ${item.h}px; left: ${item.x}px; top: ${item.y}px; transform: rotate(${item.rotation}deg);`"
   >
-    <div class="drag-resize-inner">
+    <div v-move class="drag-resize-inner">
       <slot />
     </div>
     <div v-for="ite in dir" :key="ite" :class="`resize-handler ${ite}`"></div>
-    <div class="rotate-handler" @mouseenter.stop="state = 'rotate'"></div>
+    <div ref="rotateHandler" v-rotate class="rotate-handler"></div>
   </div>
 </template>
 
 <script setup>
   import { ref, computed, inject, reactive } from 'vue';
+  import Vector from '@minogin/vector';
   import { useStore } from 'vuex';
   const store = useStore();
   const props = defineProps({
@@ -30,6 +28,7 @@
     },
   });
   const dragResizeDom = ref();
+  const rotateHandler = ref();
   const state = reactive({
     offsetX: 0,
     offsetY: 0,
@@ -41,33 +40,30 @@
   const vMove = {
     mounted: (el) => {
       el.onmousedown = function (ev) {
-        console.log(state);
-        const offsetX = ev.clientX - el.offsetLeft;
-        const offsetY = ev.clientY - el.offsetTop;
+        const offsetX = ev.clientX - dragResizeDom.value.offsetLeft;
+        const offsetY = ev.clientY - dragResizeDom.value.offsetTop;
         document.onmousemove = function (ev) {
           ev.preventDefault();
-          if (state.value == 'move') {
-            let left = ev.clientX - offsetX;
-            let top = ev.clientY - offsetY;
-            let right = left + item.value.w;
-            let bottom = top + item.value.h;
-            left = left <= 0 ? 0 : left; // 左越界
-            top = top <= 0 ? 0 : top; // 上越界
-            if (right >= canvas.width) {
-              left = canvas.width - item.value.w; // 右越界
-            }
-
-            if (bottom >= canvas.height) {
-              top = canvas.height - item.value.h; // 下越界
-            }
-            store.dispatch('Project/setChartParam', {
-              index: props.id,
-              pageIndex: props.pageIndex,
-              x: left,
-              y: top,
-            });
-          } else if (state.value == 'rotate') {
+          ev.stopPropagation();
+          let left = ev.clientX - offsetX;
+          let top = ev.clientY - offsetY;
+          let right = left + item.value.w;
+          let bottom = top + item.value.h;
+          left = left <= 0 ? 0 : left; // 左越界
+          top = top <= 0 ? 0 : top; // 上越界
+          if (right >= canvas.width) {
+            left = canvas.width - item.value.w; // 右越界
           }
+
+          if (bottom >= canvas.height) {
+            top = canvas.height - item.value.h; // 下越界
+          }
+          store.dispatch('Project/setChartParam', {
+            index: props.id,
+            pageIndex: props.pageIndex,
+            x: left,
+            y: top,
+          });
         };
         document.onmouseup = function () {
           document.onmousemove = null;
@@ -76,37 +72,76 @@
       };
     },
   };
-  const moveStart = (ev) => {
-    ev.preventDefault();
-    state.offsetX = ev.clientX - dragResizeDom.value.offsetLeft;
-    state.offsetY = ev.clientY - dragResizeDom.value.offsetTop;
+  const roStickSize = 30;
+  const vRotate = {
+    mounted: (el) => {
+      el.onmousedown = function (ev) {
+        const offsetX = ev.clientX - rotateHandler.value.offsetLeft;
+        const offsetY = ev.clientY - rotateHandler.value.offsetTop;
+        let rotation = item.value.rotation
+        document.onmousemove = function (ev) {
+          // console.log(ev);
+          ev.preventDefault();
+          ev.stopPropagation();
+          let delta = new Vector(
+            ev.clientX - offsetX,
+            ev.clientY - offsetY
+          );
+          let up = new Vector(0, -item.value.h / 2 - roStickSize);
+          let rotationRad = Vector.rad(rotation);
+          console.log(rotationRad);
+          up = up.rotate(rotationRad);
+          let v = up.add(delta);
+          store.dispatch('Project/setChartParam', {
+            index: props.id,
+            pageIndex: props.pageIndex,
+            rotation: Vector.deg(v.angle()),
+          });
+        };
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      };
+    },
   };
-  const moveing = (ev) => {
-    ev.preventDefault();
-    let left = ev.clientX - state.offsetX;
-    let top = ev.clientY - state.offsetY;
-    let right = left + item.value.w;
-    let bottom = top + item.value.h;
-    left = left <= 0 ? 0 : left; // 左越界
-    top = top <= 0 ? 0 : top; // 上越界
-    if (right >= canvas.width) {
-      left = canvas.width - item.value.w; // 右越界
-    }
+  //根据当前坐标和中心坐标计算角度
+  const calculate_degree = (x, y, centerX, centerY) => {
+    const radians = Math.atan2(x - centerX, y - centerY);
+    return radians * (180 / Math.PI) * -1 + 90;
+  };
 
-    if (bottom >= canvas.height) {
-      top = canvas.height - item.value.h; // 下越界
-    }
-    store.dispatch('Project/setChartParam', {
-      index: props.id,
-      pageIndex: props.pageIndex,
-      x: left,
-      y: top,
-    });
-  };
-  const moveend = () =>{
-    dragResizeDom.value.onmousemove = null;
-    dragResizeDom.value.onmouseup = null;
-  }
+  // const moveStart = (ev) => {
+  //   ev.preventDefault();
+  //   state.offsetX = ev.clientX - dragResizeDom.value.offsetLeft;
+  //   state.offsetY = ev.clientY - dragResizeDom.value.offsetTop;
+  // };
+  // const moveing = (ev) => {
+  //   ev.preventDefault();
+  //   let left = ev.clientX - state.offsetX;
+  //   let top = ev.clientY - state.offsetY;
+  //   let right = left + item.value.w;
+  //   let bottom = top + item.value.h;
+  //   left = left <= 0 ? 0 : left; // 左越界
+  //   top = top <= 0 ? 0 : top; // 上越界
+  //   if (right >= canvas.width) {
+  //     left = canvas.width - item.value.w; // 右越界
+  //   }
+
+  //   if (bottom >= canvas.height) {
+  //     top = canvas.height - item.value.h; // 下越界
+  //   }
+  //   store.dispatch('Project/setChartParam', {
+  //     index: props.id,
+  //     pageIndex: props.pageIndex,
+  //     x: left,
+  //     y: top,
+  //   });
+  // };
+  // const moveend = () =>{
+  //   dragResizeDom.value.onmousemove = null;
+  //   dragResizeDom.value.onmouseup = null;
+  // }
   const setActive = () => {};
   const rotateStart = (e) => {
     console.log(e);
@@ -118,7 +153,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    transform: translate(0, 0);
     &.active {
       border: 1px dashed #eee;
     }

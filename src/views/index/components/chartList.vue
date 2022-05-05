@@ -58,7 +58,7 @@
       h: 180,
       resizable: false,
       active: false,
-      transform: { x: 100, y: 100, width: 100, height: 100, rotation: 0 }
+      rotation: 0 
     },
     {
       id: 2,
@@ -70,7 +70,7 @@
       h: 180,
       resizable: false,
       active: false,
-      transform: { x: 100, y: 100, width: 100, height: 100, rotation: 0 }
+      rotation: 0 
     },
     {
       id: 3,
@@ -80,10 +80,9 @@
       y: 100,
       w: 320,
       h: 180,
-      rotation: 0,
       resizable: false,
-      roatatable: false,
-      active: false
+      active: false,
+      rotation: 0 
     },
   ]);
   const cloneData = (origin) =>{

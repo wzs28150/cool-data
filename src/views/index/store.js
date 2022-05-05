@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-10 12:18:31
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-05 16:19:59
+ * @LastEditTime: 2022-05-05 20:37:04
  */
 import { getLeftBarData2 } from './service';
 import { merge } from 'lodash';
@@ -44,8 +44,8 @@ const StoreModel = {
       state.projectData[pageIndex].chart[index] = chartItem;
     },
     setChartParam(state, payload) {
-      const { index, x, y, w, h, pageIndex } = payload;
-      merge(state.projectData[pageIndex].chart[index], { x, y, w, h })
+      const { index, x, y, w, h, rotation, pageIndex } = payload;
+      merge(state.projectData[pageIndex].chart[index], { x, y, w, h, rotation })
     },
   },
   actions: {
