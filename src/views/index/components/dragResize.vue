@@ -1,9 +1,11 @@
 <template>
   <div
+    ref="dragResizeDom"
     class="drag-resize active"
     :style="`width: ${item.w}px; height: ${item.h}px; left: ${item.x}px; top: ${item.y}px;`"
-    ref="dragResizeDom"
-    @mousedown="onmousedown"
+    @mousedown="moveStart"
+    @mousemove="moveing"
+    @mouseup="moveend"
   >
     <div class="drag-resize-inner">
       <slot />
@@ -27,8 +29,11 @@
       default: 0,
     },
   });
-  const dragResizeDom = ref()
-  const state = ref('move');
+  const dragResizeDom = ref();
+  const state = reactive({
+    offsetX: 0,
+    offsetY: 0,
+  });
   const canvas = inject('canvas');
   const dir = ref(['tl', 'tm', 'tr', 'r', 'br', 'bm', 'bl', 'l']);
   const item = computed(() => store.state.Project.projectData[props.pageIndex].chart[props.id]);
@@ -61,8 +66,7 @@
               x: left,
               y: top,
             });
-          } else if(state.value == 'rotate'){
-
+          } else if (state.value == 'rotate') {
           }
         };
         document.onmouseup = function () {
@@ -72,8 +76,36 @@
       };
     },
   };
-  const onmousedown = (e) => {
-    console.log(dragResizeDom.value.offsetLeft);
+  const moveStart = (ev) => {
+    ev.preventDefault();
+    state.offsetX = ev.clientX - dragResizeDom.value.offsetLeft;
+    state.offsetY = ev.clientY - dragResizeDom.value.offsetTop;
+  };
+  const moveing = (ev) => {
+    ev.preventDefault();
+    let left = ev.clientX - state.offsetX;
+    let top = ev.clientY - state.offsetY;
+    let right = left + item.value.w;
+    let bottom = top + item.value.h;
+    left = left <= 0 ? 0 : left; // 左越界
+    top = top <= 0 ? 0 : top; // 上越界
+    if (right >= canvas.width) {
+      left = canvas.width - item.value.w; // 右越界
+    }
+
+    if (bottom >= canvas.height) {
+      top = canvas.height - item.value.h; // 下越界
+    }
+    store.dispatch('Project/setChartParam', {
+      index: props.id,
+      pageIndex: props.pageIndex,
+      x: left,
+      y: top,
+    });
+  };
+  const moveend = () =>{
+    dragResizeDom.value.onmousemove = null;
+    dragResizeDom.value.onmouseup = null;
   }
   const setActive = () => {};
   const rotateStart = (e) => {
