@@ -17,7 +17,7 @@
         <draggable
           :list="list"
           :group="{ name: 'people', pull: 'clone', put: false }"
-          :sort="true"
+          :sort="false"
           :move="checkMove"
           :clone="cloneData"
           @end="end"
@@ -56,7 +56,9 @@
       y: 100,
       w: 320,
       h: 180,
+      resizable: false,
       active: false,
+      transform: { x: 100, y: 100, width: 100, height: 100, rotation: 0 }
     },
     {
       id: 2,
@@ -66,31 +68,37 @@
       y: 100,
       w: 320,
       h: 180,
+      resizable: false,
       active: false,
+      transform: { x: 100, y: 100, width: 100, height: 100, rotation: 0 }
     },
     {
       id: 3,
       icon: barImg,
       title: '基础柱状图',
-      x: 100,
+      x: 200,
       y: 100,
-      name: '哈哈',
-      drag: false,
-      resize: true,
-      rotate: true,
-      active: false,
+      w: 320,
+      h: 180,
+      rotation: 0,
+      resizable: false,
+      roatatable: false,
+      active: false
     },
   ]);
-  const cloneData = (data) =>{
-    return cloneDeep(data)
+  const cloneData = (origin) =>{
+    // return JSON.parse(JSON.stringify(data))
+    let data = cloneDeep(origin)
+    // data.id = parseInt(new Date().getMilliseconds() + "" + Math.ceil(Math.random() * 100000)).toString(16);
+    return data
   }
   const checkMove = (event) => {
-    // console.log(event);
+    // console.log(event.originalEvent.x);
     // console.log('checkMove', event.draggedContext);
     // console.log('Future index: ' + event.draggedContext.futureIndex);
   };
   const end = (e) => {
-    // console.log(e.originalEvent.offsetX);
+    console.log(e.originalEvent);
   }
 </script>
 <style lang="less" scoped>

@@ -4116,6 +4116,11 @@ wrappy@1:
   resolved "https://registry.npmjs.org/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 
+yoyoo-ddr-vue3@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/yoyoo-ddr-vue3/-/yoyoo-ddr-vue3-1.0.2.tgz#6dbeea45ac0e69c5a3f798c04da5d3defd01e053"
+  integrity sha512-8oX9PSIXgwRxRUffPO5EPlu4jBl3z5j3ZCrp6rE9EW5uyA35OKgKIvJ8yKZoyULdobP79OjCQAWtkPD3ZFgPdA==
+
 zrender@5.3.1:
   version "5.3.1"
   resolved "https://registry.npmjs.org/zrender/-/zrender-5.3.1.tgz#fa8e63ac7e719cfd563831fe8c42a9756c5af384"

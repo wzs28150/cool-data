@@ -20,35 +20,42 @@
             <div ref="screensRef" class="screen-container" :style="screenStyle">
               <div ref="canvasRef" class="canvas" :style="canvasStyle">
                 <draggable
+                  v-model="project[0].chart"
                   class="dragArea list-group w-full"
-                  :list="list"
+                  :sort="false"
                   group="people"
                   @add="checkMove"
+                  @change="end"
                 >
-                  <DraggableContainer
+                  <!-- <Vue3DraggableResizable
+                    v-for="(item, index) in project[0].chart"
+                    :key="index"
+                    v-model:x="item.x"
+                    v-model:y="item.y"
+                    v-model:active="item.active"
+                    :w="item.w"
+                    :h="item.h"
+                    :parent="true"
+                    :init-w="item.x"
+                    :init-h="item.y"
+                    :draggable="true"
+                    :resizable="true"
+                    @activated="activatedHandle"
+                  >
+                    
+                  </Vue3DraggableResizable> -->
+                  <!-- <DraggableContainer
                     reference-line-color="#999999"
                     :adsorb-cols="data.lines.h"
                     :adsorb-rows="data.lines.v"
                   >
-                    <Vue3DraggableResizable
-                      v-for="(item, index) in list"
-                      :key="index"
-                      v-model:x="item.x"
-                      v-model:y="item.y"
-                      v-model:w="item.w"
-                      v-model:h="item.h"
-                      v-model:active="item.active"
-                      :parent="true"
-                      :init-w="110"
-                      :init-h="120"
-                      :draggable="true"
-                      :resizable="true"
-                      @activated="activatedHandle"
-                    >
-                      <div class="icon"></div>
-                      <div class="title">{{ item.title }}{{ item.id }}</div>
-                    </Vue3DraggableResizable>
-                  </DraggableContainer>
+                    
+                  </DraggableContainer> -->
+                  <dragResize v-for="(item, index) in project[0].chart" :id="index" :key="index" :page-index="0" class="chart-item">
+                    <div class="title">
+                      {{ item.title }}-{{ item.id }}-{{ item.w }}-{{ item.h }}
+                    </div>
+                  </dragResize>
                 </draggable>
               </div>
             </div>
@@ -79,7 +86,7 @@
                 <div
                   v-if="miniMapShow"
                   class="mini-map"
-                  :style="`width:${canvasWidth / 10}px; height: ${canvasHeight / 10}px`"
+                  :style="`width:${canvasWidth / 10}px; height: ${canvasHeight / 10}px;`"
                 >
                   <div class="mini-map-inner"></div>
                   <div v-dragmini class="mini-map-select" :style="miniMapSelectStyle"></div>
@@ -95,16 +102,21 @@
 </template>
 
 <script setup>
-  import { onMounted, reactive, ref, computed, nextTick, watch } from 'vue';
+  import { onMounted, reactive, ref, computed, nextTick, watch, provide  } from 'vue';
   import { ScaleToOriginal, Plus, Minus, ArrowUp } from '@element-plus/icons-vue';
+  import { useStore } from 'vuex';
   import { SketchRule } from 'vue3-sketch-ruler';
   import 'vue3-sketch-ruler/lib/style.css';
   import { VueDraggableNext as draggable } from 'vue-draggable-next';
-  import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable';
-  import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css';
+  // import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable';
+  // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css';
   import top from './components/top.vue';
   import left from './components/left.vue';
   import right from './components/right.vue';
+  import dragResize from './components/dragResize.vue';
+
+  const store = useStore();
+
   const data = reactive({
     scale: 75,
     startX: 0,
@@ -118,17 +130,8 @@
     isShowReferLine: true,
     // shadow: 0,
   });
-  const list = ref([
-    {
-      id: 1,
-      title: '基础柱状图',
-      x: 200,
-      y: 100,
-      w: 320,
-      h: 180,
-      active: false,
-    },
-  ]);
+  const list = ref();
+  const project = computed(() => store.state.Project.projectData);
   const width = ref(null);
   const height = ref(null);
   const canvasWidth = ref(1920);
@@ -148,6 +151,11 @@
   //     return screensRef.value.getBoundingClientRect().left / 10
   //   }
   // })
+
+  provide('canvas',{
+    width: canvasWidth.value,
+    height: canvasHeight.value
+  })
   const scale = computed(() => {
     return data.scale / 100;
   });
@@ -159,11 +167,7 @@
   });
   const screenStyle = computed(() => {
     return {
-      width: `${
-        needMiniMapMove.value
-          ? canvasWidth.value * scale.value
-          : width.value - 80
-      }px`,
+      width: `${needMiniMapMove.value ? canvasWidth.value * scale.value : width.value - 80}px`,
       height: `${
         canvasHeight.value * scale.value > height.value
           ? canvasHeight.value * scale.value
@@ -217,7 +221,6 @@
     data.startY = startY;
   };
   const spaceKey = ref(false);
-  const isMouseOver = ref(false);
   // 空格+左键拖拽
   const vDragscroll = {
     mounted: (el) => {
@@ -238,21 +241,19 @@
             const distanceY = ev.clientY - disY;
             el.scrollTo(originalScrollLeft - distanceX, originalScrollTop - distanceY);
             // 更新小地图位置
-            miniLeft.value =
-              needMiniMapMove.value
-                ? Math.min(
-                    canvasWidth.value / 10 - (width.value / 10) * miniMapScale.value,
-                    Math.max(0, (originalScrollLeft - distanceX) / scale.value / 10)
-                  )
-                : 0;
+            miniLeft.value = needMiniMapMove.value
+              ? Math.min(
+                  canvasWidth.value / 10 - (width.value / 10) * miniMapScale.value,
+                  Math.max(0, (originalScrollLeft - distanceX) / scale.value / 10)
+                )
+              : 0;
             // 更新小地图位置
-            miniTop.value =
-              needMiniMapMove.value
-                ? Math.min(
-                    canvasHeight.value / 10 - (height.value / 10) * miniMapScale.value,
-                    Math.max(0, (originalScrollTop - distanceY) / scale.value / 10)
-                  )
-                : 0;
+            miniTop.value = needMiniMapMove.value
+              ? Math.min(
+                  canvasHeight.value / 10 - (height.value / 10) * miniMapScale.value,
+                  Math.max(0, (originalScrollTop - distanceY) / scale.value / 10)
+                )
+              : 0;
             el.style['pointer-events'] = 'none';
             document.body.style['cursor'] = 'grabbing';
             el.style['cursor'] = 'grabbing';
@@ -361,10 +362,22 @@
 
   const checkMove = (event) => {
     console.log(event);
-    setTimeout(() => {
-      list.value[event.newIndex].x = event.originalEvent.offsetX;
-      list.value[event.newIndex].y = event.originalEvent.offsetY;
-    }, 100);
+    nextTick(() => {
+      store.dispatch('Project/setChartPosition', {
+        pageIndex: 0,
+        index: event.newIndex,
+        x: event.originalEvent.offsetX,
+        y: event.originalEvent.offsetY,
+      });
+    });
+  };
+
+  const end = (e) => {
+    console.log(e);
+  };
+
+  const cloneB = (e) => {
+    console.log(e);
   };
 
   const activatedHandle = (e) => {
