@@ -54,8 +54,8 @@
       title: '基础柱状图',
       x: 200,
       y: 100,
-      w: 320,
-      h: 180,
+      w: 480,
+      h: 360,
       resizable: false,
       active: false,
       rotation: 0 

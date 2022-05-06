@@ -7,7 +7,13 @@
     <div v-move class="drag-resize-inner">
       <slot />
     </div>
-    <div v-for="ite in dir" :key="ite" :class="`resize-handler ${ite}`"></div>
+    <div
+      v-for="ite in dir"
+      :key="ite"
+      v-zoom
+      :data-dir="ite"
+      :class="`resize-handler ${ite}`"
+    ></div>
     <div ref="rotateHandler" v-rotate class="rotate-handler"></div>
   </div>
 </template>
@@ -29,6 +35,7 @@
   });
   const dragResizeDom = ref();
   const rotateHandler = ref();
+  const roStickSize = 30;
   const state = reactive({
     offsetX: 0,
     offsetY: 0,
@@ -72,21 +79,18 @@
       };
     },
   };
-  const roStickSize = 30;
+
   const vRotate = {
     mounted: (el) => {
       el.onmousedown = function (ev) {
         const offsetX = ev.clientX - rotateHandler.value.offsetLeft;
         const offsetY = ev.clientY - rotateHandler.value.offsetTop;
-        let rotation = item.value.rotation
+        let rotation = item.value.rotation;
         document.onmousemove = function (ev) {
           console.log(ev);
           ev.preventDefault();
           ev.stopPropagation();
-          let delta = new Vector(
-            ev.clientX,
-            ev.clientY
-          );
+          let delta = new Vector(ev.clientX, ev.clientY);
           let up = new Vector(0, -item.value.h / 2 - roStickSize);
           let rotationRad = Vector.rad(rotation);
           console.log(rotationRad);
@@ -105,10 +109,80 @@
       };
     },
   };
-  //根据当前坐标和中心坐标计算角度
-  const calculate_degree = (x, y, centerX, centerY) => {
-    const radians = Math.atan2(x - centerX, y - centerY);
-    return radians * (180 / Math.PI) * -1 + 90;
+
+  const vZoom = {
+    mounted: (el) => {
+      el.onmousedown = function (ev) {
+        const offsetX = ev.clientX - dragResizeDom.value.offsetLeft;
+        const offsetY = ev.clientY - dragResizeDom.value.offsetTop;
+        document.onmousemove = function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          console.log(el.dataset.dir);
+          let left = ev.clientX - offsetX;
+          let top = ev.clientY - offsetY;
+          switch (el.dataset.dir) {
+            case 'r':
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                w: left - rotateHandler.value.offsetLeft,
+              });
+              break;
+            case 'l':
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                w: item.value.w + dragResizeDom.value.offsetLeft - ev.clientX,
+                x: ev.clientX
+              });
+              break;
+            case 'tm':
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                h: item.value.h + dragResizeDom.value.offsetTop - ev.clientY,
+                y: ev.clientY
+              });
+              break;
+            case 'bm':
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                h: top - rotateHandler.value.offsetTop,
+              });
+              break;
+            case 'tl':
+              // ok
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                w: dragResizeDom.value.clientWidth + dragResizeDom.value.offsetLeft - left,
+                h: dragResizeDom.value.clientHeight + dragResizeDom.value.offsetTop - top,
+                x: left,
+                y: top
+              });
+              break;
+            case 'tr':
+              console.log(ev.clientX);
+              store.dispatch('Project/setChartParam', {
+                index: props.id,
+                pageIndex: props.pageIndex,
+                w: left - dragResizeDom.value.offsetLeft - item.value.x,
+                h: dragResizeDom.value.clientHeight + dragResizeDom.value.offsetTop - top,
+                y: top
+              });
+              break;
+            default:
+              break;
+          }
+        };
+        document.onmouseup = function () {
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      };
+    },
   };
 
   // const moveStart = (ev) => {
