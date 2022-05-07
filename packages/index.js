@@ -46,7 +46,6 @@ import WaterLevel1 from './chart/waterlevel/waterlevel1';
 import WaterLevel2 from './chart/waterlevel/waterlevel2';
 
 import Radar1 from './chart/radar/radar1';
-import Radar2 from './chart/radar/radar2';
 
 import Gauge1 from './chart/gauge/gauge1';
 import Gauge2 from './chart/gauge/gauge2';
@@ -167,8 +166,7 @@ export const chartComponents = {
   Gauge1,
   Gauge2,
   Gauge3,
-  Radar1,
-  Radar2
+  Radar1
 };
 
 // 标题组件
@@ -322,7 +320,6 @@ export {
   Gauge2,
   Gauge3,
   Radar1,
-  Radar2,
   Title1,
   Title2,
   Title3,
