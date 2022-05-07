@@ -1,7 +1,12 @@
 <template>
-  <el-container class="page" style="background-image: url('./bg.png');">
+  <el-container
+    class="page"
+    style="background-image: url('./bg.png');"
+  >
     <el-header class="page-header">
-      <div class="logo">数据可视化组件</div>
+      <div class="logo">
+        数据可视化组件
+      </div>
       <a href="/cool-data/docs">
         <el-icon>
           <document />
@@ -13,8 +18,8 @@
         router
         :default-active="$route.path"
         class="page-aside"
-        @select="handleSelect"
         width="200px"
+        @select="handleSelect"
       >
         <el-scrollbar style="height: calc(100vh - 60px - 40px); ">
           <el-menu
@@ -31,37 +36,49 @@
               <el-icon :size="20">
                 <full-screen />
               </el-icon>
-              <span slot="title">边框</span>
+              <template #title>
+                <span>边框</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/title">
               <el-icon :size="20">
                 <house />
               </el-icon>
-              <span slot="title">标题</span>
+              <template #title>
+                <span>标题</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/moduleTitle">
               <el-icon :size="20">
                 <house />
               </el-icon>
-              <span slot="title">板块标题</span>
+              <template #title>
+                <span>板块标题</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/decoration">
               <el-icon :size="20">
                 <MagicStick />
               </el-icon>
-              <span slot="title">装饰器</span>
+              <template #title>
+                <span>装饰器</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/loading">
               <el-icon :size="20">
                 <Loading />
               </el-icon>
-              <span slot="title">加载</span>
+              <template #title>
+                <span>加载</span>
+              </template>
             </el-menu-item>
             <el-menu-item index="/layout">
               <el-icon :size="20">
                 <Document />
               </el-icon>
-              <span slot="title">模板</span>
+              <template #title>
+                <span>模板</span>
+              </template>
             </el-menu-item>
             <el-sub-menu index="/chart">
               <template #title>
@@ -71,15 +88,69 @@
                 <span>图表</span>
               </template>
 
-              <el-menu-item index="/chart/bar">柱状图</el-menu-item>
-              <el-menu-item index="/chart/pie">饼形图</el-menu-item>
-              <el-menu-item index="/chart/line">折线图</el-menu-item>
-              <el-menu-item index="/chart/radar">雷达图</el-menu-item>
-              <el-menu-item index="/chart/gauge">仪表盘</el-menu-item>
-              <el-menu-item index="/chart/waterlevel">水位图</el-menu-item>
-              <el-menu-item index="/chart/rotation">轮播</el-menu-item>
-              <el-menu-item index="/chart/digitalflop">数字翻牌器</el-menu-item>
-              <el-menu-item index="/chart/other">其他</el-menu-item>
+              <el-menu-item index="/chart/bar">
+                柱状图
+              </el-menu-item>
+              <el-menu-item index="/chart/mount">
+                山峰图
+              </el-menu-item>
+              <el-menu-item index="/chart/pie">
+                饼装图
+              </el-menu-item>
+              <el-menu-item index="/chart/ring">
+                圆环图
+              </el-menu-item>
+              <el-menu-item index="/chart/jade">
+                玉玦图
+              </el-menu-item>
+              <el-menu-item index="/chart/rose">
+                玫瑰图
+              </el-menu-item>
+              <el-menu-item index="/chart/line">
+                折线图
+              </el-menu-item>
+              <el-menu-item index="/chart/area">
+                区域图
+              </el-menu-item>
+              <el-menu-item index="/chart/scatter">
+                散点图
+              </el-menu-item>
+              <el-menu-item index="/chart/bubble">
+                气泡图
+              </el-menu-item>
+              <el-menu-item index="/chart/radar">
+                雷达图
+              </el-menu-item>
+              <el-menu-item index="/chart/arcbar">
+                进度条
+              </el-menu-item>
+              <el-menu-item index="/chart/gauge">
+                仪表盘
+              </el-menu-item>
+              <el-menu-item index="/chart/funnel">
+                漏斗图
+              </el-menu-item>
+              <el-menu-item index="/chart/word">
+                词云图
+              </el-menu-item>
+              <el-menu-item index="/chart/candle">
+                K线图
+              </el-menu-item>
+              <el-menu-item index="/chart/map">
+                地图
+              </el-menu-item>
+              <el-menu-item index="/chart/waterlevel">
+                水位图
+              </el-menu-item>
+              <el-menu-item index="/chart/rotation">
+                轮播
+              </el-menu-item>
+              <el-menu-item index="/chart/digitalflop">
+                数字翻牌器
+              </el-menu-item>
+              <el-menu-item index="/chart/other">
+                其他
+              </el-menu-item>
             </el-sub-menu>
             <el-menu-item index="/font">
               <el-icon>
@@ -101,8 +172,12 @@
                 <span>背景</span>
               </template>
 
-              <el-menu-item index="/background/index">背景图</el-menu-item>
-              <el-menu-item index="/background/canvas">背景效果</el-menu-item>
+              <el-menu-item index="/background/index">
+                背景图
+              </el-menu-item>
+              <el-menu-item index="/background/canvas">
+                背景效果
+              </el-menu-item>
             </el-sub-menu>
           </el-menu>
         </el-scrollbar>

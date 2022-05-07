@@ -1,7 +1,7 @@
 import Pie3 from "./index.vue";
 import defaultOption from "./config";
 // eslint-disable-next-line func-names
-Pie3.title = "玉玦图";
+Pie3.title = "3d动态环图";
 Pie3.name = "Pie3";
 Pie3.type = "pie";
 Pie3.config = defaultOption;

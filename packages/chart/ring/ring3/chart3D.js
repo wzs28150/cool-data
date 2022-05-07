@@ -25,7 +25,7 @@
   pieData.sort((a, b) => {
     return b.value - a.value;
   });
-  console.log(pieData);
+  // console.log(pieData);
   // 为每一个饼图数据，生成一个 series-surface 配置
   for (let i = 0; i < pieData.length; i++) {
     sumValue += pieData[i].value;
@@ -35,15 +35,15 @@
       type: "surface",
       parametric: true,
       wireframe: {
-        show: false,
+        show: false
       },
       pieData: pieData[i],
       pieStatus: {
         selected: false,
         hovered: false,
-        k: k,
+        k: k
       },
-      center: ["10%", "50%"],
+      center: ["10%", "50%"]
     };
     if (typeof pieData[i].itemStyle !== "undefined") {
       const itemStyle = {};
@@ -81,11 +81,11 @@
     const bfb = fomatFloat(series[i].pieData.value / sumValue, 4);
     legendData.push({
       name: series[i].name,
-      value: bfb,
+      value: bfb
     });
     legendBfb.push({
       name: series[i].name,
-      value: bfb,
+      value: bfb
     });
   }
   const boxHeight = getHeight3D(series, pieHeight); // 通过pieHeight设定3d饼/环的高度，单位是px
@@ -99,32 +99,32 @@
       top: 10,
       itemGap: 10,
       textStyle: {
-        color: "#A1E2FF",
+        color: "#A1E2FF"
       },
       icon: "circle",
       formatter: function (param) {
         const item = legendBfb.filter((item) => item.name === param)[0];
         const bfs = fomatFloat(item.value * 100, 2) + "%";
         return `${item.name}  ${bfs}`;
-      },
+      }
     },
     labelLine: {
       show: true,
       lineStyle: {
-        color: "#fff",
-      },
+        color: "#fff"
+      }
     },
     label: {
       show: true,
       position: "outside",
-      formatter: "{b} \n{c} {d}%",
+      formatter: "{b} \n{c} {d}%"
     },
     tooltip: {
       backgroundColor: "#033b77",
       borderColor: "#21f2c4",
       textStyle: {
         color: "#fff",
-        fontSize: 13,
+        fontSize: 13
       },
       formatter: (params) => {
         if (
@@ -143,19 +143,19 @@
             `${bfb}%`
           );
         }
-      },
+      }
     },
     xAxis3D: {
       min: -1,
-      max: 1,
+      max: 1
     },
     yAxis3D: {
       min: -1,
-      max: 1,
+      max: 1
     },
     zAxis3D: {
       min: -1,
-      max: 1,
+      max: 1
     },
     grid3D: {
       show: false,
@@ -167,10 +167,10 @@
         rotateSensitivity: 0, // 设置为0无法旋转
         zoomSensitivity: 0, // 设置为0无法缩放
         panSensitivity: 0, // 设置为0无法平移
-        autoRotate: false, // 自动旋转
-      },
+        autoRotate: false // 自动旋转
+      }
     },
-    series: series,
+    series: series
   };
   return options;
 };
@@ -207,12 +207,12 @@ const getParametricEquation = (
     u: {
       min: -Math.PI,
       max: Math.PI * 3,
-      step: Math.PI / 32,
+      step: Math.PI / 32
     },
     v: {
       min: 0,
       max: Math.PI * 2,
-      step: Math.PI / 20,
+      step: Math.PI / 20
     },
     x: function (u, v) {
       if (u < startRadian) {
@@ -248,7 +248,7 @@ const getParametricEquation = (
         return Math.sin(u) * h * 0.1;
       }
       return Math.sin(v) > 0 ? 1 * h * 0.1 : -1;
-    },
+    }
   };
 };
 

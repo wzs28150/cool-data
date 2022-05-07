@@ -1,17 +1,17 @@
 <template>
   <v-chart
+    ref="jade1"
     class="chart"
-    ref="pie4"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
 import { use, graphic } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart } from "echarts/charts";
+import { ScatterChart, BarChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -26,11 +26,11 @@ import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import { toRgb } from '../../../util/color';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
   BarChart,
+  ScatterChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
@@ -41,7 +41,10 @@ use([
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -56,7 +59,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 const id = uuid()
@@ -100,13 +106,15 @@ const mergeOption = async () => {
       itemStyle: {
         color: new graphic.LinearGradient(0, 0, 0, 1, [
           { offset: 0, color: toRgb(colorStart, 1) },
-          { offset: 1, color: toRgb(colorEnd ? colorEnd : colorStart, 0.6) },
+          { offset: 1, color: toRgb(colorEnd ? colorEnd : colorStart, 0.6) }
         ])
       }
     })
 
-    const maxData = mergedOption.value.dataset.source[mergedOption.value.dataset.source.length - 1].value
-    mergedOption.value.series[1].data.push(maxData + maxData * 0.1)
+    mergedOption.value.series[1].data.push({
+      name: item.name,
+      value: item.value
+    })
   })
 }
 

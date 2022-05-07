@@ -1,12 +1,12 @@
 <template>
   <v-chart
+    ref="ring1"
     class="chart"
-    ref="pie6"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
+    :theme="theme"
     @selectchanged="handleSelect"
-    :theme="theme ? theme : defaultTheme"
   />
 </template>
 <script setup>
@@ -42,7 +42,10 @@ use([
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -87,20 +90,23 @@ const props = defineProps({
         right: "10%",
         orient: "vertical",
         textStyle: {
-          color: "#eee",
-        },
+          color: "#eee"
+        }
       }
     }
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 const id = uuid()
 const total = ref(0)
 const title = ref('')
-const pie6 = ref(null)
+const ring1 = ref(null)
 const actionTimer = ref()
 const initOptions = reactive({
   renderer: 'canvas',
@@ -131,7 +137,7 @@ const renderPercentItem = (params, api) => {
       fill: '#eee',
       align: 'center',
       verticalAlign: 'middle',
-      enterFrom: { opacity: 0 },
+      enterFrom: { opacity: 0 }
     },
     during: function (apiDuring) {
       apiDuring.setStyle(
@@ -155,8 +161,8 @@ const renderTitleItem = (params) => {
       fill: '#eee',
       align: 'center',
       verticalAlign: 'middle',
-      enterFrom: { opacity: 0 },
-    },
+      enterFrom: { opacity: 0 }
+    }
   }
 }
 
@@ -203,25 +209,25 @@ const setText = (index) => {
   mergedOption.value.series[2] = {
     type: 'custom',
     coordinateSystem: 'polar',
-    renderItem: renderTitleItem,
+    renderItem: renderTitleItem
   }
 }
 
 const startActions = () => {
   let dataIndex = -1;
-  if (!pie6.value) {
+  if (!ring1.value) {
     return;
   }
   const dataLen = mergedOption.value.dataset[0].source.length;
   actionTimer.value = setInterval(() => {
-    pie6.value.dispatchAction({
+    ring1.value.dispatchAction({
       type: "downplay",
       seriesIndex: 0,
       dataIndex
     });
     dataIndex = (dataIndex + 1) % dataLen;
     // 设置选中
-    pie6.value.dispatchAction({
+    ring1.value.dispatchAction({
       type: "select",
       seriesIndex: 0,
       dataIndex
@@ -236,7 +242,7 @@ const handleSelect = ({ selected }) => {
   const index = selected[0].dataIndex[0]
   title.value = mergedOption.value.dataset[0].source[index].name
   setText(index)
-  pie6.value.setOption(mergedOption.value)
+  ring1.value.setOption(mergedOption.value)
 }
 
 onMounted(async () => {

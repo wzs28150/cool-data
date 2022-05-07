@@ -11,7 +11,7 @@
 <script setup>
 import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
-import { BarChart } from "echarts/charts";
+import { PictorialBarChart } from "echarts/charts";
 import {
   TitleComponent,
   TooltipComponent,
@@ -28,7 +28,7 @@ import easyv from "../../../theme/easyv.js"
 
 use([
   CanvasRenderer,
-  BarChart,
+  PictorialBarChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,

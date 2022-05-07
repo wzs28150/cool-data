@@ -25,15 +25,21 @@ import Bar10 from './chart/bar/bar10';
 import Bar11 from './chart/bar/bar11';
 import Bar12 from './chart/bar/bar12';
 
+import Mount1 from './chart/mount/mount1';
+import Mount2 from './chart/mount/mount2';
+import Mount3 from './chart/mount/mount3';
+
 import Pie1 from './chart/pie/pie1';
 import Pie2 from './chart/pie/pie2';
 import Pie3 from './chart/pie/pie3';
-import Pie4 from './chart/pie/pie4';
-import Pie5 from './chart/pie/pie5';
-import Pie6 from './chart/pie/pie6';
-import Pie7 from './chart/pie/pie7';
-import Pie8 from './chart/pie/pie8';
-import Pie9 from './chart/pie/pie9';
+
+
+import Ring1 from './chart/ring/ring1';
+import Ring2 from './chart/ring/ring2';
+import Ring3 from './chart/ring/ring3';
+import Jade1 from './chart/jade/jade1';
+import Jade2 from './chart/jade/jade2';
+import Jade3 from './chart/jade/jade3';
 
 import Line1 from './chart/line/line1';
 import Line2 from './chart/line/line2';
@@ -139,15 +145,20 @@ export const chartComponents = {
   Bar10,
   Bar11,
   Bar12,
+  Mount1,
+  Mount2,
+  Mount3,
   Pie1,
   Pie2,
   Pie3,
-  Pie4,
-  Pie5,
-  Pie6,
-  Pie7,
-  Pie8,
-  Pie9,
+
+
+  Ring1,
+  Ring2,
+  Ring3,
+  Jade1,
+  Jade2,
+  Jade3,
   Line1,
   Line2,
   Line3,
@@ -292,15 +303,19 @@ export {
   Bar10,
   Bar11,
   Bar12,
+  Mount1,
+  Mount2,
+  Mount3,
   Pie1,
   Pie2,
   Pie3,
-  Pie4,
-  Pie5,
-  Pie6,
-  Pie7,
-  Pie8,
-  Pie9,
+
+  Ring1,
+  Ring2,
+  Ring3,
+  Jade1,
+  Jade2,
+  Jade3,
   Line1,
   Line2,
   Line3,

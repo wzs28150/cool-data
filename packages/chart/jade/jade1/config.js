@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-01 13:32:24
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-07 09:08:21
+ * @LastEditTime: 2022-05-07 15:17:50
  */
 const defaultOption = {
   // legend: {
@@ -19,14 +19,14 @@ const defaultOption = {
   tooltip: {
     trigger: "axis",
     axisPointer: {
-      type: "shadow",
-    },
+      type: "shadow"
+    }
   },
   grid: {
     left: "10%",
     right: "15%",
     bottom: "10%",
-    containLabel: true,
+    containLabel: true
   },
   dataset: {
     dimensions: ["name", "value"],
@@ -34,11 +34,11 @@ const defaultOption = {
       { name: "类别1", value: 43.3 },
       { name: "类别2", value: 83.1 },
       { name: "类别3", value: 86.4 },
-      { name: "类别4", value: 72.4 },
-    ],
+      { name: "类别4", value: 72.4 }
+    ]
   },
   polar: {
-    radius: [30, "80%"],
+    radius: [30, "80%"]
   },
   angleAxis: {
     show: false,
@@ -47,29 +47,29 @@ const defaultOption = {
     // // min: (value)=>{
     // //   console.log(value);
     // // },
-    max: (value) => (value.max * 4) / 3,
+    max: (value) => (value.max * 4) / 3
   },
   radiusAxis: {
     type: "category",
     axisLabel: {
       interval: 0,
       color: "#2df",
-      fontSize: 12,
+      fontSize: 12
     },
     axisLine: {
-      show: false,
+      show: false
     },
     axisTick: {
       show: false,
-      alignWithLabel: true,
+      alignWithLabel: true
     },
     splitLine: {
       show: false,
       lineStyle: {
-        color: "rgba(17, 51, 68, 0.8)",
-      },
+        color: "rgba(17, 51, 68, 0.8)"
+      }
     },
-    data: [],
+    data: []
   },
   series: [
     {
@@ -78,9 +78,9 @@ const defaultOption = {
       barWidth: 10,
       // showBackground: true,
       itemStyle: {
-        borderRadius: 10,
+        borderRadius: 10
       },
-      data: [],
+      data: []
       
       // label: {
       //   show: true,
@@ -95,7 +95,7 @@ const defaultOption = {
       // showBackground: true,
       itemStyle: {
         borderRadius: 10,
-        color: 'rgba(255,255,255,1)',
+        color: 'rgba(255,255,255,1)'
       },
       data: [],
       zlevel: 10,
@@ -105,7 +105,7 @@ const defaultOption = {
       //   position: 'middle',
       //   formatter: '{b}: {d}'
       // }
-    },
-  ],
+    }
+  ]
 };
 export default defaultOption;
