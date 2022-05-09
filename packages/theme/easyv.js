@@ -45,7 +45,13 @@ const easyv = {
       },
       symbolSize: 4,
       symbol: "circle",
-      smooth: false
+      smooth: false,
+      label: {
+        textBorderColor: 'transparent',
+        color: '#fff',
+        fontSize: 10,
+        fontWeight: 'lighter'
+      }
     },
     radar: {
       itemStyle: {
@@ -111,6 +117,12 @@ const easyv = {
       itemStyle: {
         borderWidth: 0,
         borderColor: "#ccc"
+      },
+      label: {
+        textBorderColor: 'transparent',
+        color: '#eee',
+        fontSize: 8,
+        fontWeight: 'lighter'
       }
     },
     gauge: {

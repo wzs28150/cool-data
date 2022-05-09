@@ -2,14 +2,14 @@ const defaultOption = {
   legend: {
     show: true,
     textStyle: { color: "#fff" },
-    top: "10%"
+    top: "10%",
   },
   tooltip: {
-    trigger: "axis",
+    trigger: 'axis',
     axisPointer: {
-      type: "cross",
+      type: 'cross',
       label: {
-        backgroundColor: "#333"
+        backgroundColor: '#333'
       }
     }
   },
@@ -18,7 +18,7 @@ const defaultOption = {
     right: "10%",
     top: "28%",
     bottom: "10%",
-    containLabel: true
+    containLabel: true,
   },
   // dataset: {
   //   dimensions: ["product", "系列1"],
@@ -39,7 +39,7 @@ const defaultOption = {
       { product: "周五", 系列1: 95.4, 系列2: 243.3, 系列3: 143.3 },
       { product: "周六", 系列1: 72.4, 系列2: 303.3, 系列3: 243.3 },
       { product: "周日", 系列1: 90.4, 系列2: 313.3, 系列3: 343.3 }
-    ]
+    ],
   },
   // dataset: {
   //   dimensions: ["product", "系列1", "系列2"],
@@ -54,41 +54,31 @@ const defaultOption = {
     type: "category",
     boundaryGap: false,
     splitLine: {
-      show: false
-    }
+      show: false,
+    },
   },
   yAxis: {
     axisLine: {
-      show: false
+      show: false,
     },
     splitLine: {
       show: true,
       lineStyle: {
         type: "dashed",
-        opacity: 0.2
-      }
-    }
+        opacity: 0.2,
+      },
+    },
   },
   series: [
     {
       type: "line",
-      smooth: true,
-      lineStyle: {
-        type: "dashed"
+      stack: 'Total',
+      emphasis: {
+        focus: 'series'
       },
-      markPoint: {
-        data: [
-          {
-            type: "max"
-          }
-        ],
-        symbol: "circle",
-        symbolSize: 10,
-        label: {
-          position: "top"
-        }
-      }
-    }
-  ]
+      itemStyle:{},
+      areaStyle: {}
+    },
+  ],
 };
 export default defaultOption;

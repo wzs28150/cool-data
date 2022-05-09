@@ -1,15 +1,15 @@
 <template>
   <v-chart
+    ref="line4"
     class="chart"
-    ref="pie1"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
-import { use, graphic } from "echarts/core";
+import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
 import {
@@ -17,15 +17,14 @@ import {
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent
+  DatasetComponent,
+  MarkPointComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
-import { toRgb } from '../../../util/color';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
@@ -35,11 +34,15 @@ use([
   LegendComponent,
   GridComponent,
   DatasetComponent,
+  MarkPointComponent
 ]);
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -50,7 +53,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 
@@ -85,11 +91,7 @@ const mergeOption = async () => {
     } else {
       color = theme.color[i]
     }
-    seriesItemOption.itemStyle.color = color
-    seriesItemOption.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
-      { offset: 0, color: toRgb(color, 1) },
-      { offset: 1, color: toRgb(color, 0) },
-    ])
+    seriesItemOption.lineStyle.color = color
     mergedOption.value.series[i] = seriesItemOption
   }
 }

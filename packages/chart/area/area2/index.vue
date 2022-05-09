@@ -9,7 +9,7 @@
   />
 </template>
 <script setup>
-import { use } from "echarts/core";
+import { use,graphic } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { LineChart } from "echarts/charts";
 import {
@@ -17,13 +17,13 @@ import {
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent,
-  MarkPointComponent
+  DatasetComponent
 } from "echarts/components";
 import VChart from "vue-echarts";
 import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
+import { toRgb } from '../../../util/color';
 import easyv from "../../../theme/easyv.js"
 const defaultTheme = easyv.theme
 
@@ -35,7 +35,6 @@ use([
   LegendComponent,
   GridComponent,
   DatasetComponent,
-  MarkPointComponent
 ]);
 
 const props = defineProps({
@@ -86,7 +85,11 @@ const mergeOption = async () => {
     } else {
       color = theme.color[i]
     }
-    seriesItemOption.lineStyle.color = color
+    seriesItemOption.itemStyle.color = color
+    seriesItemOption.areaStyle.color = new graphic.LinearGradient(0, 0, 0, 1, [
+      { offset: 0, color: toRgb(color, 1) },
+      { offset: 1, color: toRgb(color, 0) },
+    ])
     mergedOption.value.series[i] = seriesItemOption
   }
 }

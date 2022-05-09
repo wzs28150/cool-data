@@ -41,12 +41,18 @@ import Jade1 from './chart/jade/jade1';
 import Jade2 from './chart/jade/jade2';
 import Jade3 from './chart/jade/jade3';
 
+import Rose1 from './chart/rose/rose1';
+
 import Line1 from './chart/line/line1';
 import Line2 from './chart/line/line2';
 import Line3 from './chart/line/line3';
 import Line4 from './chart/line/line4';
 import Line5 from './chart/line/line5';
-import Line6 from './chart/line/line6';
+import Area1 from './chart/area/area1';
+import Area2 from './chart/area/area2';
+import Area3 from './chart/area/area3';
+
+import Scatter1 from './chart/scatter/scatter1';
 
 import WaterLevel1 from './chart/waterlevel/waterlevel1';
 import WaterLevel2 from './chart/waterlevel/waterlevel2';
@@ -56,6 +62,9 @@ import Radar1 from './chart/radar/radar1';
 import Gauge1 from './chart/gauge/gauge1';
 import Gauge2 from './chart/gauge/gauge2';
 import Gauge3 from './chart/gauge/gauge3';
+
+import Funnel1 from './chart/funnel/funnel1';
+import Word1 from './chart/word/word1';
 
 import ScrollRankingBar from './chart/rotation/scrollRankingBar';
 import ScrollRankingBar2 from './chart/rotation/scrollRankingBar2';
@@ -151,20 +160,22 @@ export const chartComponents = {
   Pie1,
   Pie2,
   Pie3,
-
-
   Ring1,
   Ring2,
   Ring3,
   Jade1,
   Jade2,
   Jade3,
+  Rose1,
   Line1,
   Line2,
   Line3,
   Line4,
   Line5,
-  Line6,
+  Area1,
+  Area2,
+  Area3,
+  Scatter1,
   WaterLevel1,
   WaterLevel2,
   ScrollTable,
@@ -177,7 +188,9 @@ export const chartComponents = {
   Gauge1,
   Gauge2,
   Gauge3,
-  Radar1
+  Funnel1,
+  Radar1,
+  Word1
 };
 
 // 标题组件
@@ -316,12 +329,15 @@ export {
   Jade1,
   Jade2,
   Jade3,
+  Rose1,
   Line1,
   Line2,
   Line3,
   Line4,
   Line5,
-  Line6,
+  Area1,
+  Area2,
+  Area3,
   WaterLevel1,
   WaterLevel2,
   ScrollTable,
@@ -335,6 +351,8 @@ export {
   Gauge2,
   Gauge3,
   Radar1,
+  Funnel1,
+  Word1,
   Title1,
   Title2,
   Title3,

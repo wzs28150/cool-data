@@ -1,7 +1,7 @@
 <template>
   <v-chart
+    ref="waterlevel1"
     class="chart"
-    ref="pie1"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
@@ -32,7 +32,7 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({

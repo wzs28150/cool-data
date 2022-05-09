@@ -72,12 +72,21 @@ const defaultOption = {
   series: [
     {
       type: "line",
-      stack: 'Total',
-      emphasis: {
-        focus: 'series'
+      lineStyle: {
+        type: 'dashed'
       },
-      itemStyle:{},
-      areaStyle: {}
+      markPoint: {
+        data: [
+          {
+            type: "max",
+          },
+        ],
+        symbol: "circle",
+        symbolSize: 10,
+        label: {
+          position: "top",
+        },
+      },
     },
   ],
 };

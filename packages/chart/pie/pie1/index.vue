@@ -1,7 +1,7 @@
 <template>
   <v-chart
-    class="chart"
     ref="pie1"
+    class="chart"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
@@ -33,7 +33,7 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({
