@@ -29,6 +29,7 @@
               :round="item.round"
               :stack="item.stack"
               :zebra="item.zebra"
+              :url="item.url"
             />
           </chart>
         </div>
@@ -197,6 +198,13 @@
                         placeholder="请设置堆叠的名称"
                       />
                     </div>
+                    <div class="setting-item">
+                      <div class="setting-item-title">穿透:</div>
+                      <el-input
+                        v-model="item.url"
+                        placeholder="请设置穿透的地址"
+                      />
+                    </div>
                   </div>
                 </div>
               </el-collapse-item>
@@ -256,7 +264,8 @@ const barConfig = {
   round: false,
   stack: null,
   bg: false,
-  zebra: false
+  zebra: false,
+  url: ''
 };
 
 const dataType = ref('静态数据');
@@ -275,6 +284,7 @@ const data = reactive({
   dataset: [
     {
       dimensions: ['category', '系列1', '系列2', '系列3'],
+      url: { 系列1: 'color', 系列2: 'color', 系列3: 'color' },
       source: [
         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
@@ -365,9 +375,9 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${item.zebra ? ' zebra' : ''}${
-      item.stack ? ' :stack="' + item.stack + '"' : ''
-    } />\n`;
+    listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
+      item.zebra ? ' zebra' : ''
+    }${item.stack ? ' :stack="' + item.stack + '"' : ''} />\n`;
   });
   let titleCode = val.title.show
     ? `\n\t\t<Title text="${val.title.text}" />`

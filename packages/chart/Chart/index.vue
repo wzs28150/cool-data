@@ -15,9 +15,9 @@ import {
   shallowRef,
   toRefs,
   provide,
-  getCurrentInstance,
   computed
 } from 'vue';
+import {useRouter} from 'vue-router';
 import { use, init, registerTheme } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { autoresizeProps, useAutoresize } from '../../util/autoResize';
@@ -27,8 +27,7 @@ import {
   cloneDeep,
   union,
   pullAllBy,
-  sortedIndexBy,
-  difference
+  sortedIndexBy
 } from 'lodash';
 import { Theme } from '@packages';
 
@@ -52,6 +51,8 @@ use([
 ]);
 const root = shallowRef();
 const chart = shallowRef();
+const router = useRouter()
+console.log(router);
 const option = ref({
   title: {},
   grid: {
@@ -150,7 +151,6 @@ const setDataset = () => {
 const dataset = computed(()=>{
   return JSON.parse(JSON.stringify(props.dataset))
 })
-console.log(dataset.value);
 // 监听配置变化
 watch(
   () => config,
@@ -210,6 +210,18 @@ const initChart = () => {
   chart.value.setOption({
     ...configs
   });
+
+  chart.value.on('legendselectchanged', function (params) {
+    event.stopPropagation()
+  })
+
+  chart.value.on('click', (params)=>{
+    console.log(params.seriesName);
+    // console.log(configs.dataset[0].url);
+    const pathArr= configs.dataset[0].url
+    console.log(pathArr[params.name]);
+    window.open(window.location.origin + import.meta.env.BASE_URL + pathArr[params.seriesName])
+  })
 };
 
 let seriesCache = ref([]);
@@ -228,17 +240,17 @@ const setSeries = (itemConfig) => {
     ]);
 
     // 处理特殊样式添加 PictorialBar
-    if (itemConfig.type == 'bar') {
-      let zebraItem = cloneDeep(zebraConfig.value);
-      zebraItem.itemStyle.opacity = itemConfig.zebra ? 1 : 0;
-      seriesCache.value = union(seriesCache.value, [
-        {
-          ...zebraItem,
-          datasetIndex: 3,
-          label: 'zebra' + itemIndex
-        }
-      ]);
-    }
+    // if (itemConfig.type == 'bar') {
+    //   let zebraItem = cloneDeep(zebraConfig.value);
+    //   zebraItem.itemStyle.opacity = itemConfig.zebra ? 1 : 0;
+    //   seriesCache.value = union(seriesCache.value, [
+    //     {
+    //       ...zebraItem,
+    //       datasetIndex: 3,
+    //       label: 'zebra' + itemIndex
+    //     }
+    //   ]);
+    // }
 
     seriesCache.value = groupAndSort('type', 'label', seriesCache.value);
 

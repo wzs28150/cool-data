@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import page from "../layout/index.vue";
@@ -30,7 +30,8 @@ const router = createRouter({
   scrollBehavior(/* to, from, savedPosition */) {
     return { top: 0 };
   },
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  // history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: routes
 });
 router.beforeEach(async (to, from, next) => {

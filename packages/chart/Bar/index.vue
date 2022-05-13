@@ -13,13 +13,11 @@ import {
   shallowRef,
   watch,
   inject,
-  nextTick,
-  onMounted,
-  getCurrentInstance
+  onMounted
 } from 'vue';
 import { use } from 'echarts/core';
 import { BarChart, PictorialBarChart } from 'echarts/charts';
-import { union, cloneDeep, merge, sortedIndexBy } from 'lodash';
+import { cloneDeep, merge, sortedIndexBy } from 'lodash';
 use([BarChart, PictorialBarChart]);
 const props = defineProps({
   color: {
@@ -43,6 +41,10 @@ const props = defineProps({
     default: false
   },
   stack: {
+    type: String,
+    default: ''
+  },
+  url: {
     type: String,
     default: ''
   }
@@ -95,10 +97,20 @@ watch(
 watch(
   () => props.bg,
   (newVal, oldVal) => {
-    console.log(newVal, oldVal);
     if (index.value != null) {
       if (newVal != oldVal) {
         setBg(newVal);
+      }
+    }
+  }
+);
+
+watch(
+  () => props.url,
+  (newVal, oldVal) => {
+    if (index.value != null) {
+      if (newVal != oldVal) {
+        setUrl(newVal);
       }
     }
   }
@@ -206,11 +218,20 @@ const setZebra = (zebra) => {
   }
 };
 
+const setUrl = (url) => {
+  if (index.value != null) {
+    config.series[index.value].url = url ? url : '';
+  } else {
+    barConfig.value.url = url ? url : '';
+  }
+}
+
 const setBar = () => {
   setRound(props.round);
   setBg(props.bg);
   setStack(props.stack);
   setZebra(props.zebra);
+  setUrl(props.url);
   let itemConfig = cloneDeep(barConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;
