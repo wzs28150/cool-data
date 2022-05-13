@@ -3,19 +3,19 @@ const defaultOption = {
   legend: {
     show: false,
     textStyle: { color: "#fff" },
-    top: "5%",
+    top: "5%"
   },
   tooltip: {
     trigger: "axis",
     axisPointer: {
-      type: "shadow",
-    },
+      type: "shadow"
+    }
   },
   grid: {
     left: "10%",
     right: "15%",
     bottom: "5%",
-    containLabel: true,
+    containLabel: true
   },
   // dataset: [
   //   {
@@ -40,8 +40,8 @@ const defaultOption = {
       { product: "类别1", 系列1: 43.3 },
       { product: "类别2", 系列1: 83.1 },
       { product: "类别3", 系列1: 86.4 },
-      { product: "类别4", 系列1: 72.4 },
-    ],
+      { product: "类别4", 系列1: 72.4 }
+    ]
   },
   // dataset: {
   //   dimensions: ["product", "系列1", "系列2", "系列3"],
@@ -65,31 +65,31 @@ const defaultOption = {
     data: ["关井数", "开井数", "不在线"],
     type: "category",
     axisLine: {
-      show: false,
+      show: false
     },
     splitLine: {
-      show: false,
+      show: false
     },
     axisLabel: {
       interval: 0,
       color: "#beceff",
       fontSize: 14,
-      margin: 25,
-    },
+      margin: 25
+    }
   },
   yAxis: {
     axisLine: {
-      show: false,
+      show: false
     },
     splitLine: {
       show: false,
       lineStyle: {
-        type: "dashed",
-      },
+        type: "dashed"
+      }
     },
     axisLabel: {
-      show: false,
-    },
+      show: false
+    }
   },
   series: [
     // 顶部
@@ -106,8 +106,8 @@ const defaultOption = {
           trueVal: "98",
           symbolPosition: "end",
           itemStyle: {
-            color: "#00fff5", //圆柱顶部颜色
-          },
+            color: "#00fff5" //圆柱顶部颜色
+          }
         },
         {
           name: "开井数",
@@ -115,8 +115,8 @@ const defaultOption = {
           trueVal: "100",
           symbolPosition: "end",
           itemStyle: {
-            color: "#ffcc00", //圆柱顶部颜色
-          },
+            color: "#ffcc00" //圆柱顶部颜色
+          }
         },
         {
           name: "不在线",
@@ -124,10 +124,10 @@ const defaultOption = {
           trueVal: "90",
           symbolPosition: "end",
           itemStyle: {
-            color: "#b9b7ff", //圆柱顶部颜色
-          },
-        },
-      ],
+            color: "#b9b7ff" //圆柱顶部颜色
+          }
+        }
+      ]
     },
     // 底部
     {
@@ -142,26 +142,26 @@ const defaultOption = {
           value: "981",
           trueVal: "98",
           itemStyle: {
-            color: "#43bafe", //圆柱底部颜色
-          },
+            color: "#43bafe" //圆柱底部颜色
+          }
         },
         {
           name: "开井数",
           value: "1000",
           trueVal: "100",
           itemStyle: {
-            color: "#ff7800", //圆柱底部颜色
-          },
+            color: "#ff7800" //圆柱底部颜色
+          }
         },
         {
           name: "不在线",
           value: "900",
           trueVal: "90",
           itemStyle: {
-            color: "#e9a5ff", //圆柱底部颜色
-          },
-        },
-      ],
+            color: "#e9a5ff" //圆柱底部颜色
+          }
+        }
+      ]
     },
     // 柱体
     {
@@ -179,7 +179,7 @@ const defaultOption = {
             position: "top",
             distance: 20,
             color: "#00fff5", //柱子对应数值颜色
-            fontSize: 14,
+            fontSize: 14
           },
           itemStyle: {
             color: {
@@ -192,15 +192,15 @@ const defaultOption = {
               colorStops: [
                 {
                   offset: 0,
-                  color: "rgba(0,255,245,0.5)",
+                  color: "rgba(0,255,245,0.5)"
                 },
                 {
                   offset: 1,
-                  color: "#43bafe", //底部渐变颜色
-                },
-              ],
-            },
-          },
+                  color: "#43bafe" //底部渐变颜色
+                }
+              ]
+            }
+          }
         },
         {
           name: "开井数",
@@ -211,7 +211,7 @@ const defaultOption = {
             position: "top",
             distance: 20,
             color: "#ffcc00", //柱子对应数值颜色
-            fontSize: 14,
+            fontSize: 14
           },
           itemStyle: {
             color: {
@@ -224,15 +224,15 @@ const defaultOption = {
               colorStops: [
                 {
                   offset: 0,
-                  color: "rgba(255,204,0,0.5)",
+                  color: "rgba(255,204,0,0.5)"
                 },
                 {
                   offset: 1,
-                  color: "#ff7800", //底部渐变颜色
-                },
-              ],
-            },
-          },
+                  color: "#ff7800" //底部渐变颜色
+                }
+              ]
+            }
+          }
         },
         {
           name: "不在线",
@@ -243,7 +243,7 @@ const defaultOption = {
             position: "top",
             distance: 20,
             color: "#b9b7ff", //柱子对应数值颜色
-            fontSize: 14,
+            fontSize: 14
           },
           itemStyle: {
             color: {
@@ -256,17 +256,17 @@ const defaultOption = {
               colorStops: [
                 {
                   offset: 0,
-                  color: "rgba(185,183,255,0.5)",
+                  color: "rgba(185,183,255,0.5)"
                 },
                 {
                   offset: 1,
-                  color: "#e9a5ff", //底部渐变颜色
-                },
-              ],
-            },
-          },
-        },
-      ],
+                  color: "#e9a5ff" //底部渐变颜色
+                }
+              ]
+            }
+          }
+        }
+      ]
     },
     // 虚线圆
     {
@@ -284,8 +284,8 @@ const defaultOption = {
             color: "transparent",
             borderColor: "#43bafe", //底部外圆圈颜色
             borderType: "dashed",
-            borderWidth: 5,
-          },
+            borderWidth: 5
+          }
         },
         {
           name: "开井数",
@@ -295,8 +295,8 @@ const defaultOption = {
             color: "transparent",
             borderColor: "#ff7800", //底部外圆圈颜色
             borderType: "dashed",
-            borderWidth: 5,
-          },
+            borderWidth: 5
+          }
         },
         {
           name: "不在线",
@@ -306,10 +306,10 @@ const defaultOption = {
             color: "transparent",
             borderColor: "#e9a5ff", //底部外圆圈颜色
             borderType: "dashed",
-            borderWidth: 5,
-          },
-        },
-      ],
+            borderWidth: 5
+          }
+        }
+      ]
     },
     // 实线圆
     {
@@ -326,8 +326,8 @@ const defaultOption = {
           itemStyle: {
             color: "transparent",
             borderColor: "#43bafe", //底部内圆圈颜色
-            borderWidth: 5,
-          },
+            borderWidth: 5
+          }
         },
         {
           name: "开井数",
@@ -336,8 +336,8 @@ const defaultOption = {
           itemStyle: {
             color: "transparent",
             borderColor: "#ff7800", //底部内圆圈颜色
-            borderWidth: 5,
-          },
+            borderWidth: 5
+          }
         },
         {
           name: "不在线",
@@ -346,11 +346,11 @@ const defaultOption = {
           itemStyle: {
             color: "transparent",
             borderColor: "#e9a5ff", //底部内圆圈颜色
-            borderWidth: 5,
-          },
-        },
-      ],
-    },
-  ],
+            borderWidth: 5
+          }
+        }
+      ]
+    }
+  ]
 };
 export default defaultOption;

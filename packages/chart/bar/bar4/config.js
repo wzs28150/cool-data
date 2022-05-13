@@ -4,7 +4,7 @@ const offsetY = 5;
 const CubeLeft = new graphic.extendShape({
   shape: {
     x: 0,
-    y: 0,
+    y: 0
   },
   buildPath: function (ctx, shape) {
     // 会canvas的应该都能看得懂，shape是从custom传入的
@@ -20,13 +20,13 @@ const CubeLeft = new graphic.extendShape({
       .lineTo(c2[0], c2[1])
       .lineTo(c3[0], c3[1])
       .closePath();
-  },
+  }
 });
 // 绘制右侧面
 const CubeRight = new graphic.extendShape({
   shape: {
     x: 0,
-    y: 0,
+    y: 0
   },
   buildPath: function (ctx, shape) {
     const xAxisPoint = shape.xAxisPoint;
@@ -40,13 +40,13 @@ const CubeRight = new graphic.extendShape({
       .lineTo(c3[0], c3[1])
       .lineTo(c4[0], c4[1])
       .closePath();
-  },
+  }
 });
 // 绘制顶面
 const CubeTop = new graphic.extendShape({
   shape: {
     x: 0,
-    y: 0,
+    y: 0
   },
   buildPath: function (ctx, shape) {
     const c1 = [shape.x, shape.y];
@@ -59,7 +59,7 @@ const CubeTop = new graphic.extendShape({
       .lineTo(c3[0], c3[1])
       .lineTo(c4[0], c4[1])
       .closePath();
-  },
+  }
 });
 new graphic.registerShape("CubeLeft", CubeLeft);
 new graphic.registerShape("CubeRight", CubeRight);
@@ -68,19 +68,19 @@ const defaultOption = {
   legend: {
     show: true,
     textStyle: { color: "#fff" },
-    top: "5%",
+    top: "5%"
   },
   tooltip: {
     trigger: "axis",
     axisPointer: {
-      type: "shadow",
-    },
+      type: "shadow"
+    }
   },
   grid: {
     left: "10%",
     right: "15%",
     bottom: "10%",
-    containLabel: true,
+    containLabel: true
   },
   // dataset: [
   //   {
@@ -123,25 +123,25 @@ const defaultOption = {
       { product: "类别1", 系列1: 43.3, 系列2: 43.3 },
       { product: "类别2", 系列1: 83.1, 系列2: 243.3 },
       { product: "类别3", 系列1: 86.4, 系列2: 143.3 },
-      { product: "类别4", 系列1: 72.4, 系列2: 343.3 },
-    ],
+      { product: "类别4", 系列1: 72.4, 系列2: 343.3 }
+    ]
   },
   xAxis: {
     type: "category",
     splitLine: {
-      show: false,
-    },
+      show: false
+    }
   },
   yAxis: {
     axisLine: {
-      show: false,
+      show: false
     },
     splitLine: {
       show: true,
       lineStyle: {
-        type: "dashed",
-      },
-    },
+        type: "dashed"
+      }
+    }
   },
   series: [
     {
@@ -160,20 +160,20 @@ const defaultOption = {
                 yValue: api.value(1),
                 x: location[0],
                 y: location[1],
-                xAxisPoint: api.coord([api.value(0), 0]),
+                xAxisPoint: api.coord([api.value(0), 0])
               },
               style: {
                 fill: new graphic.LinearGradient(0, 0, 0, 1, [
                   {
                     offset: 0,
-                    color: "#3B80E2",
+                    color: "#3B80E2"
                   },
                   {
                     offset: 1,
-                    color: "#49BEE5",
-                  },
-                ]),
-              },
+                    color: "#49BEE5"
+                  }
+                ])
+              }
             },
             {
               type: "CubeRight",
@@ -183,20 +183,20 @@ const defaultOption = {
                 yValue: api.value(1),
                 x: location[0],
                 y: location[1],
-                xAxisPoint: api.coord([api.value(0), 0]),
+                xAxisPoint: api.coord([api.value(0), 0])
               },
               style: {
                 fill: new graphic.LinearGradient(0, 0, 0, 1, [
                   {
                     offset: 0,
-                    color: "#3B80E2",
+                    color: "#3B80E2"
                   },
                   {
                     offset: 1,
-                    color: "#49BEE5",
-                  },
-                ]),
-              },
+                    color: "#49BEE5"
+                  }
+                ])
+              }
             },
             {
               type: "CubeTop",
@@ -206,25 +206,25 @@ const defaultOption = {
                 yValue: api.value(1),
                 x: location[0],
                 y: location[1],
-                xAxisPoint: api.coord([api.value(0), 0]),
+                xAxisPoint: api.coord([api.value(0), 0])
               },
               style: {
                 fill: new graphic.LinearGradient(0, 0, 0, 1, [
                   {
                     offset: 0,
-                    color: "#3B80E2",
+                    color: "#3B80E2"
                   },
                   {
                     offset: 1,
-                    color: "#49BEE5",
-                  },
-                ]),
-              },
-            },
-          ],
+                    color: "#49BEE5"
+                  }
+                ])
+              }
+            }
+          ]
         };
-      },
-    },
-  ],
+      }
+    }
+  ]
 };
 export default defaultOption;

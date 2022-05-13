@@ -1,7 +1,7 @@
 <template>
   <v-chart
-    class="chart"
     ref="pie2"
+    class="chart"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
@@ -33,12 +33,15 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -49,7 +52,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   },
   // 自动播放时间间隔
   autoPlay: {

@@ -3,19 +3,19 @@ const defaultOption = {
   legend: {
     show: true,
     textStyle: { color: "#fff" },
-    top: "5%",
+    top: "5%"
   },
   tooltip: {
     trigger: "axis",
     axisPointer: {
-      type: "shadow",
-    },
+      type: "shadow"
+    }
   },
   grid: {
     left: "10%",
     right: "15%",
     bottom: "10%",
-    containLabel: true,
+    containLabel: true
   },
   // dataset: [
   //   {
@@ -58,35 +58,35 @@ const defaultOption = {
       { product: "类别1", 系列1: 43.3, 系列2: 43.3 },
       { product: "类别2", 系列1: 83.1, 系列2: 243.3 },
       { product: "类别3", 系列1: 86.4, 系列2: 143.3 },
-      { product: "类别4", 系列1: 72.4, 系列2: 343.3 },
-    ],
+      { product: "类别4", 系列1: 72.4, 系列2: 343.3 }
+    ]
   },
   xAxis: {
     type: "category",
     axisLine: {
-      show: false,
+      show: false
     },
     splitLine: {
-      show: false,
-    },
+      show: false
+    }
   },
   yAxis: {
     axisLine: {
-      show: false,
+      show: false
     },
     splitLine: {
       show: true,
       lineStyle: {
-        type: "dashed",
-      },
-    },
+        type: "dashed"
+      }
+    }
   },
   series: [
     {
       //柱体
       type: "bar",
       barWidth: 10,
-      z: -12,
+      z: -12
     },
 
     // {
@@ -101,7 +101,7 @@ const defaultOption = {
       type: "pictorialBar",
       symbolSize: [10, 6],
       symbolOffset: [0, 3],
-      z: 12,
+      z: 12
       // itemStyle: {
       //   normal: {
       //     color: graphic.LinearGradient(0, 0, 0, 1, [
@@ -123,7 +123,7 @@ const defaultOption = {
       symbolSize: [10, 6],
       symbolOffset: [0, -3],
       z: 12,
-      symbolPosition: "end",
+      symbolPosition: "end"
       // itemStyle: {
       //   normal: {
       //     color: graphic.LinearGradient(0, 0, 0, 1, [
@@ -138,7 +138,7 @@ const defaultOption = {
       //     ]),
       //   },
       // },
-    },
-  ],
+    }
+  ]
 };
 export default defaultOption;

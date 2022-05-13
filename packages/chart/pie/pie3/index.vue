@@ -1,11 +1,19 @@
 <template>
-  <v-chart class="chart" ref="pie6" autoresize :init-options="initOptions" :option="option"
-    :theme="theme ? theme : defaultTheme" @click="handleClick" @mouseover="handleMouseover"
-    @globalout="handleGlobalout" />
-  <div class="bg"></div>
+  <v-chart
+    ref="pie3"
+    class="chart"
+    autoresize
+    :init-options="initOptions"
+    :option="option"
+    :theme="theme"
+    @click="handleClick"
+    @mouseover="handleMouseover"
+    @globalout="handleGlobalout"
+  />
+  <div class="bg" />
 </template>
 <script setup>
-import { use, graphic } from "echarts/core";
+import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart, CustomChart } from "echarts/charts";
 import {
@@ -24,7 +32,6 @@ import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import { getPie3D, getParametricEquation } from './chart3D'
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
@@ -40,7 +47,10 @@ use([
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -85,14 +95,17 @@ const props = defineProps({
         right: "10%",
         orient: "vertical",
         textStyle: {
-          color: "#eee",
-        },
+          color: "#eee"
+        }
       }
     }
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 const id = uuid()

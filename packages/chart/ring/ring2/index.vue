@@ -1,11 +1,11 @@
 <template>
   <v-chart
-    ref="pie1"
+    ref="ring2"
     class="chart"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
@@ -24,7 +24,6 @@ import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
@@ -52,8 +51,10 @@ const props = defineProps({
     }
   },
   theme: {
-    type: [Object, null],
-    default: null
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   },
   title: {
     type: String,

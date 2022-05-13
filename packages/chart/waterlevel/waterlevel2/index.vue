@@ -1,11 +1,11 @@
 <template>
   <v-chart
+    ref="waterlevel2"
     class="chart"
-    ref="pie1"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
@@ -24,7 +24,6 @@ import { reactive, onMounted, computed } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
@@ -32,12 +31,15 @@ use([
   TooltipComponent,
   LegendComponent,
   GridComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -48,7 +50,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 

@@ -10,7 +10,7 @@
   />
 </template>
 <script setup>
-import { use, graphic } from "echarts/core";
+import { use } from "echarts/core";
 import { CanvasRenderer } from "echarts/renderers";
 import { PieChart, CustomChart } from "echarts/charts";
 import {
@@ -26,7 +26,6 @@ import { reactive, onMounted, computed, ref,onBeforeUnmount } from "vue";
 import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,

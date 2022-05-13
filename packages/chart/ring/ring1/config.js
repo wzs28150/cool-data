@@ -8,15 +8,15 @@ const defaultOption = {
   animationDurationUpdate: _animationDurationUpdate,
   animationEasingUpdate: _animationEasingUpdate,
   tooltip: {
-    trigger: "item",
+    trigger: "item"
   },
   legend: {
     top: "middle",
     right: "10%",
     orient: "vertical",
     textStyle: {
-      color: "#eee",
-    },
+      color: "#eee"
+    }
   },
   dataset: [
     {
@@ -25,16 +25,16 @@ const defaultOption = {
         { name: "火车", value: "1048" },
         { name: "飞机", value: "735" },
         { name: "客车", value: "580" },
-        { name: "轮渡", value: "484" },
-      ],
-    },
+        { name: "轮渡", value: "484" }
+      ]
+    }
   ],
   radiusAxis: {
     type: "value",
-    show: false,
+    show: false
   },
   polar: {
-    center: ["30%", "50%"],
+    center: ["30%", "50%"]
   },
   series: [
     // 选中处理偏移
@@ -49,24 +49,24 @@ const defaultOption = {
         color: "#fff",
         fontSize: 12,
         position: "center",
-        formatter: "{b}\n\n{d}%",
+        formatter: "{b}\n\n{d}%"
       },
       silent: true,
       selectedMode: "single",
       selectedOffset: 20,
       labelLine: {
-        show: false,
+        show: false
       },
       itemStyle: {
-        shadowBlur: 20,
-      },
+        shadowBlur: 20
+      }
       // emphasis: {
       //   label: {
       //     show: false,
       //   },
       // },
-    },
-  ],
+    }
+  ]
 };
 
 export default defaultOption;

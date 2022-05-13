@@ -1,7 +1,7 @@
 <template>
   <v-chart
-    class="chart"
     ref="bar7"
+    class="chart"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
@@ -35,12 +35,15 @@ use([
   LegendComponent,
   GridComponent,
   TransformComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -51,7 +54,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 
@@ -87,7 +93,7 @@ const mergeOption = async () => {
     }
 
     mergedOption.value.series[i] = {
-      ...seriesItem,
+      ...seriesItem
     }
   }
 }

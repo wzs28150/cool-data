@@ -5,7 +5,7 @@
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>

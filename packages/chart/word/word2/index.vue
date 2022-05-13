@@ -4,7 +4,10 @@
       id="myCanvas"
       class="chart"
     />
-    <div id="tags">
+    <div
+      id="tags"
+      style="display:none"
+    >
       <a
         v-for="item in mergedOption.dataset.source"
         :key="item.value"
@@ -16,7 +19,7 @@
 </template>
 <script setup>
 import { onMounted, computed } from 'vue';
-import { uuid, deepMerge, deepClone } from '../../../util/index';
+import { deepMerge, deepClone } from '../../../util/index';
 import defaultOption from './config';
 import easyv from '../../../theme/easyv.js';
 import './tagcanvas';
@@ -91,9 +94,8 @@ const mergeOption = async () => {
       textFont: 'Microsoft YaHei',
       textHeight: 12,
       zoomMin: 0.8,
-      weight: true,
-      weightSize: 2,
-      minSpeed: 0.05
+      minSpeed: 0.01,
+      dragControl: false
     });
   } catch (e) {}
 };

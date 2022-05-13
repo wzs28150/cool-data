@@ -1,8 +1,16 @@
 <template>
-  <v-chart class="chart" ref="pie7" autoresize :init-options="initOptions" :option="option"
-    :theme="theme ? theme : defaultTheme" @click="handleClick" @mouseover="handleMouseover"
-    @globalout="handleGlobalout" />
-  <div class="pie7-bg"></div>
+  <v-chart
+    ref="ring3"
+    class="chart"
+    autoresize
+    :init-options="initOptions"
+    :option="option"
+    :theme="theme ? theme : defaultTheme"
+    @click="handleClick"
+    @mouseover="handleMouseover"
+    @globalout="handleGlobalout"
+  />
+  <div class="pie7-bg" />
 </template>
 <script setup>
 import { use, graphic } from "echarts/core";
@@ -40,7 +48,10 @@ use([
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
   },
   // 数据集
   dataset: {
@@ -85,14 +96,17 @@ const props = defineProps({
         right: "10%",
         orient: "vertical",
         textStyle: {
-          color: "#eee",
-        },
+          color: "#eee"
+        }
       }
     }
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 const id = uuid()

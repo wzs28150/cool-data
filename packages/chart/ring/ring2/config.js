@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-04-01 13:32:24
  * @LastEditors: wzs
- * @LastEditTime: 2022-04-14 14:01:33
+ * @LastEditTime: 2022-05-13 10:09:06
  */
 const defaultOption = {
   legend: {
@@ -13,15 +13,15 @@ const defaultOption = {
     right: "10%",
     orient: "vertical",
     textStyle: {
-      color: "#eee",
-    },
+      color: "#eee"
+    }
    
   },
   tooltip: {
     trigger: "axis",
     axisPointer: {
-      type: "shadow",
-    },
+      type: "shadow"
+    }
   },
   title: [
     {
@@ -34,19 +34,19 @@ const defaultOption = {
       subtextStyle: {
         color: "#fff",
         fontSize: 18,
-        align: "center",
+        align: "center"
       },
       textStyle: {
         color: "#f4e051",
-        fontSize: 18,
-      },
-    },
+        fontSize: 18
+      }
+    }
   ],
   grid: {
     left: "10%",
     right: "15%",
     bottom: "10%",
-    containLabel: true,
+    containLabel: true
   },
   dataset: {
     dimensions: ["product", "系列1"],
@@ -54,8 +54,8 @@ const defaultOption = {
       { product: "类别1", 系列1: 43 },
       { product: "类别2", 系列1: 83 },
       { product: "类别3", 系列1: 86 },
-      { product: "类别4", 系列1: 72 },
-    ],
+      { product: "类别4", 系列1: 72 }
+    ]
   },
   series: [
     {
@@ -63,15 +63,15 @@ const defaultOption = {
       radius: ["50%", "60%"],
       center: ["30%", "50%"],
       label: {
-        show: false,
+        show: false
       },
       emphasis: {
-        disabled: true,
+        disabled: true
       },
       zlevel: 1,
       labelLine: {
-        show: false,
-      },
+        show: false
+      }
     },
     {
       type: "gauge",
@@ -88,11 +88,11 @@ const defaultOption = {
       axisLine: {
         lineStyle: {
           width: 0,
-          opacity: 0,
-        },
+          opacity: 0
+        }
       },
       axisTick: {
-        show: false,
+        show: false
       },
       pointer: {
         show:false
@@ -103,12 +103,12 @@ const defaultOption = {
         padding: [0, 0, 0],
         lineStyle: {
           color: "rgba(6, 30, 93, 1)",
-          width: 2,
-        },
+          width: 2
+        }
       },
       axisLabel: {
-        show: false,
-      },
+        show: false
+      }
     },
     {
       type: "pie",
@@ -116,13 +116,13 @@ const defaultOption = {
       center: ["30%", "50%"],
       clockwise: false,
       itemStyle: {
-        color: "#fff",
+        color: "#fff"
       },
       label: {
-        show: false,
+        show: false
       },
-      data: [100],
-    },
-  ],
+      data: [100]
+    }
+  ]
 };
 export default defaultOption;

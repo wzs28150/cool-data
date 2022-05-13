@@ -1,11 +1,11 @@
 <template>
   <v-chart
+    ref="bar12"
     class="chart"
-    ref="bar11"
     autoresize
     :init-options="initOptions"
     :option="mergedOption"
-    :theme="theme ? theme : defaultTheme"
+    :theme="theme"
   />
 </template>
 <script setup>
@@ -26,7 +26,6 @@ import { uuid, deepMerge, deepClone } from '../../../util/index'
 import defaultOption from './config';
 import { toRgb } from '../../../util/color';
 import easyv from "../../../theme/easyv.js"
-const defaultTheme = easyv.theme
 
 use([
   CanvasRenderer,
@@ -36,12 +35,16 @@ use([
   LegendComponent,
   GridComponent,
   TransformComponent,
-  DatasetComponent,
+  DatasetComponent
 ]);
 
 const props = defineProps({
   option: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return {}
+    }
+
   },
   // 数据集
   dataset: {
@@ -52,7 +55,10 @@ const props = defineProps({
   },
   // 主题设置
   theme: {
-    type: Object
+    type: Object,
+    default: ()=>{
+      return easyv
+    }
   }
 })
 
@@ -99,7 +105,7 @@ const mergeOption = async () => {
     }
     seriesItemOption.itemStyle.color = new graphic.LinearGradient(1, 0, 0, 0, [
       { offset: 0, color: toRgb(colorStart, 1) },
-      { offset: 1, color: toRgb(colorEnd ? colorEnd : colorStart, 0.6) },
+      { offset: 1, color: toRgb(colorEnd ? colorEnd : colorStart, 0.6) }
     ])
     mergedOption.value.series[i] = seriesItemOption
   }
