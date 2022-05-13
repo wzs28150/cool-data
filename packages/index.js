@@ -65,7 +65,8 @@ import Gauge3 from './chart/gauge/gauge3';
 
 import Funnel1 from './chart/funnel/funnel1';
 import Word1 from './chart/word/word1';
-
+import Word2 from './chart/word/word2';
+import Candle1 from './chart/candle/candle1';
 import ScrollRankingBar from './chart/rotation/scrollRankingBar';
 import ScrollRankingBar2 from './chart/rotation/scrollRankingBar2';
 import ScrollRankingBar3 from './chart/rotation/scrollRankingBar3';
@@ -190,7 +191,9 @@ export const chartComponents = {
   Gauge3,
   Funnel1,
   Radar1,
-  Word1
+  Word1,
+  Word2,
+  Candle1
 };
 
 // 标题组件
@@ -353,6 +356,8 @@ export {
   Radar1,
   Funnel1,
   Word1,
+  Word2,
+  Candle1,
   Title1,
   Title2,
   Title3,
