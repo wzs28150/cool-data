@@ -63,6 +63,23 @@
                     inactive-text="纵"
                   />
                 </div>
+                <div class="setting-item">
+                  <div class="setting-item-title">穿透:</div>
+                  <el-radio
+                    v-model="data.through"
+                    label="data"
+                    size="large"
+                  >
+                    按数据
+                  </el-radio>
+                  <el-radio
+                    v-model="data.through"
+                    label="series"
+                    size="large"
+                  >
+                    按系列
+                  </el-radio>
+                </div>
               </el-collapse-item>
               <el-collapse-item title="标题" name="2">
                 <div class="setting-item">
@@ -274,6 +291,7 @@ const dataShow = ref(false);
 
 const data = reactive({
   horizontal: false,
+  through: 'series',
   title: {
     show: false,
     text: '我是标题'
@@ -377,7 +395,7 @@ const setCode = (val) => {
   val.list.map((item) => {
     listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
       item.zebra ? ' zebra' : ''
-    }${item.stack ? ' :stack="' + item.stack + '"' : ''} />\n`;
+    }${item.stack ? ' :stack="' + item.stack + '"' : ''}${item.url ? ' :url="' + item.url + '"' : ''} />\n`;
   });
   let titleCode = val.title.show
     ? `\n\t\t<Title text="${val.title.text}" />`

@@ -216,11 +216,11 @@ const initChart = () => {
   })
 
   chart.value.on('click', (params)=>{
-    console.log(params.seriesName);
-    // console.log(configs.dataset[0].url);
+    console.log(params);
+    console.log(configs.series);
     const pathArr= configs.dataset[0].url
     console.log(pathArr[params.name]);
-    window.open(window.location.origin + import.meta.env.BASE_URL + pathArr[params.seriesName])
+    // window.open(window.location.origin + import.meta.env.BASE_URL + pathArr[params.seriesName])
   })
 };
 
