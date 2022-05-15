@@ -502,10 +502,8 @@ const throughChange = (label) =>{
         data.throughUrl[item.category] = 'http://www.baidu.com'
       })
       break;
-    case 'series':
-      data.throughUrl = ''
-      break;
     default:
+      data.throughUrl = ''
       break;
   }
 }
