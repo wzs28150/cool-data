@@ -236,12 +236,6 @@ const initChart = () => {
   });
 
   chart.value.on('click', (params) => {
-    console.log(params);
-    // console.log(configs.series);
-    // const pathArr = configs.dataset[0].url;
-    // console.log(pathArr[params.name]);
-    // console.log(throughUrl.value);
-    // return
     switch (props.through) {
       case 'whole':
         throughUrl.value = props.throughUrl;

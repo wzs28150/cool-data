@@ -460,6 +460,10 @@ const setCode = (val) => {
   let legendCode = val.legend.show ? `\n\t\t<Legend  />` : '';
   code.value = `<template>\n\t<chart autoresize ${
     val.horizontal ? 'horizontal ' : ''
+  }${
+    val.through != 'none' ? ':through="'+val.through+'" ' : ''
+  }${
+    val.throughUrl ? ':throughUrl=\''+(val.through == 'whole' ? val.throughUrl : JSON.stringify(val.throughUrl))+'\'' : ''
   }:dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
@@ -495,11 +499,11 @@ const throughChange = (label) =>{
     case 'data':
       data.throughUrl = {}
       data.dataset[0].source.map((item)=>{
-        console.log(item);
         data.throughUrl[item.category] = 'http://www.baidu.com'
       })
       break;
     case 'series':
+      data.throughUrl = ''
       break;
     default:
       break;
