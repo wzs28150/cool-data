@@ -78,7 +78,6 @@ const barConfig = ref({
 watch(
   () => props.round,
   (newVal, oldVal) => {
-    console.log(newVal, oldVal);
     if (index.value != null) {
       if (newVal != oldVal) {
         setRound(newVal);
@@ -126,28 +125,32 @@ watch(
     }
   }
 );
+// 监听chart 方向改变
+watch(
+  () => config.horizontal,
+  (newVal) => {
+    setHorizontal(newVal);
+  }
+);
 // 设置圆角
 const setRound = (round) => {
+  let borderRadius = config.horizontal ? [0, 50, 50, 0] : [50, 50, 0, 0]
   if (index.value != null) {
-    config.series[index.value].itemStyle = round
-      ? {
-          borderRadius: [50, 50, 0, 0]
-        }
-      : {};
+    config.series[index.value].itemStyle['borderRadius'] = round
+      ? borderRadius
+      : null;
     config.series[index.value].backgroundStyle = round
       ? {
-          borderRadius: [50, 50, 0, 0]
+          borderRadius: borderRadius
         }
       : {};
   } else {
-    barConfig.value.itemStyle = round
-      ? {
-          borderRadius: [50, 50, 0, 0]
-        }
-      : {};
+    barConfig.value.itemStyle['borderRadius'] = round
+      ? borderRadius
+      : null;
     barConfig.value.backgroundStyle = round
       ? {
-          borderRadius: [50, 50, 0, 0]
+          borderRadius: borderRadius
         }
       : {};
   }
@@ -162,7 +165,6 @@ const setStack = (stack) => {
 };
 // 设置背景
 const setBg = (bg) => {
-  console.log(2);
   if (index.value != null) {
     config.series[index.value].showBackground = bg ? bg : false;
   } else {
@@ -217,7 +219,22 @@ const setZebra = (zebra) => {
     }
   }
 };
+const setHorizontal = (horizontal)=>{
+  console.log(horizontal);
+  if (index.value != null) {
+    //设置宽度
+    config.series[index.value].barWidth = horizontal ? '20%' : '10%';
+    // 设置渐变方向
+    console.log(config);
+    // config.series[index.value].itemStyle.color = 'rgb(255,255,255)'
 
+  } else {
+    //设置宽度
+    barConfig.value.barWidth = horizontal ? '20%' : '10%';
+    // barConfig.value.itemStyle['color'] = 'rgb(255,255,255)'
+    console.log(barConfig.value.itemStyle);
+  }
+}
 const setUrl = (url) => {
   if (index.value != null) {
     config.series[index.value].url = url ? url : '';
@@ -227,11 +244,14 @@ const setUrl = (url) => {
 }
 
 const setBar = () => {
+ 
   setRound(props.round);
   setBg(props.bg);
   setStack(props.stack);
   setZebra(props.zebra);
   setUrl(props.url);
+  setHorizontal(config.horizontal)
+  
   let itemConfig = cloneDeep(barConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;

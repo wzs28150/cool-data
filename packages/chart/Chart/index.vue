@@ -17,18 +17,12 @@ import {
   provide,
   computed
 } from 'vue';
-import {useRouter} from 'vue-router';
-import { use, init, registerTheme } from 'echarts/core';
+import { useRouter } from 'vue-router';
+import { use, init, registerTheme, graphic } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { autoresizeProps, useAutoresize } from '../../util/autoResize';
 import { groupAndSort } from '../../util/index';
-import {
-  merge,
-  cloneDeep,
-  union,
-  pullAllBy,
-  sortedIndexBy
-} from 'lodash';
+import { merge, cloneDeep, union, pullAllBy, sortedIndexBy } from 'lodash';
 import { Theme } from '@packages';
 
 import {
@@ -39,6 +33,7 @@ import {
   DatasetComponent,
   TransformComponent
 } from 'echarts/components';
+
 
 use([
   CanvasRenderer,
@@ -51,8 +46,8 @@ use([
 ]);
 const root = shallowRef();
 const chart = shallowRef();
-const router = useRouter()
-console.log(router);
+const router = useRouter();
+// console.log(router);
 const option = ref({
   title: {},
   grid: {
@@ -90,7 +85,6 @@ const props = defineProps({
 });
 
 const { autoresize, theme } = toRefs(props);
-registerTheme('easyv', theme.value);
 
 const config = reactive({
   grid: {
@@ -128,6 +122,26 @@ const zebraConfig = ref({
 });
 
 let datasetCache = ref([]);
+// 设置主题
+const setTheme = (horizontal) => {
+  // 如果有设置方向
+  if (horizontal) {
+    theme.value.color.map((item, i) => {
+      if (typeof item == 'object') {
+        theme.value.color[i].x = 1;
+        theme.value.color[i].y = 0;
+      }
+    });
+  } else {
+    theme.value.color.map((item, i) => {
+      if (typeof item == 'object') {
+        theme.value.color[i].x = 0;
+        theme.value.color[i].y = 1;
+      }
+    });
+  }
+  registerTheme('easyv', theme.value);
+};
 const setDataset = () => {
   datasetCache.value = props.dataset;
   props.dataset[0].dimensions.map((item, index) => {
@@ -148,9 +162,9 @@ const setDataset = () => {
   config.dataset = datasetCache.value;
 };
 
-const dataset = computed(()=>{
-  return JSON.parse(JSON.stringify(props.dataset))
-})
+const dataset = computed(() => {
+  return JSON.parse(JSON.stringify(props.dataset));
+});
 // 监听配置变化
 watch(
   () => config,
@@ -166,17 +180,8 @@ watch(
 watch(
   () => dataset.value,
   (newVal, oldVal) => {
-    // if (chart.value) {
-    // console.log(newVal.horizontal, oldVal.horizontal);
-    // }
-    console.log(newVal);
-    console.log(newVal == oldVal);
-    // if(newVal != oldVal){
-    //   config.dataset = newVal;
-    // }
     config.dataset = newVal;
-    setDataset()
-    // config.horizontal = newVal.horizontal;
+    setDataset();
   },
   {
     deep: true,
@@ -187,11 +192,9 @@ watch(
 watch(
   () => props.horizontal,
   (newVal, oldVal) => {
-    // if (chart.value) {
-    // console.log(newVal.horizontal, oldVal.horizontal);
-    // }
-    if(newVal != oldVal){
+    if (newVal != oldVal) {
       config.horizontal = newVal;
+      setTheme(newVal)
     }
   },
   {
@@ -204,7 +207,7 @@ const initChart = () => {
   if (chart.value) {
     chart.value.dispose();
   }
-  console.log(config);
+  // console.log(config);
   const configs = merge(cloneDeep(option.value), config || []);
   chart.value = init(document.getElementById('main'), 'easyv');
   chart.value.setOption({
@@ -212,16 +215,16 @@ const initChart = () => {
   });
 
   chart.value.on('legendselectchanged', function (params) {
-    event.stopPropagation()
-  })
+    event.stopPropagation();
+  });
 
-  chart.value.on('click', (params)=>{
+  chart.value.on('click', (params) => {
     console.log(params);
     console.log(configs.series);
-    const pathArr= configs.dataset[0].url
+    const pathArr = configs.dataset[0].url;
     console.log(pathArr[params.name]);
     // window.open(window.location.origin + import.meta.env.BASE_URL + pathArr[params.seriesName])
-  })
+  });
 };
 
 let seriesCache = ref([]);
@@ -229,7 +232,6 @@ let seriesCache = ref([]);
 const setSeries = (itemConfig) => {
   return new Promise((resolve) => {
     // let children = instance.slots.default();
-    setDataset()
     let itemIndex =
       seriesCache.value.filter((item) => {
         return item.type == itemConfig.type;
@@ -251,7 +253,7 @@ const setSeries = (itemConfig) => {
     //     }
     //   ]);
     // }
-
+    // 分组排序
     seriesCache.value = groupAndSort('type', 'label', seriesCache.value);
 
     config.series = seriesCache.value;
@@ -278,6 +280,7 @@ provide('chart', {
 useAutoresize(chart, autoresize, root);
 
 onMounted(() => {
+  // setTheme();
   initChart();
 });
 </script>

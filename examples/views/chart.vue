@@ -67,6 +67,13 @@
                   <div class="setting-item-title">穿透:</div>
                   <el-radio
                     v-model="data.through"
+                    label="whole"
+                    size="large"
+                  >
+                    整体跳转
+                  </el-radio>
+                  <el-radio
+                    v-model="data.through"
                     label="data"
                     size="large"
                   >
@@ -198,7 +205,7 @@
                         active-text="开"
                         inactive-text="关"
                       />
-                      <div class="setting-item-title">斑马纹:</div>
+                      <!-- <div class="setting-item-title">斑马纹:</div>
                       <el-switch
                         v-model="item.zebra"
                         class="switch"
@@ -206,7 +213,7 @@
                         inline-prompt
                         active-text="开"
                         inactive-text="关"
-                      />
+                      /> -->
                     </div>
                     <div class="setting-item">
                       <div class="setting-item-title">堆叠:</div>
@@ -290,8 +297,8 @@ const dataType = ref('静态数据');
 const dataShow = ref(false);
 
 const data = reactive({
-  horizontal: false,
-  through: 'series',
+  horizontal: true,
+  through: 'whole',
   title: {
     show: false,
     text: '我是标题'
