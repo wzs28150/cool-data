@@ -32,7 +32,8 @@ const index = ref(null)
 const label = ref(null)
 const instance = getCurrentInstance()
 const lineConfig = ref({
-  type: "line"
+  type: "line",
+  name: 'line'
 })
 onMounted(() => {
   if (props.datasetIndex) {

@@ -18,10 +18,10 @@ import {
   computed
 } from 'vue';
 import { useRouter } from 'vue-router';
-import { use, init, registerTheme, graphic } from 'echarts/core';
+import { use, init, registerTheme } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { autoresizeProps, useAutoresize } from '../../util/autoResize';
-import { groupAndSort } from '../../util/index';
+import { groupAndSort, pathTest } from '../../util/index';
 import { merge, cloneDeep, union, pullAllBy, sortedIndexBy } from 'lodash';
 import { Theme } from '@packages';
 
@@ -33,7 +33,6 @@ import {
   DatasetComponent,
   TransformComponent
 } from 'echarts/components';
-
 
 use([
   CanvasRenderer,
@@ -73,6 +72,14 @@ const props = defineProps({
     default: () => {
       return {};
     }
+  },
+  through: {
+    type: String,
+    default: 'none'
+  },
+  throughUrl: {
+    type: [String, Array, Object],
+    default: ''
   },
   // 主题设置
   theme: {
@@ -122,6 +129,7 @@ const zebraConfig = ref({
 });
 
 let datasetCache = ref([]);
+let throughUrl = ref(JSON.parse(JSON.stringify(props.throughUrl)));
 // 设置主题
 const setTheme = (horizontal) => {
   // 如果有设置方向
@@ -142,29 +150,30 @@ const setTheme = (horizontal) => {
   }
   registerTheme('easyv', theme.value);
 };
+// 设置数据集
 const setDataset = () => {
   datasetCache.value = props.dataset;
-  props.dataset[0].dimensions.map((item, index) => {
-    if (index > 0) {
-      datasetCache.value = union(datasetCache.value, [
-        {
-          transform: {
-            type: 'filter',
-            config: {
-              dimension: config.dataset[0].dimensions[index],
-              '>': 0
-            }
-          }
-        }
-      ]);
-    }
-  });
+  // props.dataset[0].dimensions.map((item, index) => {
+  //   if (index > 0) {
+  //     // datasetCache.value = union(datasetCache.value, [
+  //     //   {
+  //     //     transform: {
+  //     //       type: 'filter',
+  //     //       config: {
+  //     //         dimension: config.dataset[0].dimensions[index],
+  //     //         '>': 0
+  //     //       }
+  //     //     }
+  //     //   }
+  //     // ]);
+  //   }
+  // });
   config.dataset = datasetCache.value;
 };
 
-const dataset = computed(() => {
-  return JSON.parse(JSON.stringify(props.dataset));
-});
+// const dataset = computed(() => {
+//   return JSON.parse(JSON.stringify(props.dataset));
+// });
 // 监听配置变化
 watch(
   () => config,
@@ -178,26 +187,34 @@ watch(
   }
 );
 watch(
-  () => dataset.value,
-  (newVal, oldVal) => {
-    config.dataset = newVal;
-    setDataset();
-  },
-  {
-    deep: true,
-    immediate: true
-  }
-);
-
-watch(
-  () => props.horizontal,
-  (newVal, oldVal) => {
-    if (newVal != oldVal) {
-      config.horizontal = newVal;
-      setTheme(newVal)
+  [() => props.dataset, () => props.horizontal, () => props.through],
+  ([dataset, horizontal, through], [oldDataset, oldHorizontal, oldThrough]) => {
+    if (dataset != oldDataset) {
+      config.dataset = dataset;
+      setDataset();
+    }
+    if (horizontal != oldHorizontal) {
+      config.horizontal = horizontal;
+      setTheme(horizontal);
+    }
+    if (through != oldThrough) {
+      switch (through) {
+        case 'whole':
+          throughUrl.value = '';
+          break;
+        case 'data':
+          throughUrl.value = {};
+          break;
+        case 'series':
+          throughUrl.value = {};
+          break;
+        default:
+          break;
+      }
     }
   },
   {
+    deep: true,
     immediate: true
   }
 );
@@ -220,9 +237,33 @@ const initChart = () => {
 
   chart.value.on('click', (params) => {
     console.log(params);
-    console.log(configs.series);
-    const pathArr = configs.dataset[0].url;
-    console.log(pathArr[params.name]);
+    // console.log(configs.series);
+    // const pathArr = configs.dataset[0].url;
+    // console.log(pathArr[params.name]);
+    // console.log(throughUrl.value);
+    // return
+    switch (props.through) {
+      case 'whole':
+        throughUrl.value = props.throughUrl;
+        break;
+      case 'data':
+        throughUrl.value = props.throughUrl[params.name];
+        break;
+      case 'series':
+        throughUrl.value = config.series[params.seriesIndex].url;
+        break;
+      default:
+        break;
+    }
+    if (throughUrl.value) {
+      console.log(pathTest(throughUrl.value));
+      pathTest(throughUrl.value)
+        ? window.open(throughUrl.value)
+        : window.open(
+            window.location.origin + import.meta.env.BASE_URL + throughUrl.value
+          );
+    }
+
     // window.open(window.location.origin + import.meta.env.BASE_URL + pathArr[params.seriesName])
   });
 };

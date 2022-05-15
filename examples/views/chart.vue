@@ -7,6 +7,8 @@
             autoresize
             :horizontal="data.horizontal"
             :dataset="data.dataset"
+            :through="data.through"
+            :through-url="data.throughUrl"
           >
             <Title v-if="data.title.show" :text="data.title.text" />
             <Legend v-if="data.legend.show" />
@@ -30,7 +32,9 @@
               :stack="item.stack"
               :zebra="item.zebra"
               :url="item.url"
+              :width="item.width"
             />
+            <!-- <Line :dataset-index="1" /> -->
           </chart>
         </div>
       </div>
@@ -65,27 +69,41 @@
                 </div>
                 <div class="setting-item">
                   <div class="setting-item-title">穿透:</div>
-                  <el-radio
-                    v-model="data.through"
-                    label="whole"
-                    size="large"
+                  <el-radio-group v-model="data.through" size="large" @change="throughChange">
+                    <el-radio label="none">
+                      不跳转
+                    </el-radio>
+                    <el-radio label="whole">
+                      整体跳转
+                    </el-radio>
+                    <el-radio label="data">
+                      按数据
+                    </el-radio>
+                    <el-radio label="series">
+                      按系列
+                    </el-radio>
+                  </el-radio-group>
+                </div>
+                <div v-if="data.through == 'whole'" class="setting-item">
+                  <div class="setting-item-title">链接:</div>
+                  <el-input
+                    v-model="data.throughUrl"
+                    placeholder="请设置穿透地址"
+                  />
+                </div>
+                <div v-if="data.through == 'data'">
+                  <div
+                    v-for="(item,index) in data.dataset[0].source"
+                    :key="index"
+                    class="setting-item"
                   >
-                    整体跳转
-                  </el-radio>
-                  <el-radio
-                    v-model="data.through"
-                    label="data"
-                    size="large"
-                  >
-                    按数据
-                  </el-radio>
-                  <el-radio
-                    v-model="data.through"
-                    label="series"
-                    size="large"
-                  >
-                    按系列
-                  </el-radio>
+                    <div class="setting-item-title">链接{{ index + 1 }}:</div>
+                 
+                    <el-input
+                      v-model="data.throughUrl[item.category]"
+                      :placeholder="`请设置${item.category}穿透地址`"
+                    />
+                  </div>
                 </div>
               </el-collapse-item>
               <el-collapse-item title="标题" name="2">
@@ -108,7 +126,20 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="数据" name="3">
+              <el-collapse-item title="图例" name="3">
+                <div class="setting-item">
+                  <div class="setting-item-title">显示:</div>
+                  <el-switch
+                    v-model="data.legend.show"
+                    class="switch"
+                    inactive-color="#999999"
+                    inline-prompt
+                    active-text="是"
+                    inactive-text="否"
+                  />
+                </div>
+              </el-collapse-item>
+              <el-collapse-item title="数据" name="4">
                 <div class="setting-item">
                   <div class="setting-item-title">类型:</div>
                   <el-select
@@ -126,7 +157,7 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="轴,网格线" name="4">
+              <el-collapse-item title="轴,网格线" name="5">
                 <div class="setting-item">
                   <div class="setting-item-title">X轴:</div>
                   <el-checkbox
@@ -167,7 +198,7 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Bar设置" name="5">
+              <el-collapse-item title="Bar设置" name="6">
                 <el-button color="#626aef" plain @click="addBar">
                   添加Bar
                 </el-button>
@@ -216,13 +247,23 @@
                       /> -->
                     </div>
                     <div class="setting-item">
+                      <div class="setting-item-title">宽度:</div>
+                      <el-input
+                        v-model="item.width"
+                        placeholder="请设置柱子的宽度"
+                      />
+                    </div>
+                    <div class="setting-item">
                       <div class="setting-item-title">堆叠:</div>
                       <el-input
                         v-model="item.stack"
                         placeholder="请设置堆叠的名称"
                       />
                     </div>
-                    <div class="setting-item">
+                    <div
+                      v-if="data.through != 'whole' && data.through == 'series'"
+                      class="setting-item"
+                    >
                       <div class="setting-item-title">穿透:</div>
                       <el-input
                         v-model="item.url"
@@ -230,19 +271,6 @@
                       />
                     </div>
                   </div>
-                </div>
-              </el-collapse-item>
-              <el-collapse-item title="图例" name="6">
-                <div class="setting-item">
-                  <div class="setting-item-title">显示:</div>
-                  <el-switch
-                    v-model="data.legend.show"
-                    class="switch"
-                    inactive-color="#999999"
-                    inline-prompt
-                    active-text="是"
-                    inactive-text="否"
-                  />
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -289,6 +317,7 @@ const barConfig = {
   stack: null,
   bg: false,
   zebra: false,
+  width: '20%',
   url: ''
 };
 
@@ -297,8 +326,9 @@ const dataType = ref('静态数据');
 const dataShow = ref(false);
 
 const data = reactive({
-  horizontal: true,
-  through: 'whole',
+  horizontal: false,
+  through: 'none',
+  throughUrl: '',
   title: {
     show: false,
     text: '我是标题'
@@ -316,6 +346,24 @@ const data = reactive({
         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
       ]
+    },
+    {
+      transform: {
+        type: 'filter',
+        config: {
+          dimension: '系列1',
+          '>': 70
+        }
+      }
+    },
+    {
+      transform: {
+        type: 'sort',
+        config: {
+          dimension: '系列3',
+          order: 'asc'
+        }
+      }
     }
   ],
   xAxis: {
@@ -402,15 +450,17 @@ const setCode = (val) => {
   val.list.map((item) => {
     listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
       item.zebra ? ' zebra' : ''
-    }${item.stack ? ' :stack="' + item.stack + '"' : ''}${item.url ? ' :url="' + item.url + '"' : ''} />\n`;
+    }${item.stack ? ' :stack="' + item.stack + '"' : ''}${
+      item.url ? ' :url="' + item.url + '"' : ''
+    }${item.width ? ' :width="' + item.width + '"' : ''} />\n`;
   });
   let titleCode = val.title.show
     ? `\n\t\t<Title text="${val.title.text}" />`
     : '';
   let legendCode = val.legend.show ? `\n\t\t<Legend  />` : '';
-  code.value = `<template>\n\t<chart autoresize :horizontal="${
-    val.horizontal
-  }" :dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
+  code.value = `<template>\n\t<chart autoresize ${
+    val.horizontal ? 'horizontal ' : ''
+  }:dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.xAxis.splitLine ? ' :split-line="true"' : ''
@@ -436,6 +486,25 @@ const dataChangeFinish = () => {
   dataShow.value = false;
 };
 
+const throughChange = (label) =>{
+  console.log(label);
+  switch (label) {
+    case 'whole':
+      data.throughUrl = 'color'
+      break;
+    case 'data':
+      data.throughUrl = {}
+      data.dataset[0].source.map((item)=>{
+        console.log(item);
+        data.throughUrl[item.category] = 'http://www.baidu.com'
+      })
+      break;
+    case 'series':
+      break;
+    default:
+      break;
+  }
+}
 onMounted(() => {
   // 设置编辑器的高度
   codeHeight.value = codewapper.value.clientHeight;

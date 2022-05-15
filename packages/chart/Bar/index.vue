@@ -13,7 +13,8 @@ import {
   shallowRef,
   watch,
   inject,
-  onMounted
+  onMounted,
+  nextTick
 } from 'vue';
 import { use } from 'echarts/core';
 import { BarChart, PictorialBarChart } from 'echarts/charts';
@@ -32,6 +33,10 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
+  width: {
+    type: String,
+    default: '20%'
+  },
   bg: {
     type: Boolean,
     default: false
@@ -47,94 +52,106 @@ const props = defineProps({
   url: {
     type: String,
     default: ''
+  },
+  datasetIndex: {
+    type: [Number, null],
+    default: 0
   }
 });
-const { config, setSeries, delSeries } = inject('chart');
+const { config, setSeries, delSeries, throughUrl } = inject('chart');
 const index = shallowRef(null);
 const label = shallowRef(null);
 const barConfig = ref({
   type: 'bar',
-  barWidth: '10%',
+  barWidth: props.width,
   showBackground: false,
   // barGap: '-100%',
   backgroundStyle: {},
   itemStyle: {}
 });
 
-// const zebraConfig = ref({
-//   type: 'pictorialBar',
-//   symbol: 'rect',
-//   barWidth: '20%',
-//   itemStyle: {
-//     color: '#293656'
-//   },
-//   barGap: '30%',
-//   symbolRepeat: true,
-//   symbolSize: ['100%', 4],
-//   symbolMargin: 2,
-//   z: -10
-// });
+watch(
+  [
+    () => props.round,
+    () => props.stack,
+    () => props.bg,
+    () => props.url,
+    () => props.zebra,
+    () => props.width,
+    () => props.name
+  ],
+  (
+    [round, stack, bg, url, zebra, width, datasetIndex, name],
+    [oldRound, oldStack, oldBg, oldUrl, oldZebra, oldWidth, oldDatasetIndex, oldName]
+  ) => {
+    if (round != oldRound) {
+      nextTick(() => {
+        setRound(round);
+      });
+    }
 
-watch(
-  () => props.round,
-  (newVal, oldVal) => {
-    if (index.value != null) {
-      if (newVal != oldVal) {
-        setRound(newVal);
-      }
+    if (stack != oldStack) {
+      nextTick(() => {
+        setStack(stack);
+      });
     }
-  }
-);
-watch(
-  () => props.stack,
-  (newVal, oldVal) => {
-    if (newVal != oldVal) {
-      setStack(newVal);
-    }
-  }
-);
-watch(
-  () => props.bg,
-  (newVal, oldVal) => {
-    if (index.value != null) {
-      if (newVal != oldVal) {
-        setBg(newVal);
-      }
-    }
-  }
-);
 
-watch(
-  () => props.url,
-  (newVal, oldVal) => {
-    if (index.value != null) {
-      if (newVal != oldVal) {
-        setUrl(newVal);
-      }
+    if (bg != oldBg) {
+      nextTick(() => {
+        setBg(bg);
+      });
     }
-  }
-);
 
-watch(
-  () => props.zebra,
-  (newVal, oldVal) => {
-    if (index.value != null) {
-      if (newVal != oldVal) {
-        setZebra(newVal);
-      }
+    if (url != oldUrl) {
+      nextTick(() => {
+        setUrl(url);
+      });
     }
+    if (datasetIndex != oldDatasetIndex) {
+      nextTick(() => {
+        setDatasetIndex(datasetIndex);
+      });
+    }
+
+    if(name != oldName){
+       nextTick(() => {
+        setName(name);
+      });
+    }
+
+    // if (zebra != oldZebra) {
+    //   nextTick(() => {
+    //     setZebra(zebra);
+    //   });
+    // }
+
+    if (width != oldWidth) {
+      nextTick(() => {
+        setWidth(width);
+      });
+    }
+  },
+  {
+    immediate: true
   }
 );
-// 监听chart 方向改变
-watch(
-  () => config.horizontal,
-  (newVal) => {
-    setHorizontal(newVal);
+const setName = (name) =>{
+  if (index.value != null) {
+    config.series[index.value].name = name;
+  } else {
+    barConfig.value.name = name;
   }
-);
+}
+const setDatasetIndex = (datasetIndex) => {
+  if (index.value != null) {
+    config.series[index.value].datasetIndex = datasetIndex?datasetIndex:0;
+  } else {
+    barConfig.value.datasetIndex = datasetIndex?datasetIndex:0;
+  }
+};
 // 设置圆角
 const setRound = (round) => {
-  let borderRadius = config.horizontal ? [0, 50, 50, 0] : [50, 50, 0, 0]
+  let borderRadius = config.horizontal ? [0, 50, 50, 0] : [50, 50, 0, 0];
   if (index.value != null) {
     config.series[index.value].itemStyle['borderRadius'] = round
       ? borderRadius
@@ -145,9 +162,7 @@ const setRound = (round) => {
         }
       : {};
   } else {
-    barConfig.value.itemStyle['borderRadius'] = round
-      ? borderRadius
-      : null;
+    barConfig.value.itemStyle['borderRadius'] = round ? borderRadius : 0;
     barConfig.value.backgroundStyle = round
       ? {
           borderRadius: borderRadius
@@ -172,86 +187,71 @@ const setBg = (bg) => {
   }
 };
 // 设置斑马纹
-const setZebra = (zebra) => {
-  if (index.value != null) {
-    let zebraindex = sortedIndexBy(
-      config.series,
-      { label: 'zebra' + label.value.replace(/[^\d]/g, '') },
-      'label'
-    );
-    if (zebra) {
-      config.series[index.value] = merge(config.series[index.value], {
-        showBackground: true,
-        datasetIndex: 0,
-        barGap: '30%',
-        backgroundStyle: {
-          color: '#293656',
-          borderWidth: 5,
-          borderColor: '#293656'
-        },
-        z: -12
-      });
-      config.series[zebraindex].itemStyle.opacity = 1;
-    } else {
-      config.series[index.value] = merge(config.series[index.value], {
-        showBackground: props.bg ? true : false,
-        datasetIndex: 0,
-        barGap: '30%',
-        backgroundStyle: {},
-        z: 0
-      });
-      config.series[zebraindex].itemStyle.opacity = 0;
-    }
-  } else {
-    if (zebra) {
-      barConfig.value = merge(cloneDeep(barConfig.value), {
-        showBackground: true,
-        datasetIndex: 0,
-        barGap: '30%',
-        backgroundStyle: {
-          color: '#293656',
-          borderWidth: 5,
-          borderColor: '#293656'
-        },
-        z: -12,
-        zebra: true
-      });
-    }
-  }
-};
-const setHorizontal = (horizontal)=>{
-  console.log(horizontal);
-  if (index.value != null) {
-    //设置宽度
-    config.series[index.value].barWidth = horizontal ? '20%' : '10%';
-    // 设置渐变方向
-    console.log(config);
-    // config.series[index.value].itemStyle.color = 'rgb(255,255,255)'
+// const setZebra = (zebra) => {
+//   if (index.value != null) {
+//     let zebraindex = sortedIndexBy(
+//       config.series,
+//       { label: 'zebra' + label.value.replace(/[^\d]/g, '') },
+//       'label'
+//     );
+//     if (zebra) {
+//       config.series[index.value] = merge(config.series[index.value], {
+//         showBackground: true,
+//         datasetIndex: 0,
+//         barGap: '30%',
+//         backgroundStyle: {
+//           color: '#293656',
+//           borderWidth: 5,
+//           borderColor: '#293656'
+//         },
+//         z: -12
+//       });
+//       config.series[zebraindex].itemStyle.opacity = 1;
+//     } else {
+//       config.series[index.value] = merge(config.series[index.value], {
+//         showBackground: props.bg ? true : false,
+//         datasetIndex: 0,
+//         barGap: '30%',
+//         backgroundStyle: {},
+//         z: 0
+//       });
+//       config.series[zebraindex].itemStyle.opacity = 0;
+//     }
+//   } else {
+//     if (zebra) {
+//       barConfig.value = merge(cloneDeep(barConfig.value), {
+//         showBackground: true,
+//         datasetIndex: 0,
+//         barGap: '30%',
+//         backgroundStyle: {
+//           color: '#293656',
+//           borderWidth: 5,
+//           borderColor: '#293656'
+//         },
+//         z: -12,
+//         zebra: true
+//       });
+//     }
+//   }
+// };
 
-  } else {
-    //设置宽度
-    barConfig.value.barWidth = horizontal ? '20%' : '10%';
-    // barConfig.value.itemStyle['color'] = 'rgb(255,255,255)'
-    console.log(barConfig.value.itemStyle);
-  }
-}
 const setUrl = (url) => {
   if (index.value != null) {
     config.series[index.value].url = url ? url : '';
   } else {
     barConfig.value.url = url ? url : '';
   }
-}
+};
+
+const setWidth = (width) => {
+  if (index.value != null) {
+    config.series[index.value].barWidth = width;
+  } else {
+    barConfig.value.barWidth = width;
+  }
+};
 
 const setBar = () => {
- 
-  setRound(props.round);
-  setBg(props.bg);
-  setStack(props.stack);
-  setZebra(props.zebra);
-  setUrl(props.url);
-  setHorizontal(config.horizontal)
-  
   let itemConfig = cloneDeep(barConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;

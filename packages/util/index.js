@@ -170,3 +170,7 @@ const sortByFields = (sortFields, list) => {
     return 0;
   });
 };
+
+export function pathTest(path) {
+  return /^(http(s)?:|mailto:|tel:)/.test(path)
+}
