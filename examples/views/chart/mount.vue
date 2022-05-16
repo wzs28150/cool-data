@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-16 22:17:21
+ * @LastEditTime: 2022-05-16 22:42:13
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -384,9 +384,7 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Line${item.smooth ? ' smooth' : ''}${
-      item.dashed ? ' dashed' : ''
-    }${item.stack ? ' :stack="' + item.stack + '"' : ''}${
+    listCode += `\t\t<Mount${item.shape ? ' :shape="' + item.shape + '"' : ''}${
       item.url ? ' :url="' + item.url + '"' : ''
     } />\n`;
   });
