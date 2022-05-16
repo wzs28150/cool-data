@@ -1,36 +1,23 @@
 <template>
-  <el-container
-    class="page"
-    style="background-image: url('./bg.png');"
-  >
+  <el-container class="page" style="background-image: url('./bg.png')">
     <el-header class="page-header">
-      <div class="logo">
-        数据可视化组件
-      </div>
+      <div class="logo">数据可视化组件</div>
       <a href="/cool-data/docs">
-        <el-icon>
-          <document />
-        </el-icon>文档
+        <el-icon> <document /> </el-icon>文档
       </a>
     </el-header>
     <el-container>
-      <el-aside
-        router
-        :default-active="$route.path"
-        class="page-aside"
-        width="200px"
-        @select="handleSelect"
-      >
-        <el-scrollbar style="height: calc(100vh - 60px - 40px); ">
+      <el-aside class="page-aside" width="200px" @select="handleSelect">
+        <el-scrollbar style="height: calc(100vh - 60px - 40px)">
           <el-menu
             router
-            default-active="2"
+            :default-active="$route.path"
             class="el-menu-vertical-demo"
             text-color="#fff"
             background-color="transparent"
             active-text-color="#4fd2dd"
-            style="border-right: 0;"
-            :unique-opened="true"
+            style="border-right: 0"
+            :default-openeds="['/chart']"
           >
             <el-sub-menu index="/chart">
               <template #title>
@@ -40,61 +27,32 @@
                 <span>图表</span>
               </template>
 
-              <el-menu-item index="/chart/bar">
-                柱状图
-              </el-menu-item>
-              <el-menu-item index="/chart/pie">
-                饼形图
-              </el-menu-item>
-              <el-menu-item index="/chart/line">
-                折线图
-              </el-menu-item>
-              <el-menu-item index="/chart/radar">
-                雷达图
-              </el-menu-item>
-              <el-menu-item index="/chart/gauge">
-                仪表盘
-              </el-menu-item>
-              <el-menu-item index="/chart/waterlevel">
-                水位图
-              </el-menu-item>
-              <el-menu-item index="/chart/rotation">
-                轮播
-              </el-menu-item>
+              <el-menu-item index="/chart/bar" route> 柱状图 </el-menu-item>
+              <el-menu-item index="/chart/mount"> 山峰图 </el-menu-item>
+              <el-menu-item index="/chart/line"> 折线图 </el-menu-item>
+              <el-menu-item index="/chart/pie"> 饼形图 </el-menu-item>
+
+              <el-menu-item index="/chart/radar"> 雷达图 </el-menu-item>
+              <el-menu-item index="/chart/gauge"> 仪表盘 </el-menu-item>
+              <el-menu-item index="/chart/waterlevel"> 水位图 </el-menu-item>
+              <el-menu-item index="/chart/rotation"> 轮播 </el-menu-item>
               <el-menu-item index="/chart/digitalflop">
                 数字翻牌器
               </el-menu-item>
-              <el-menu-item index="/chart/other">
-                其他
-              </el-menu-item>
+              <el-menu-item index="/chart/other"> 其他 </el-menu-item>
             </el-sub-menu>
-           
+
             <el-menu-item index="/color">
               <el-icon>
                 <Brush />
               </el-icon>
               <span>颜色</span>
             </el-menu-item>
-            <el-sub-menu index="/background">
-              <template #title>
-                <el-icon>
-                  <Monitor />
-                </el-icon>
-                <span>背景</span>
-              </template>
-
-              <el-menu-item index="/background/index">
-                背景图
-              </el-menu-item>
-              <el-menu-item index="/background/canvas">
-                背景效果
-              </el-menu-item>
-            </el-sub-menu>
           </el-menu>
         </el-scrollbar>
       </el-aside>
       <el-main class="page-main">
-        <el-scrollbar style="height: calc(100vh - 60px - 40px); width: 100%; ">
+        <el-scrollbar style="height: calc(100vh - 60px - 40px); width: 100%">
           <router-view />
         </el-scrollbar>
       </el-main>
@@ -102,11 +60,9 @@
   </el-container>
 </template>
 <script setup>
-import { FullScreen, House, MagicStick, Loading, Document, PieChart, Paperclip, Brush, Monitor } from "@element-plus/icons-vue";
+import { Document, PieChart, Brush } from '@element-plus/icons-vue';
 
-const handleSelect = () => {
-
-}
+const handleSelect = () => {};
 </script>
 <style lang="less">
 html {
@@ -124,7 +80,7 @@ html {
     justify-content: space-between;
     position: relative;
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
@@ -152,7 +108,7 @@ html {
   .page-aside {
     position: relative;
     &::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: 0;
       left: 0;
@@ -160,6 +116,11 @@ html {
       height: 100%;
       border-right: 1px solid rgba(255, 255, 255, 0.3);
       pointer-events: none;
+    }
+    .el-menu-item {
+      &.is-active {
+        background-color: rgba(6, 30, 93, 0.8);
+      }
     }
   }
 

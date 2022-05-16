@@ -41,16 +41,21 @@ const props = defineProps({
   dashed: {
     type: Boolean,
     default: false
+  },
+  stack: {
+    type: String,
+    default: ''
   }
 });
 
 const { config, setSeries, delSeries } = inject('chart');
 const index = ref(null);
-const label = ref(null);
-const instance = getCurrentInstance();
+const itemLabel = ref(null);
 const lineConfig = ref({
   type: 'line',
   name: 'line',
+  stack: '',
+  smooth: false,
   markPoint: {
     data: [
       {
@@ -65,16 +70,21 @@ const lineConfig = ref({
   }
 });
 watch(
-  [() => props.smooth, ()=> props.dashed],
-  ([smooth, dashed], [oldSmooth, oldDashed]) => {
+  [() => props.smooth, () => props.dashed, () => props.stack],
+  ([smooth, dashed, stack], [oldSmooth, oldDashed, oldStack]) => {
     if (smooth != oldSmooth) {
       nextTick(() => {
         setSmooth(smooth);
       });
     }
-    if(dashed != oldDashed){
+    if (dashed != oldDashed) {
       nextTick(() => {
-        setDashed(smooth);
+        setDashed(dashed);
+      });
+    }
+    if (stack != oldStack) {
+      nextTick(() => {
+        setStack(stack);
       });
     }
   },
@@ -93,19 +103,35 @@ const setSmooth = (smooth) => {
 
 const setDashed = (dashed) => {
   if (index.value != null) {
-    config.series[index.value].lineStyle = dashed ? {
-        type: 'dashed'
-    }: {};
+    config.series[index.value].lineStyle = dashed
+      ? {
+          type: 'dashed'
+        }
+      : {
+          type: 'solid'
+        };
   } else {
-    lineConfig.value.smooth = smooth;
+    lineConfig.value.smooth = dashed
+      ? {
+          type: 'dashed'
+        }
+      : {
+          type: 'solid'
+        };
   }
-}
-
+};
+const setStack = (stack) => {
+  if (index.value != null) {
+    config.series[index.value].stack = stack;
+  } else {
+    lineConfig.value.stack = stack;
+  }
+};
 const setLine = () => {
   let itemConfig = cloneDeep(lineConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;
-    label.value = res.label;
+    itemLabel.value = res.itemLabel;
   });
 };
 
@@ -115,6 +141,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   // config.series.splice(index.value, 1);
-  delSeries(label.value);
+  delSeries(itemLabel.value);
 });
 </script>

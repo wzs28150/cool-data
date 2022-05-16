@@ -69,19 +69,15 @@
                 </div>
                 <div class="setting-item">
                   <div class="setting-item-title">穿透:</div>
-                  <el-radio-group v-model="data.through" size="large" @change="throughChange">
-                    <el-radio label="none">
-                      不跳转
-                    </el-radio>
-                    <el-radio label="whole">
-                      整体跳转
-                    </el-radio>
-                    <el-radio label="data">
-                      按数据
-                    </el-radio>
-                    <el-radio label="series">
-                      按系列
-                    </el-radio>
+                  <el-radio-group
+                    v-model="data.through"
+                    size="large"
+                    @change="throughChange"
+                  >
+                    <el-radio label="none"> 不跳转 </el-radio>
+                    <el-radio label="whole"> 整体跳转 </el-radio>
+                    <el-radio label="data"> 按数据 </el-radio>
+                    <el-radio label="series"> 按系列 </el-radio>
                   </el-radio-group>
                 </div>
                 <div v-if="data.through == 'whole'" class="setting-item">
@@ -93,12 +89,12 @@
                 </div>
                 <div v-if="data.through == 'data'">
                   <div
-                    v-for="(item,index) in data.dataset[0].source"
+                    v-for="(item, index) in data.dataset[0].source"
                     :key="index"
                     class="setting-item"
                   >
                     <div class="setting-item-title">链接{{ index + 1 }}:</div>
-                 
+
                     <el-input
                       v-model="data.throughUrl[item.category]"
                       :placeholder="`请设置${item.category}穿透地址`"
@@ -317,7 +313,7 @@ const barConfig = {
   stack: null,
   bg: false,
   zebra: false,
-  width: '20%',
+  width: '10%',
   url: ''
 };
 
@@ -460,10 +456,14 @@ const setCode = (val) => {
   let legendCode = val.legend.show ? `\n\t\t<Legend  />` : '';
   code.value = `<template>\n\t<chart autoresize ${
     val.horizontal ? 'horizontal ' : ''
-  }${
-    val.through != 'none' ? ':through="'+val.through+'" ' : ''
-  }${
-    val.throughUrl ? ':throughUrl=\''+(val.through == 'whole' ? val.throughUrl : JSON.stringify(val.throughUrl))+'\'' : ''
+  }${val.through != 'none' ? ':through="' + val.through + '" ' : ''}${
+    val.throughUrl
+      ? ":throughUrl='" +
+        (val.through == 'whole'
+          ? val.throughUrl
+          : JSON.stringify(val.throughUrl)) +
+        "'"
+      : ''
   }:dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
@@ -490,23 +490,23 @@ const dataChangeFinish = () => {
   dataShow.value = false;
 };
 
-const throughChange = (label) =>{
+const throughChange = (label) => {
   console.log(label);
   switch (label) {
     case 'whole':
-      data.throughUrl = 'color'
+      data.throughUrl = 'color';
       break;
     case 'data':
-      data.throughUrl = {}
-      data.dataset[0].source.map((item)=>{
-        data.throughUrl[item.category] = 'http://www.baidu.com'
-      })
+      data.throughUrl = {};
+      data.dataset[0].source.map((item) => {
+        data.throughUrl[item.category] = 'http://www.baidu.com';
+      });
       break;
     default:
-      data.throughUrl = ''
+      data.throughUrl = '';
       break;
   }
-}
+};
 onMounted(() => {
   // 设置编辑器的高度
   codeHeight.value = codewapper.value.clientHeight;

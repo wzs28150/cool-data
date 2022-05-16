@@ -279,9 +279,9 @@ const setSeries = (itemConfig) => {
       seriesCache.value.filter((item) => {
         return item.type == itemConfig.type;
       }).length + 1;
-    let label = itemConfig.type + itemIndex;
+    let itemLabel = itemConfig.type + itemIndex;
     seriesCache.value = union(seriesCache.value, [
-      { ...itemConfig, label: label }
+      { ...itemConfig, itemLabel: itemLabel }
     ]);
 
     // 处理特殊样式添加 PictorialBar
@@ -297,21 +297,25 @@ const setSeries = (itemConfig) => {
     //   ]);
     // }
     // 分组排序
-    seriesCache.value = groupAndSort('type', 'label', seriesCache.value);
+    seriesCache.value = groupAndSort('type', 'itemLabel', seriesCache.value);
 
     config.series = seriesCache.value;
-    let index = sortedIndexBy(seriesCache.value, { label: label }, 'label');
+    let index = sortedIndexBy(
+      seriesCache.value,
+      { itemLabel: itemLabel },
+      'itemLabel'
+    );
     // console.log(seriesCache.value);
-    resolve({ index, label });
+    resolve({ index, itemLabel });
   });
 };
-const delSeries = (label) => {
+const delSeries = (itemLabel) => {
   pullAllBy(
     config.series,
-    [{ label: 'zebra' + label.replace(/[^\d]/g, '') }],
-    'label'
+    [{ itemLabel: 'zebra' + itemLabel.replace(/[^\d]/g, '') }],
+    'itemLabel'
   );
-  pullAllBy(config.series, [{ label: label }], 'label');
+  pullAllBy(config.series, [{ itemLabel: itemLabel }], 'itemLabel');
 };
 
 provide('chart', {

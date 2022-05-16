@@ -60,7 +60,7 @@ const props = defineProps({
 });
 const { config, setSeries, delSeries, throughUrl } = inject('chart');
 const index = shallowRef(null);
-const label = shallowRef(null);
+const itemLabel = shallowRef(null);
 const barConfig = ref({
   type: 'bar',
   barWidth: props.width,
@@ -82,7 +82,16 @@ watch(
   ],
   (
     [round, stack, bg, url, zebra, width, datasetIndex, name],
-    [oldRound, oldStack, oldBg, oldUrl, oldZebra, oldWidth, oldDatasetIndex, oldName]
+    [
+      oldRound,
+      oldStack,
+      oldBg,
+      oldUrl,
+      oldZebra,
+      oldWidth,
+      oldDatasetIndex,
+      oldName
+    ]
   ) => {
     if (round != oldRound) {
       nextTick(() => {
@@ -113,8 +122,8 @@ watch(
       });
     }
 
-    if(name != oldName){
-       nextTick(() => {
+    if (name != oldName) {
+      nextTick(() => {
         setName(name);
       });
     }
@@ -135,18 +144,18 @@ watch(
     immediate: true
   }
 );
-const setName = (name) =>{
+const setName = (name) => {
   if (index.value != null) {
     config.series[index.value].name = name;
   } else {
     barConfig.value.name = name;
   }
-}
+};
 const setDatasetIndex = (datasetIndex) => {
   if (index.value != null) {
-    config.series[index.value].datasetIndex = datasetIndex?datasetIndex:0;
+    config.series[index.value].datasetIndex = datasetIndex ? datasetIndex : 0;
   } else {
-    barConfig.value.datasetIndex = datasetIndex?datasetIndex:0;
+    barConfig.value.datasetIndex = datasetIndex ? datasetIndex : 0;
   }
 };
 // 设置圆角
@@ -255,7 +264,7 @@ const setBar = () => {
   let itemConfig = cloneDeep(barConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;
-    label.value = res.label;
+    itemLabel.value = res.itemLabel;
   });
 };
 
@@ -264,6 +273,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  delSeries(label.value);
+  delSeries(itemLabel.value);
 });
 </script>

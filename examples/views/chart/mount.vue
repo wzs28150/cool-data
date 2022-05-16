@@ -1,3 +1,12 @@
+<!--
+ * @Title: 
+ * @Descripttion: 
+ * @version: 
+ * @Author: wzs
+ * @Date: 2022-05-16 21:32:02
+ * @LastEditors: wzs
+ * @LastEditTime: 2022-05-16 22:17:21
+-->
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" :span="12">
@@ -24,12 +33,10 @@
               :axis-label="data.yAxis.axisLabel"
               :split-line="data.yAxis.splitLine"
             />
-            <Line
+            <Mount
               v-for="(item, index) in data.list"
               :key="index"
-              :smooth="item.smooth"
-              :dashed="item.dashed"
-              :stack="item.stack"
+              :shape="item.shape"
             />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
@@ -74,7 +81,6 @@
                     <el-radio label="none"> 不跳转 </el-radio>
                     <el-radio label="whole"> 整体跳转 </el-radio>
                     <el-radio label="data"> 按数据 </el-radio>
-                    <el-radio label="series"> 按系列 </el-radio>
                   </el-radio-group>
                 </div>
                 <div v-if="data.through == 'whole'" class="setting-item">
@@ -191,10 +197,10 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Line设置" name="6">
-                <el-button color="#626aef" plain @click="addLine">
+              <el-collapse-item title="Mount设置" name="6">
+                <!-- <el-button color="#626aef" plain @click="addLine">
                   添加Line
-                </el-button>
+                </el-button> -->
                 <div class="bar-list">
                   <div
                     v-for="(item, index) in data.list"
@@ -203,48 +209,20 @@
                   >
                     <div class="title">
                       <div class="text">Line{{ index + 1 }}</div>
-                      <el-button
+                      <!-- <el-button
                         type="danger"
                         :icon="Delete"
                         circle
                         @click="delLine(index)"
-                      />
-                    </div>
-                    <div class="setting-item">
-                      <div class="setting-item-title">平滑:</div>
-                      <el-switch
-                        v-model="item.smooth"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
-                      />
-                      <div class="setting-item-title">虚线:</div>
-                      <el-switch
-                        v-model="item.dashed"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
-                      />
-                      <!-- <div class="setting-item-title">斑马纹:</div>
-                      <el-switch
-                        v-model="item.zebra"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
                       /> -->
                     </div>
                     <div class="setting-item">
-                      <div class="setting-item-title">堆叠:</div>
-                      <el-input
-                        v-model="item.stack"
-                        placeholder="请设置堆叠的名称"
-                      />
+                      <div class="setting-item-title">形状:</div>
+                      <el-radio-group v-model="item.shape" size="large">
+                        <el-radio label="triangle"> 三角 </el-radio>
+                        <el-radio label="round"> 圆角 </el-radio>
+                        <el-radio label="sharp"> 尖角 </el-radio>
+                      </el-radio-group>
                     </div>
                     <div
                       v-if="data.through != 'whole' && data.through == 'series'"
@@ -300,7 +278,7 @@ const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
 const lineConfig = {
   url: '',
-  smooth: false
+  shape: 'triangle'
 };
 
 const dataType = ref('静态数据');
@@ -320,15 +298,13 @@ const data = reactive({
   },
   dataset: [
     {
-      dimensions: ['product', '系列1', '系列2', '系列3'],
+      dimensions: ['category', '系列1', '系列2', '系列3'],
+      url: { 系列1: 'color', 系列2: 'color', 系列3: 'color' },
       source: [
-        { product: '周一', 系列1: 43.3, 系列2: 143.3, 系列3: 43.3 },
-        { product: '周二', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-        { product: '周三', 系列1: 86.4, 系列2: 43.3, 系列3: 143.3 },
-        { product: '周四', 系列1: 72.4, 系列2: 343.3, 系列3: 43.3 },
-        { product: '周五', 系列1: 95.4, 系列2: 243.3, 系列3: 143.3 },
-        { product: '周六', 系列1: 72.4, 系列2: 303.3, 系列3: 243.3 },
-        { product: '周日', 系列1: 90.4, 系列2: 313.3, 系列3: 343.3 }
+        { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
+        { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
+        { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
+        { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
       ]
     },
     {

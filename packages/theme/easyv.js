@@ -1,39 +1,39 @@
-import { graphic } from "echarts/core";
+import { graphic } from 'echarts/core';
 const easyv = {
   version: 1,
-  themeName: "easyv",
+  themeName: 'easyv',
   theme: {
     color: [
       new graphic.LinearGradient(0, 1, 0, 0, [
-        { offset: 0, color: "rgba(0,228,255,1)" },
-        { offset: 1, color: "rgba(0,155,255,0.6)" }
+        { offset: 0, color: 'rgba(0,228,255,1)' },
+        { offset: 1, color: 'rgba(0,155,255,0.6)' }
       ]), //   "#1890ff",
       new graphic.LinearGradient(0, 1, 0, 0, [
-        { offset: 0, color: "rgba(40,230,169,1)" },
-        { offset: 1, color: "rgba(40,201,169,0.6)" }
-      ]), 
+        { offset: 0, color: 'rgba(40,230,169,1)' },
+        { offset: 1, color: 'rgba(40,201,169,0.6)' }
+      ]),
       // "#bae7ff",
       new graphic.LinearGradient(0, 1, 0, 0, [
-        { offset: 0, color: "rgba(20,231,231,1)" },
-        { offset: 1, color: "rgba(20,201,231,0.6)" }
+        { offset: 0, color: 'rgba(20,231,231,1)' },
+        { offset: 1, color: 'rgba(20,201,231,0.6)' }
       ]), //   "#1ee7e7",
       new graphic.LinearGradient(0, 1, 0, 0, [
-        { offset: 0, color: "rgba(47,114,235,1)" },
-        { offset: 1, color: "rgba(47,84,235,0.6)" }
+        { offset: 0, color: 'rgba(47,114,235,1)' },
+        { offset: 1, color: 'rgba(47,84,235,0.6)' }
       ]), //   "#2f54eb",
-      
-      "#00d68a"
+
+      '#00d68a'
     ],
-    backgroundColor: "",
+    backgroundColor: '',
     textStyle: {
-      color: "#eeeeee"
+      color: '#eeeeee'
     },
     title: {
       textStyle: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       },
       subtextStyle: {
-        color: "#aaaaaa"
+        color: '#aaaaaa'
       }
     },
     line: {
@@ -44,7 +44,7 @@ const easyv = {
         width: 2
       },
       symbolSize: 4,
-      symbol: "circle",
+      symbol: 'circle',
       smooth: false
     },
     radar: {
@@ -55,19 +55,19 @@ const easyv = {
         width: 2
       },
       symbolSize: 4,
-      symbol: "circle",
+      symbol: 'circle',
       smooth: false
     },
     bar: {
       itemStyle: {
         barBorderWidth: 0,
-        barBorderColor: "#ccc"
+        barBorderColor: '#ccc'
       }
     },
     pie: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       },
       label: {
         textBorderColor: 'transparent',
@@ -86,102 +86,102 @@ const easyv = {
     scatter: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     boxplot: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     parallel: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     sankey: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     funnel: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     gauge: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       }
     },
     candlestick: {
       itemStyle: {
-        color: "#fd1050",
-        color0: "#0cf49b",
-        borderColor: "#fd1050",
-        borderColor0: "#0cf49b",
+        color: '#fd1050',
+        color0: '#0cf49b',
+        borderColor: '#fd1050',
+        borderColor0: '#0cf49b',
         borderWidth: 1
       }
     },
     graph: {
       itemStyle: {
         borderWidth: 0,
-        borderColor: "#ccc"
+        borderColor: '#ccc'
       },
       lineStyle: {
         width: 1,
-        color: "#aaaaaa"
+        color: '#aaaaaa'
       },
       symbolSize: 4,
-      symbol: "circle",
+      symbol: 'circle',
       smooth: false,
-      color: ["#1890ff", "#1ee7e7", "#2f54eb", "#bae7ff", "#00d68a"],
+      color: ['#1890ff', '#1ee7e7', '#2f54eb', '#bae7ff', '#00d68a'],
       label: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       }
     },
     map: {
       itemStyle: {
-        areaColor: "#eee",
-        borderColor: "#444",
+        areaColor: '#eee',
+        borderColor: '#444',
         borderWidth: 0.5
       },
       label: {
-        color: "#000"
+        color: '#000'
       },
       emphasis: {
         itemStyle: {
-          areaColor: "rgba(255,215,0,0.8)",
-          borderColor: "#444",
+          areaColor: 'rgba(255,215,0,0.8)',
+          borderColor: '#444',
           borderWidth: 1
         },
         label: {
-          color: "rgb(100,0,0)"
+          color: 'rgb(100,0,0)'
         }
       }
     },
     geo: {
       itemStyle: {
-        areaColor: "#eee",
-        borderColor: "#444",
+        areaColor: '#eee',
+        borderColor: '#444',
         borderWidth: 0.5
       },
       label: {
-        color: "#000"
+        color: '#000'
       },
       emphasis: {
         itemStyle: {
-          areaColor: "rgba(255,215,0,0.8)",
-          borderColor: "#444",
+          areaColor: 'rgba(255,215,0,0.8)',
+          borderColor: '#444',
           borderWidth: 1
         },
         label: {
-          color: "rgb(100,0,0)"
+          color: 'rgb(100,0,0)'
         }
       }
     },
@@ -189,29 +189,29 @@ const easyv = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisTick: {
         show: false,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisLabel: {
         show: true,
-        color: "#eeeeee"
+        color: '#eeeeee'
       },
       splitLine: {
         show: false,
         lineStyle: {
-          color: ["#aaaaaa"]
+          color: ['#aaaaaa']
         }
       },
       splitArea: {
         show: false,
         areaStyle: {
-          color: ["#eeeeee"]
+          color: ['#eeeeee']
         }
       }
     },
@@ -219,31 +219,31 @@ const easyv = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisTick: {
         show: false,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisLabel: {
         show: true,
-        color: "#ffffff"
+        color: '#ffffff'
       },
       splitLine: {
         show: true,
         lineStyle: {
-          type: "dashed",
-          color: ["#aaaaaa"],
+          type: 'dashed',
+          color: ['#aaaaaa'],
           opacity: 0.5
         }
       },
       splitArea: {
         show: false,
         areaStyle: {
-          color: ["#eeeeee"]
+          color: ['#eeeeee']
         }
       }
     },
@@ -251,29 +251,29 @@ const easyv = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisTick: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisLabel: {
         show: true,
-        color: "#ffffff"
+        color: '#ffffff'
       },
       splitLine: {
         show: true,
         lineStyle: {
-          color: ["#aaaaaa"]
+          color: ['#aaaaaa']
         }
       },
       splitArea: {
         show: false,
         areaStyle: {
-          color: ["#eeeeee"]
+          color: ['#eeeeee']
         }
       }
     },
@@ -281,114 +281,114 @@ const easyv = {
       axisLine: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisTick: {
         show: true,
         lineStyle: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       },
       axisLabel: {
         show: true,
-        color: "#ffffff"
+        color: '#ffffff'
       },
       splitLine: {
         show: true,
         lineStyle: {
-          color: ["#aaaaaa"]
+          color: ['#aaaaaa']
         }
       },
       splitArea: {
         show: false,
         areaStyle: {
-          color: ["#eeeeee"]
+          color: ['#eeeeee']
         }
       }
     },
     toolbox: {
       iconStyle: {
-        borderColor: "#999999"
+        borderColor: '#999999'
       },
       emphasis: {
         iconStyle: {
-          borderColor: "#666666"
+          borderColor: '#666666'
         }
       }
     },
     legend: {
       textStyle: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       }
     },
     tooltip: {
       axisPointer: {
         lineStyle: {
-          color: "#eeeeee",
-          width: "1"
+          color: '#eeeeee',
+          width: '1'
         },
         crossStyle: {
-          color: "#eeeeee",
-          width: "1"
+          color: '#eeeeee',
+          width: '1'
         }
       }
     },
     timeline: {
       lineStyle: {
-        color: "#eeeeee",
+        color: '#eeeeee',
         width: 1
       },
       itemStyle: {
-        color: "#dd6b66",
+        color: '#dd6b66',
         borderWidth: 1
       },
       controlStyle: {
-        color: "#eeeeee",
-        borderColor: "#eeeeee",
+        color: '#eeeeee',
+        borderColor: '#eeeeee',
         borderWidth: 0.5
       },
       checkpointStyle: {
-        color: "#e43c59",
-        borderColor: "#c23531"
+        color: '#e43c59',
+        borderColor: '#c23531'
       },
       label: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       },
       emphasis: {
         itemStyle: {
-          color: "#a9334c"
+          color: '#a9334c'
         },
         controlStyle: {
-          color: "#eeeeee",
-          borderColor: "#eeeeee",
+          color: '#eeeeee',
+          borderColor: '#eeeeee',
           borderWidth: 0.5
         },
         label: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       }
     },
     visualMap: {
-      color: ["#391ddc", "#d88273", "#f6efa6"]
+      color: ['#391ddc', '#d88273', '#f6efa6']
     },
     dataZoom: {
-      backgroundColor: "rgba(47,69,84,0)",
-      dataBackgroundColor: "rgba(255,255,255,0.3)",
-      fillerColor: "rgba(167,183,204,0.4)",
-      handleColor: "#a7b7cc",
-      handleSize: "100%",
+      backgroundColor: 'rgba(47,69,84,0)',
+      dataBackgroundColor: 'rgba(255,255,255,0.3)',
+      fillerColor: 'rgba(167,183,204,0.4)',
+      handleColor: '#a7b7cc',
+      handleSize: '100%',
       textStyle: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       }
     },
     markPoint: {
       label: {
-        color: "#eeeeee"
+        color: '#eeeeee'
       },
       emphasis: {
         label: {
-          color: "#eeeeee"
+          color: '#eeeeee'
         }
       }
     }

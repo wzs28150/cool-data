@@ -19,6 +19,7 @@ import XAxis from './chart/XAxis';
 import YAxis from './chart/YAxis';
 import Bar from './chart/Bar';
 import Line from './chart/Line';
+import Mount from './chart/Mount';
 
 import { deepClone, deepMerge, uuid } from './util';
 
@@ -29,6 +30,7 @@ const components = {
   YAxis,
   Bar,
   Line,
+  Mount,
   Legend
 };
 
@@ -75,6 +77,7 @@ export {
   YAxis,
   Bar,
   Line,
+  Mount,
   deepClone,
   deepMerge,
   uuid
