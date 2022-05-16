@@ -14,8 +14,7 @@ import {
   watch,
   shallowRef,
   toRefs,
-  provide,
-  computed
+  provide
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { use, init, registerTheme } from 'echarts/core';
@@ -106,6 +105,15 @@ const config = reactive({
   },
   xAxis: {},
   yAxis: {},
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      label: {
+        backgroundColor: '#333'
+      }
+    }
+  },
   series: [],
   legend: {
     show: false

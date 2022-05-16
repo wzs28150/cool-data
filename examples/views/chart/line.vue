@@ -24,16 +24,7 @@
               :axis-label="data.yAxis.axisLabel"
               :split-line="data.yAxis.splitLine"
             />
-            <Bar
-              v-for="(item, index) in data.list"
-              :key="index"
-              :bg="item.bg"
-              :round="item.round"
-              :stack="item.stack"
-              :zebra="item.zebra"
-              :url="item.url"
-              :width="item.width"
-            />
+            <Line v-for="(item, index) in data.list" :key="index" :smooth="item.smooth" />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
         </div>
@@ -69,19 +60,15 @@
                 </div>
                 <div class="setting-item">
                   <div class="setting-item-title">穿透:</div>
-                  <el-radio-group v-model="data.through" size="large" @change="throughChange">
-                    <el-radio label="none">
-                      不跳转
-                    </el-radio>
-                    <el-radio label="whole">
-                      整体跳转
-                    </el-radio>
-                    <el-radio label="data">
-                      按数据
-                    </el-radio>
-                    <el-radio label="series">
-                      按系列
-                    </el-radio>
+                  <el-radio-group
+                    v-model="data.through"
+                    size="large"
+                    @change="throughChange"
+                  >
+                    <el-radio label="none"> 不跳转 </el-radio>
+                    <el-radio label="whole"> 整体跳转 </el-radio>
+                    <el-radio label="data"> 按数据 </el-radio>
+                    <el-radio label="series"> 按系列 </el-radio>
                   </el-radio-group>
                 </div>
                 <div v-if="data.through == 'whole'" class="setting-item">
@@ -93,12 +80,12 @@
                 </div>
                 <div v-if="data.through == 'data'">
                   <div
-                    v-for="(item,index) in data.dataset[0].source"
+                    v-for="(item, index) in data.dataset[0].source"
                     :key="index"
                     class="setting-item"
                   >
                     <div class="setting-item-title">链接{{ index + 1 }}:</div>
-                 
+
                     <el-input
                       v-model="data.throughUrl[item.category]"
                       :placeholder="`请设置${item.category}穿透地址`"
@@ -198,9 +185,9 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Bar设置" name="6">
-                <el-button color="#626aef" plain @click="addBar">
-                  添加Bar
+              <el-collapse-item title="Line设置" name="6">
+                <el-button color="#626aef" plain @click="addLine">
+                  添加Line
                 </el-button>
                 <div class="bar-list">
                   <div
@@ -209,18 +196,18 @@
                     class="bar-item"
                   >
                     <div class="title">
-                      <div class="text">Bar{{ index + 1 }}</div>
+                      <div class="text">Line{{ index + 1 }}</div>
                       <el-button
                         type="danger"
                         :icon="Delete"
                         circle
-                        @click="delBar(index)"
+                        @click="delLine(index)"
                       />
                     </div>
                     <div class="setting-item">
-                      <div class="setting-item-title">圆角:</div>
+                      <div class="setting-item-title">平滑:</div>
                       <el-switch
-                        v-model="item.round"
+                        v-model="item.smooth"
                         class="switch"
                         inactive-color="#999999"
                         inline-prompt
@@ -299,7 +286,7 @@ import 'codemirror/mode/vue/vue.js';
 import 'codemirror/theme/darcula.css';
 import { deepClone } from '@packages';
 import SpreadsheetForm from '@/components/spreadsheet/index.vue';
-import Bar from '@packages/chart/Bar/index.vue';
+import Line from '@packages/chart/Line/index.vue';
 const spreadsheet = ref(null);
 const code = ref('');
 const codewapper = ref();
@@ -312,13 +299,9 @@ const cmOptions = ref({
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
-const barConfig = {
-  round: false,
-  stack: null,
-  bg: false,
-  zebra: false,
-  width: '20%',
-  url: ''
+const lineConfig = {
+  url: '',
+  smooth: false
 };
 
 const dataType = ref('静态数据');
@@ -338,13 +321,15 @@ const data = reactive({
   },
   dataset: [
     {
-      dimensions: ['category', '系列1', '系列2', '系列3'],
-      url: { 系列1: 'color', 系列2: 'color', 系列3: 'color' },
+      dimensions: ['product', '系列1', '系列2', '系列3'],
       source: [
-        { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
-        { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-        { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
-        { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
+        { product: '周一', 系列1: 43.3, 系列2: 143.3, 系列3: 43.3 },
+        { product: '周二', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
+        { product: '周三', 系列1: 86.4, 系列2: 43.3, 系列3: 143.3 },
+        { product: '周四', 系列1: 72.4, 系列2: 343.3, 系列3: 43.3 },
+        { product: '周五', 系列1: 95.4, 系列2: 243.3, 系列3: 143.3 },
+        { product: '周六', 系列1: 72.4, 系列2: 303.3, 系列3: 243.3 },
+        { product: '周日', 系列1: 90.4, 系列2: 313.3, 系列3: 343.3 }
       ]
     },
     {
@@ -376,7 +361,7 @@ const data = reactive({
     axisLabel: true,
     splitLine: true
   },
-  list: [deepClone(barConfig, true)]
+  list: [deepClone(lineConfig, true)]
   // list: [
   //   {
   //     round: false,
@@ -395,29 +380,6 @@ const data = reactive({
   //   }
   // ]
 });
-// const data = reactive({
-//   horizontal: false,
-//   title: { show: false, text: '我是标题' },
-//   legend: { show: false },
-//   dataset: [
-//     {
-//       dimensions: ['category', '系列1', '系列2', '系列3'],
-//       source: [
-//         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
-//         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-//         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
-//         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
-//       ]
-//     },
-//     { transform: { type: 'filter', config: { dimension: '系列1', '>': 0 } } }
-//   ],
-//   xAxis: { axisLine: true, axisLabel: true, splitLine: false },
-//   yAxis: { axisLine: false, axisLabel: true, splitLine: true },
-//   list: [
-//     { round: false, stack: null, bg: false, zebra: true },
-//     { round: false, stack: null, bg: false, zebra: true }
-//   ]
-// });
 // 监听设置的改变
 watch(
   () => data,
@@ -428,17 +390,16 @@ watch(
     deep: true
   }
 );
-
 // 添加柱子
-const addBar = () => {
+const addLine = () => {
   if (data.list.length < data.dataset[0].dimensions.length - 1) {
     data.list.push({
-      ...deepClone(barConfig, true)
+      ...deepClone(lineConfig, true)
     });
   }
 };
 // 删除柱子
-const delBar = (index) => {
+const delLine = (index) => {
   if (data.list.length > 1) {
     data.list.splice(index, 1);
   }
@@ -448,7 +409,7 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
+    listCode += `\t\t<Line${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
       item.zebra ? ' zebra' : ''
     }${item.stack ? ' :stack="' + item.stack + '"' : ''}${
       item.url ? ' :url="' + item.url + '"' : ''
@@ -460,10 +421,14 @@ const setCode = (val) => {
   let legendCode = val.legend.show ? `\n\t\t<Legend  />` : '';
   code.value = `<template>\n\t<chart autoresize ${
     val.horizontal ? 'horizontal ' : ''
-  }${
-    val.through != 'none' ? ':through="'+val.through+'" ' : ''
-  }${
-    val.throughUrl ? ':throughUrl=\''+(val.through == 'whole' ? val.throughUrl : JSON.stringify(val.throughUrl))+'\'' : ''
+  }${val.through != 'none' ? ':through="' + val.through + '" ' : ''}${
+    val.throughUrl
+      ? ":throughUrl='" +
+        (val.through == 'whole'
+          ? val.throughUrl
+          : JSON.stringify(val.throughUrl)) +
+        "'"
+      : ''
   }:dataset="dataset">${titleCode}${legendCode}\n\t\t<XAxis type="category"${
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
@@ -490,23 +455,23 @@ const dataChangeFinish = () => {
   dataShow.value = false;
 };
 
-const throughChange = (label) =>{
+const throughChange = (label) => {
   console.log(label);
   switch (label) {
     case 'whole':
-      data.throughUrl = 'color'
+      data.throughUrl = 'color';
       break;
     case 'data':
-      data.throughUrl = {}
-      data.dataset[0].source.map((item)=>{
-        data.throughUrl[item.category] = 'http://www.baidu.com'
-      })
+      data.throughUrl = {};
+      data.dataset[0].source.map((item) => {
+        data.throughUrl[item.category] = 'http://www.baidu.com';
+      });
       break;
     default:
-      data.throughUrl = ''
+      data.throughUrl = '';
       break;
   }
-}
+};
 onMounted(() => {
   // 设置编辑器的高度
   codeHeight.value = codewapper.value.clientHeight;

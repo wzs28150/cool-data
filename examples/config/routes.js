@@ -4,6 +4,8 @@ import "nprogress/nprogress.css";
 import page from "../layout/index.vue";
 import demo from "../layout/demo.vue";
 import chart from "../views/chart.vue";
+import bar from "../views/chart/bar.vue";
+import line from "../views/chart/line.vue";
 import color from "../views/color.vue"
 
 const routes = [
@@ -13,9 +15,21 @@ const routes = [
     redirect: "/chart/bar",
     children: [
       {
-        path: "chart/:type",
+        path: "chart",
         name: "chart",
-        component: chart
+        component: demo,
+        children: [
+          {
+            path: "bar",
+            name: "bar",
+            component: bar
+          },
+          {
+            path: "line",
+            name: "line",
+            component: line
+          }
+        ]
       },
       {
         path: "color",
