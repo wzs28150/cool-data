@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-17 20:40:44
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 22:22:34
+ * @LastEditTime: 2022-05-17 22:29:12
  */
 import { watch, getCurrentInstance, nextTick } from 'vue';
 import { debounce } from './index';
@@ -29,10 +29,8 @@ export function getDefaultProps() {
       default: 0
     },
     encode: {
-      type: Array,
-      default: () => {
-        return [];
-      }
+      type: [Object, null],
+      default: null
     }
   };
 }
@@ -68,11 +66,11 @@ export function watchDefaultProps(props, config, itemConfig, index) {
         });
       }
 
-      // if (encode != oldEncode) {
-      //   nextTick(() => {
-      //     setEncode(encode);
-      //   });
-      // }
+      if (encode != oldEncode) {
+        nextTick(() => {
+          setEncode(encode);
+        });
+      }
     },
     {
       immediate: true
@@ -120,10 +118,19 @@ export function watchDefaultProps(props, config, itemConfig, index) {
    */
   const setEncode = (encode) => {
     // const { index.value, config, itemConfig } = that.setupState;
+    console.log(encode);
     if (index.value != null) {
-      config.series[index.value].encode = encode ? encode : null;
+      if (encode) {
+        config.series[index.value].encode = encode;
+      } else {
+        delete config.series[index.value].encode;
+      }
     } else {
-      itemConfig.encode = encode ? encode : null;
+      if (encode) {
+        itemConfig.encode = encode;
+      } else {
+        delete itemConfig.encode;
+      }
     }
   };
 }
