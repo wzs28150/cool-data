@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 14:17:12
+ * @LastEditTime: 2022-05-17 21:18:57
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -398,29 +398,6 @@ const data = reactive({
   //   }
   // ]
 });
-// const data = reactive({
-//   horizontal: false,
-//   title: { show: false, text: '我是标题' },
-//   legend: { show: false },
-//   dataset: [
-//     {
-//       dimensions: ['category', '系列1', '系列2', '系列3'],
-//       source: [
-//         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
-//         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-//         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
-//         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
-//       ]
-//     },
-//     { transform: { type: 'filter', config: { dimension: '系列1', '>': 0 } } }
-//   ],
-//   xAxis: { axisLine: true, axisLabel: true, splitLine: false },
-//   yAxis: { axisLine: false, axisLabel: true, splitLine: true },
-//   list: [
-//     { round: false, stack: null, bg: false, zebra: true },
-//     { round: false, stack: null, bg: false, zebra: true }
-//   ]
-// });
 // 监听设置的改变
 watch(
   () => data,

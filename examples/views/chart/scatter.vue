@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 15:45:24
+ * @LastEditTime: 2022-05-17 21:18:34
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -37,7 +37,11 @@
               :scale="true"
               :formatter="data.yAxis.formatter"
             />
-            <Scatter v-for="(item, index) in data.list" :key="index" />
+            <Scatter
+              v-for="(item, index) in data.list"
+              :key="index"
+              :name="item.shape"
+            />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
         </div>
@@ -80,7 +84,6 @@
                   >
                     <el-radio label="none"> 不跳转 </el-radio>
                     <el-radio label="whole"> 整体跳转 </el-radio>
-                    <el-radio label="data"> 按数据 </el-radio>
                   </el-radio-group>
                 </div>
                 <div v-if="data.through == 'whole'" class="setting-item">

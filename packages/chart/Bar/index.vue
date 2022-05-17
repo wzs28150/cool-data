@@ -20,6 +20,7 @@ import { use } from 'echarts/core';
 import { BarChart, PictorialBarChart } from 'echarts/charts';
 import { cloneDeep } from 'lodash';
 import { getDefaultProps } from '@packages/util';
+import watchDefaultProps from '@packages/util/watchDefaultProps';
 use([BarChart, PictorialBarChart]);
 const props = defineProps({
   ...getDefaultProps(),
@@ -44,10 +45,10 @@ const props = defineProps({
     default: ''
   }
 });
-const { config, setSeries, delSeries, throughUrl } = inject('chart');
+const { config, setSeries, delSeries } = inject('chart');
 const index = shallowRef(null);
 const itemLabel = shallowRef(null);
-const barConfig = ref({
+const itemConfig = ref({
   type: 'bar',
   barWidth: props.width,
   showBackground: false,
@@ -55,29 +56,18 @@ const barConfig = ref({
   backgroundStyle: {},
   itemStyle: {}
 });
-
+watchDefaultProps();
 watch(
   [
     () => props.round,
     () => props.stack,
     () => props.bg,
-    () => props.url,
     () => props.zebra,
-    () => props.width,
-    () => props.name
+    () => props.width
   ],
   (
-    [round, stack, bg, url, zebra, width, datasetIndex, name],
-    [
-      oldRound,
-      oldStack,
-      oldBg,
-      oldUrl,
-      oldZebra,
-      oldWidth,
-      oldDatasetIndex,
-      oldName
-    ]
+    [round, stack, bg, zebra, width],
+    [oldRound, oldStack, oldBg, oldZebra, oldWidth]
   ) => {
     if (round != oldRound) {
       nextTick(() => {
@@ -97,23 +87,6 @@ watch(
       });
     }
 
-    if (url != oldUrl) {
-      nextTick(() => {
-        setUrl(url);
-      });
-    }
-    if (datasetIndex != oldDatasetIndex) {
-      nextTick(() => {
-        setDatasetIndex(datasetIndex);
-      });
-    }
-
-    if (name != oldName) {
-      nextTick(() => {
-        setName(name);
-      });
-    }
-
     // if (zebra != oldZebra) {
     //   nextTick(() => {
     //     setZebra(zebra);
@@ -130,20 +103,6 @@ watch(
     immediate: true
   }
 );
-const setName = (name) => {
-  if (index.value != null) {
-    config.series[index.value].name = name;
-  } else {
-    barConfig.value.name = name;
-  }
-};
-const setDatasetIndex = (datasetIndex) => {
-  if (index.value != null) {
-    config.series[index.value].datasetIndex = datasetIndex ? datasetIndex : 0;
-  } else {
-    barConfig.value.datasetIndex = datasetIndex ? datasetIndex : 0;
-  }
-};
 // 设置圆角
 const setRound = (round) => {
   let borderRadius = config.horizontal ? [0, 50, 50, 0] : [50, 50, 0, 0];
@@ -157,8 +116,8 @@ const setRound = (round) => {
         }
       : {};
   } else {
-    barConfig.value.itemStyle['borderRadius'] = round ? borderRadius : 0;
-    barConfig.value.backgroundStyle = round
+    itemConfig.value.itemStyle['borderRadius'] = round ? borderRadius : 0;
+    itemConfig.value.backgroundStyle = round
       ? {
           borderRadius: borderRadius
         }
@@ -170,7 +129,7 @@ const setStack = (stack) => {
   if (index.value != null) {
     config.series[index.value].stack = stack ? stack : '';
   } else {
-    barConfig.value.stack = stack ? stack : '';
+    itemConfig.value.stack = stack ? stack : '';
   }
 };
 // 设置背景
@@ -178,7 +137,7 @@ const setBg = (bg) => {
   if (index.value != null) {
     config.series[index.value].showBackground = bg ? bg : false;
   } else {
-    barConfig.value.showBackground = bg ? bg : false;
+    itemConfig.value.showBackground = bg ? bg : false;
   }
 };
 // 设置斑马纹
@@ -214,7 +173,7 @@ const setBg = (bg) => {
 //     }
 //   } else {
 //     if (zebra) {
-//       barConfig.value = merge(cloneDeep(barConfig.value), {
+//       itemConfig.value = merge(cloneDeep(itemConfig.value), {
 //         showBackground: true,
 //         datasetIndex: 0,
 //         barGap: '30%',
@@ -230,25 +189,16 @@ const setBg = (bg) => {
 //   }
 // };
 
-const setUrl = (url) => {
-  if (index.value != null) {
-    config.series[index.value].url = url ? url : '';
-  } else {
-    barConfig.value.url = url ? url : '';
-  }
-};
-
 const setWidth = (width) => {
   if (index.value != null) {
     config.series[index.value].barWidth = width;
   } else {
-    barConfig.value.barWidth = width;
+    itemConfig.value.barWidth = width;
   }
 };
 
 const setBar = () => {
-  let itemConfig = cloneDeep(barConfig.value);
-  setSeries(itemConfig).then((res) => {
+  setSeries(cloneDeep(itemConfig.value)).then((res) => {
     index.value = res.index;
     itemLabel.value = res.itemLabel;
   });
