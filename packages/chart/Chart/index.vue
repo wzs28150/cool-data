@@ -321,7 +321,8 @@ const delSeries = (itemLabel) => {
 provide('chart', {
   config,
   setSeries,
-  delSeries
+  delSeries,
+  theme: theme.value
 });
 
 useAutoresize(chart, autoresize, root);

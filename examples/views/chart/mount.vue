@@ -1,11 +1,11 @@
 <!--
- * @Title: 
+ * @Title: 山峰图设置及预览
  * @Descripttion: 
  * @version: 
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-16 22:42:13
+ * @LastEditTime: 2022-05-17 14:17:24
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -263,7 +263,6 @@ import 'codemirror/mode/vue/vue.js';
 import 'codemirror/theme/darcula.css';
 import { deepClone } from '@packages';
 import SpreadsheetForm from '@/components/spreadsheet/index.vue';
-import Line from '@packages/chart/Line/index.vue';
 const spreadsheet = ref(null);
 const code = ref('');
 const codewapper = ref();
@@ -299,7 +298,6 @@ const data = reactive({
   dataset: [
     {
       dimensions: ['category', '系列1', '系列2', '系列3'],
-      url: { 系列1: 'color', 系列2: 'color', 系列3: 'color' },
       source: [
         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },

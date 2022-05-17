@@ -30,8 +30,11 @@
               <el-menu-item index="/chart/bar" route> 柱状图 </el-menu-item>
               <el-menu-item index="/chart/mount"> 山峰图 </el-menu-item>
               <el-menu-item index="/chart/line"> 折线图 </el-menu-item>
-              <el-menu-item index="/chart/pie"> 饼形图 </el-menu-item>
+              <el-menu-item index="/chart/area"> 区域图 </el-menu-item>
+              <el-menu-item index="/chart/scatter"> 散点图 </el-menu-item>
 
+
+              <el-menu-item index="/chart/pie"> 饼形图 </el-menu-item>
               <el-menu-item index="/chart/radar"> 雷达图 </el-menu-item>
               <el-menu-item index="/chart/gauge"> 仪表盘 </el-menu-item>
               <el-menu-item index="/chart/waterlevel"> 水位图 </el-menu-item>

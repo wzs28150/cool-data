@@ -1,3 +1,12 @@
+<!--
+ * @Title: 折线图设置及预览
+ * @Descripttion: 
+ * @version: 
+ * @Author: wzs
+ * @Date: 2022-05-16 21:32:02
+ * @LastEditors: wzs
+ * @LastEditTime: 2022-05-17 14:00:15
+-->
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" :span="12">
@@ -30,6 +39,7 @@
               :smooth="item.smooth"
               :dashed="item.dashed"
               :stack="item.stack"
+              :step="item.step"
             />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
@@ -229,15 +239,15 @@
                         active-text="开"
                         inactive-text="关"
                       />
-                      <!-- <div class="setting-item-title">斑马纹:</div>
+                      <div class="setting-item-title">时序:</div>
                       <el-switch
-                        v-model="item.zebra"
+                        v-model="item.step"
                         class="switch"
                         inactive-color="#999999"
                         inline-prompt
                         active-text="开"
                         inactive-text="关"
-                      /> -->
+                      />
                     </div>
                     <div class="setting-item">
                       <div class="setting-item-title">堆叠:</div>
@@ -285,7 +295,6 @@ import 'codemirror/mode/vue/vue.js';
 import 'codemirror/theme/darcula.css';
 import { deepClone } from '@packages';
 import SpreadsheetForm from '@/components/spreadsheet/index.vue';
-import Line from '@packages/chart/Line/index.vue';
 const spreadsheet = ref(null);
 const code = ref('');
 const codewapper = ref();
@@ -300,7 +309,9 @@ const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
 const lineConfig = {
   url: '',
-  smooth: false
+  smooth: false,
+  dashed: false,
+  step: false
 };
 
 const dataType = ref('静态数据');
@@ -408,7 +419,7 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Line${item.smooth ? ' smooth' : ''}${
+    listCode += `\t\t<Line${item.smooth ? ' smooth' : ''}${item.step ? ' step' : ''}${
       item.dashed ? ' dashed' : ''
     }${item.stack ? ' :stack="' + item.stack + '"' : ''}${
       item.url ? ' :url="' + item.url + '"' : ''

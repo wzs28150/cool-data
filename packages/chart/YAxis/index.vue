@@ -24,6 +24,14 @@ const props = defineProps({
   splitLine: {
     type: Boolean,
     default: true
+  },
+  scale: {
+    type: Boolean,
+    default: false
+  },
+  formatter: {
+    type: String,
+    default: ''
   }
 });
 
@@ -38,8 +46,10 @@ const setYAxis = (horizontal, value) => {
         type: 'dashed'
       }
     },
+    scale: value.scale,
     axisLabel: {
-      show: value.axisLabel
+      show: value.axisLabel,
+      formatter: value.formatter ? value.formatter : '{value}'
     },
     axisLine: {
       show: value.axisLine

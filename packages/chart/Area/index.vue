@@ -3,15 +3,16 @@
 </template>
 <script>
 export default {
-  name: 'Line'
+  name: 'Area'
 };
 </script>
 <script setup>
 import { onMounted, inject, onUnmounted, ref, nextTick, watch } from 'vue';
 import { LineChart } from 'echarts/charts';
 import { MarkPointComponent } from 'echarts/components';
-import { use } from 'echarts/core';
-import { cloneDeep } from 'lodash';
+import { use, graphic } from 'echarts/core';
+import { union, cloneDeep, merge } from 'lodash';
+import { toRgb } from '@packages/util/color';
 import { getDefaultProps } from '@packages/util';
 use([LineChart, MarkPointComponent]);
 const props = defineProps({
@@ -26,7 +27,7 @@ const props = defineProps({
   },
   stack: {
     type: String,
-    default: ''
+    default: 'stack'
   },
   step: {
     type: [Boolean, String],
@@ -34,7 +35,7 @@ const props = defineProps({
   }
 });
 
-const { config, setSeries, delSeries } = inject('chart');
+const { config, setSeries, delSeries, theme } = inject('chart');
 const index = ref(null);
 const itemLabel = ref(null);
 const lineConfig = ref({
@@ -42,6 +43,8 @@ const lineConfig = ref({
   name: 'line',
   stack: '',
   smooth: false,
+  itemStyle: {},
+  areaStyle: {},
   markPoint: {
     data: [
       {
@@ -130,16 +133,38 @@ const setStep = (step) => {
   }
 };
 
-const setLine = () => {
+const setColor = (index) => {
+  let color = null;
+  if (typeof theme.color[index] == 'object') {
+    color = theme.color[index].colorStops[0].color;
+  } else {
+    color = theme.color[index];
+  }
+  config.series[index].itemStyle.color = color;
+  config.series[index].areaStyle.color = new graphic.LinearGradient(
+    0,
+    0,
+    0,
+    1,
+    [
+      { offset: 0, color: toRgb(color, 1) },
+      { offset: 1, color: toRgb(color, 0) }
+    ]
+  );
+};
+
+const setArea = () => {
   let itemConfig = cloneDeep(lineConfig.value);
   setSeries(itemConfig).then((res) => {
     index.value = res.index;
     itemLabel.value = res.itemLabel;
+    // 处理颜色渐变
+    setColor(index.value);
   });
 };
 
 onMounted(() => {
-  setLine();
+  setArea();
 });
 
 onUnmounted(() => {

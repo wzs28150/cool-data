@@ -18,17 +18,11 @@ import {
 } from 'vue';
 import { use } from 'echarts/core';
 import { BarChart, PictorialBarChart } from 'echarts/charts';
-import { cloneDeep, merge, sortedIndexBy } from 'lodash';
+import { cloneDeep } from 'lodash';
+import { getDefaultProps } from '@packages/util';
 use([BarChart, PictorialBarChart]);
 const props = defineProps({
-  color: {
-    type: String,
-    default: ''
-  },
-  name: {
-    type: String,
-    default: ''
-  },
+  ...getDefaultProps(),
   round: {
     type: Boolean,
     default: false
@@ -48,14 +42,6 @@ const props = defineProps({
   stack: {
     type: String,
     default: ''
-  },
-  url: {
-    type: String,
-    default: ''
-  },
-  datasetIndex: {
-    type: [Number, null],
-    default: 0
   }
 });
 const { config, setSeries, delSeries, throughUrl } = inject('chart');

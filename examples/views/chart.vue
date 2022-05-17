@@ -1,3 +1,12 @@
+<!--
+ * @Title: 
+ * @Descripttion: 
+ * @version: 
+ * @Author: wzs
+ * @Date: 2022-05-17 15:24:56
+ * @LastEditors: wzs
+ * @LastEditTime: 2022-05-17 15:24:59
+-->
 <template>
   <el-row class="list" :gutter="20">
     <el-col type="flex" :span="12">

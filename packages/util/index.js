@@ -172,5 +172,32 @@ const sortByFields = (sortFields, list) => {
 };
 
 export function pathTest(path) {
-  return /^(http(s)?:|mailto:|tel:)/.test(path)
+  return /^(http(s)?:|mailto:|tel:)/.test(path);
+}
+
+export function getDefaultProps() {
+  return {
+    color: {
+      type: String,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    url: {
+      type: String,
+      default: ''
+    },
+    datasetIndex: {
+      type: [Number, null],
+      default: 0
+    },
+    encode: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    }
+  };
 }

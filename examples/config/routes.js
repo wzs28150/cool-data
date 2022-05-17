@@ -7,10 +7,11 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import page from '../layout/index.vue';
 import demo from '../layout/demo.vue';
-import chart from '../views/chart.vue';
 import bar from '../views/chart/bar.vue';
 import line from '../views/chart/line.vue';
 import mount from '../views/chart/mount.vue';
+import area from '../views/chart/area.vue';
+import scatter from '../views/chart/scatter.vue';
 import color from '../views/color.vue';
 
 const routes = [
@@ -38,6 +39,16 @@ const routes = [
             path: 'line',
             name: 'line',
             component: line
+          },
+          {
+            path: 'area',
+            name: 'area',
+            component: area
+          },
+          {
+            path: 'scatter',
+            name: 'scatter',
+            component: scatter
           }
         ]
       },

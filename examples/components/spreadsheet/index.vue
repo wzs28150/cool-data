@@ -2,9 +2,9 @@
   <div id="x-spreadsheet-demo" ref="xSpreadsheet" />
 </template>
 <script>
-export default{
+export default {
   name: 'SpreadsheetForm'
-}
+};
 </script>
 <script setup>
 import Spreadsheet from './index';
@@ -12,21 +12,26 @@ import zhCN from './locale/zh-cn';
 import { onMounted, onUnmounted, ref } from 'vue';
 Spreadsheet.locale('zh-cn', zhCN);
 
-const xSpreadsheet = ref('')
-let xs = ref(null)
+const xSpreadsheet = ref('');
+let xs = ref(null);
 const props = defineProps({
   dataset: {
     type: Object,
     default: () => {
-      return {}
+      return {};
     }
+  },
+  type: {
+    type: String,
+    default: 'default'
   }
-})
-
+});
 
 const init = () => {
   xs.value = new Spreadsheet('#x-spreadsheet-demo', {
-    showToolbar: false, showGrid: true, showBottomBar: false,
+    showToolbar: false,
+    showGrid: true,
+    showBottomBar: false,
     view: {
       height: () => xSpreadsheet.value.clientHeight,
       width: () => xSpreadsheet.value.clientWidth
@@ -42,28 +47,28 @@ const init = () => {
       minWidth: 60
     },
     style: {
-      bgcolor: "#061237",
-      align: "center",
-      valign: "middle",
+      bgcolor: '#061237',
+      align: 'center',
+      valign: 'middle',
       textwrap: !1,
       strike: !1,
       underline: !1,
-      color: "#DADADA",
+      color: '#DADADA',
       font: {
-        name: "PingFangSC-Regular, PingFang SC",
+        name: 'PingFangSC-Regular, PingFang SC',
         size: 12,
         bold: !1,
         italic: !1
       }
     }
-  })
+  });
 
-  if(props.dataset){
-     xs.value.loadData(dataset2Rows())
+  if (props.dataset) {
+    xs.value.loadData(dataset2Rows());
   }
-}
+};
 
-const dataset2Rows = () =>{
+const dataset2Rows = () => {
   let dataObj = {
     name: 'sheet2',
     rows: {
@@ -71,71 +76,91 @@ const dataset2Rows = () =>{
         cells: {}
       }
     }
-  }
-  dataObj.rows[0].cells = props.dataset.dimensions.map((item, index) => {
-    if (index == 0) {
-      item = ''
-    }
-    return { text: item }
-  })
-  props.dataset.source.forEach((item, index) => {
-    dataObj.rows[index + 1] = {
-      cells: {}
-    }
-    Object.keys(item).forEach((it, ind) => {
-      dataObj.rows[index + 1].cells[ind] = {
-        text: item[it]+''
+  };
+  if (props.dataset && props.type == 'default') {
+    dataObj.rows[0].cells = props.dataset.dimensions.map((item, index) => {
+      if (index == 0) {
+        item = '';
       }
+      return { text: item };
+    });
+    props.dataset.source.forEach((item, index) => {
+      dataObj.rows[index + 1] = {
+        cells: {}
+      };
+      Object.keys(item).forEach((it, ind) => {
+        dataObj.rows[index + 1].cells[ind] = {
+          text: item[it] + ''
+        };
+      });
+    });
+  } else if(props.type =='scatter') {
+    dataObj.rows[0].cells = [
+      {text: 'x'},
+      {text: 'y'}
+    ]
+    props.dataset.source.forEach((item, index) => {
+      dataObj.rows[index + 1] = {
+        cells: []
+      };
+      dataObj.rows[index + 1].cells = [
+        {
+          text: item[0]
+        },
+        {
+          text: item[1]
+        }
+      ]
     })
+  }
 
-  });
-  return dataObj
-}
+  return dataObj;
+};
 
 const rows2Dataset = (rows) => {
   let dataset = {
     dimensions: [],
     source: []
-  }
-  Object.keys(rows).forEach((item,index)=>{
+  };
+  Object.keys(rows).forEach((item, index) => {
     // console.log(item);
-    if(index == 0){
-      dataset.dimensions = rows[item].cells.map(item=>{
-        if(item.text){
-          return item.text
-        }else{
-          return 'category'
+    if (index == 0) {
+      dataset.dimensions = rows[item].cells.map((item) => {
+        if (item.text) {
+          return item.text;
+        } else {
+          return 'category';
         }
-      })
-    } else if(item != 'len'){
-      dataset.source[index - 1] = {}
-      Object.keys(rows[item].cells).forEach((it, ind)=>{
+      });
+    } else if (item != 'len') {
+      dataset.source[index - 1] = {};
+      Object.keys(rows[item].cells).forEach((it, ind) => {
         // console.log(it, ind);
         // console.log(rows[item].cells[it].text);
         Object.assign(dataset.source[index - 1], {
           [dataset.dimensions[ind]]: rows[item].cells[it].text
-        })
-      })
+        });
+      });
     }
-  })
-  return dataset
-}
+  });
+  return dataset;
+};
 
-const getDataset = ()=>{
-  const d = xs.value.getData()
-  return rows2Dataset(d[0].rows)
+const getDataset = () => {
+  const d = xs.value.getData();
+  return rows2Dataset(d[0].rows);
   // return ''
-}
+};
 
-defineExpose({getDataset})
+defineExpose({ getDataset });
 onMounted(() => {
-  init()
-})
+  init();
+});
 
-onUnmounted(()=>{
-  xs.value = null
+onUnmounted(() => {
+  xs.value = null;
   // document.getElementById('x-spreadsheet-demo').innerHTML="";
-})
+});
 </script>
 
 <style lang="less" scoped>
@@ -146,7 +171,6 @@ onUnmounted(()=>{
   overflow: hidden;
 
   &:deep(.x-spreadsheet) {
-
     // background: #061237;
     .x-spreadsheet-scrollbar {
       &::-webkit-scrollbar-thumb {

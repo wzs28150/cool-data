@@ -1,11 +1,11 @@
 <!--
- * @Title: 柱状图设置及预览
+ * @Title: 散点图设置及预览
  * @Descripttion: 
  * @version: 
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 14:17:12
+ * @LastEditTime: 2022-05-17 15:45:24
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -22,27 +22,22 @@
             <Title v-if="data.title.show" :text="data.title.text" />
             <Legend v-if="data.legend.show" />
             <XAxis
-              type="category"
+              type="value"
               :axis-line="data.xAxis.axisLine"
               :axis-label="data.xAxis.axisLabel"
               :split-line="data.xAxis.splitLine"
+              :scale="true"
+              :formatter="data.xAxis.formatter"
             />
             <YAxis
               type="value"
               :axis-line="data.yAxis.axisLine"
               :axis-label="data.yAxis.axisLabel"
               :split-line="data.yAxis.splitLine"
+              :scale="true"
+              :formatter="data.yAxis.formatter"
             />
-            <Bar
-              v-for="(item, index) in data.list"
-              :key="index"
-              :bg="item.bg"
-              :round="item.round"
-              :stack="item.stack"
-              :zebra="item.zebra"
-              :url="item.url"
-              :width="item.width"
-            />
+            <Scatter v-for="(item, index) in data.list" :key="index" />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
         </div>
@@ -86,7 +81,6 @@
                     <el-radio label="none"> 不跳转 </el-radio>
                     <el-radio label="whole"> 整体跳转 </el-radio>
                     <el-radio label="data"> 按数据 </el-radio>
-                    <el-radio label="series"> 按系列 </el-radio>
                   </el-radio-group>
                 </div>
                 <div v-if="data.through == 'whole'" class="setting-item">
@@ -170,6 +164,12 @@
                     label="轴标签"
                     size="large"
                   />
+                  <el-input
+                    v-if="data.xAxis.axisLabel"
+                    v-model="data.xAxis.formatter"
+                    placeholder="请设置X轴标签格式"
+                    style="width: 20%; margin-right: 30px"
+                  />
                   <el-checkbox
                     v-model="data.xAxis.axisLine"
                     label="轴线"
@@ -182,6 +182,12 @@
                     v-model="data.yAxis.axisLabel"
                     label="轴标签"
                     size="large"
+                  />
+                  <el-input
+                    v-if="data.yAxis.axisLabel"
+                    v-model="data.yAxis.formatter"
+                    placeholder="请设置Y轴标签格式"
+                    style="width: 20%; margin-right: 30px"
                   />
                   <el-checkbox
                     v-model="data.yAxis.axisLine"
@@ -203,10 +209,10 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Bar设置" name="6">
-                <el-button color="#626aef" plain @click="addBar">
-                  添加Bar
-                </el-button>
+              <el-collapse-item title="Mount设置" name="6">
+                <!-- <el-button color="#626aef" plain @click="addLine">
+                  添加Line
+                </el-button> -->
                 <div class="bar-list">
                   <div
                     v-for="(item, index) in data.list"
@@ -214,56 +220,21 @@
                     class="bar-item"
                   >
                     <div class="title">
-                      <div class="text">Bar{{ index + 1 }}</div>
-                      <el-button
+                      <div class="text">Line{{ index + 1 }}</div>
+                      <!-- <el-button
                         type="danger"
                         :icon="Delete"
                         circle
-                        @click="delBar(index)"
-                      />
-                    </div>
-                    <div class="setting-item">
-                      <div class="setting-item-title">圆角:</div>
-                      <el-switch
-                        v-model="item.round"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
-                      />
-                      <div class="setting-item-title">背景:</div>
-                      <el-switch
-                        v-model="item.bg"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
-                      />
-                      <!-- <div class="setting-item-title">斑马纹:</div>
-                      <el-switch
-                        v-model="item.zebra"
-                        class="switch"
-                        inactive-color="#999999"
-                        inline-prompt
-                        active-text="开"
-                        inactive-text="关"
+                        @click="delLine(index)"
                       /> -->
                     </div>
                     <div class="setting-item">
-                      <div class="setting-item-title">宽度:</div>
-                      <el-input
-                        v-model="item.width"
-                        placeholder="请设置柱子的宽度"
-                      />
-                    </div>
-                    <div class="setting-item">
-                      <div class="setting-item-title">堆叠:</div>
-                      <el-input
-                        v-model="item.stack"
-                        placeholder="请设置堆叠的名称"
-                      />
+                      <div class="setting-item-title">形状:</div>
+                      <el-radio-group v-model="item.shape" size="large">
+                        <el-radio label="triangle"> 三角 </el-radio>
+                        <el-radio label="round"> 圆角 </el-radio>
+                        <el-radio label="sharp"> 尖角 </el-radio>
+                      </el-radio-group>
                     </div>
                     <div
                       v-if="data.through != 'whole' && data.through == 'series'"
@@ -286,7 +257,11 @@
   </el-row>
 
   <div v-if="dataShow" class="data-show">
-    <SpreadsheetForm ref="spreadsheet" :dataset="data.dataset[0]" />
+    <SpreadsheetForm
+      ref="spreadsheet"
+      type="scatter"
+      :dataset="data.dataset[0]"
+    />
     <div class="data-show-btn">
       <el-button type="primary" color="#0072ce" @click="dataChangeFinish">
         完成
@@ -304,6 +279,7 @@ import 'codemirror/mode/vue/vue.js';
 import 'codemirror/theme/darcula.css';
 import { deepClone } from '@packages';
 import SpreadsheetForm from '@/components/spreadsheet/index.vue';
+import { scatterData } from '../../data';
 const spreadsheet = ref(null);
 const code = ref('');
 const codewapper = ref();
@@ -316,19 +292,14 @@ const cmOptions = ref({
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
-const barConfig = {
-  round: false,
-  stack: null,
-  bg: false,
-  zebra: false,
-  width: '10%',
-  url: ''
+const lineConfig = {
+  url: '',
+  shape: 'triangle'
 };
 
 const dataType = ref('静态数据');
 
 const dataShow = ref(false);
-
 const data = reactive({
   horizontal: false,
   through: 'none',
@@ -341,15 +312,7 @@ const data = reactive({
     show: false
   },
   dataset: [
-    {
-      dimensions: ['category', '系列1', '系列2', '系列3'],
-      source: [
-        { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
-        { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-        { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
-        { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
-      ]
-    },
+    scatterData,
     {
       transform: {
         type: 'filter',
@@ -372,14 +335,16 @@ const data = reactive({
   xAxis: {
     axisLine: true,
     axisLabel: true,
-    splitLine: false
+    splitLine: false,
+    formatter: '{value} cm'
   },
   yAxis: {
     axisLine: false,
     axisLabel: true,
-    splitLine: true
+    splitLine: true,
+    formatter: '{value} kg'
   },
-  list: [deepClone(barConfig, true)]
+  list: [deepClone(lineConfig, true)]
   // list: [
   //   {
   //     round: false,
@@ -398,29 +363,6 @@ const data = reactive({
   //   }
   // ]
 });
-// const data = reactive({
-//   horizontal: false,
-//   title: { show: false, text: '我是标题' },
-//   legend: { show: false },
-//   dataset: [
-//     {
-//       dimensions: ['category', '系列1', '系列2', '系列3'],
-//       source: [
-//         { category: '类别1', 系列1: 43.3, 系列2: 143.3, 系列3: 223.3 },
-//         { category: '类别2', 系列1: 83.1, 系列2: 243.3, 系列3: 343.3 },
-//         { category: '类别3', 系列1: 86.4, 系列2: 203.3, 系列3: 143.3 },
-//         { category: '类别4', 系列1: 72.4, 系列2: 343.3, 系列3: 113.3 }
-//       ]
-//     },
-//     { transform: { type: 'filter', config: { dimension: '系列1', '>': 0 } } }
-//   ],
-//   xAxis: { axisLine: true, axisLabel: true, splitLine: false },
-//   yAxis: { axisLine: false, axisLabel: true, splitLine: true },
-//   list: [
-//     { round: false, stack: null, bg: false, zebra: true },
-//     { round: false, stack: null, bg: false, zebra: true }
-//   ]
-// });
 // 监听设置的改变
 watch(
   () => data,
@@ -431,17 +373,16 @@ watch(
     deep: true
   }
 );
-
 // 添加柱子
-const addBar = () => {
+const addLine = () => {
   if (data.list.length < data.dataset[0].dimensions.length - 1) {
     data.list.push({
-      ...deepClone(barConfig, true)
+      ...deepClone(lineConfig, true)
     });
   }
 };
 // 删除柱子
-const delBar = (index) => {
+const delLine = (index) => {
   if (data.list.length > 1) {
     data.list.splice(index, 1);
   }
@@ -451,11 +392,9 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Bar${item.round ? ' round' : ''}${item.bg ? ' bg' : ''}${
-      item.zebra ? ' zebra' : ''
-    }${item.stack ? ' :stack="' + item.stack + '"' : ''}${
+    listCode += `\t\t<Mount${item.shape ? ' :shape="' + item.shape + '"' : ''}${
       item.url ? ' :url="' + item.url + '"' : ''
-    }${item.width ? ' :width="' + item.width + '"' : ''} />\n`;
+    } />\n`;
   });
   let titleCode = val.title.show
     ? `\n\t\t<Title text="${val.title.text}" />`
@@ -743,10 +682,12 @@ onMounted(() => {
   background-color: #061237;
   box-shadow: 0 0 20px #999;
   padding: 30px;
+
   .data-show-btn {
     display: flex;
     padding-top: 20px;
     justify-content: center;
+
     .el-button {
       padding: 8px 30px;
     }

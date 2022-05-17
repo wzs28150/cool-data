@@ -5,13 +5,13 @@ export default function screenSize() {
   const props = defineProps({
     width: {
       type: Number,
-      default: 1920,
+      default: 1920
     },
     height: {
       type: Number,
-      default: 1080,
+      default: 1080
     },
-    isScale: Boolean,
+    isScale: Boolean
   });
 
   const scaleX = ref(1);
@@ -34,6 +34,6 @@ export default function screenSize() {
 
   return {
     scaleX,
-    scaleY,
+    scaleY
   };
 }
