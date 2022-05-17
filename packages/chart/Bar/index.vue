@@ -19,8 +19,10 @@ import {
 import { use } from 'echarts/core';
 import { BarChart, PictorialBarChart } from 'echarts/charts';
 import { cloneDeep } from 'lodash';
-import { getDefaultProps } from '@packages/util';
-import watchDefaultProps from '@packages/util/watchDefaultProps';
+import {
+  watchDefaultProps,
+  getDefaultProps
+} from '@packages/util/watchDefaultProps';
 use([BarChart, PictorialBarChart]);
 const props = defineProps({
   ...getDefaultProps(),
@@ -56,7 +58,7 @@ const itemConfig = ref({
   backgroundStyle: {},
   itemStyle: {}
 });
-watchDefaultProps();
+watchDefaultProps(props, config, itemConfig.value, index);
 watch(
   [
     () => props.round,

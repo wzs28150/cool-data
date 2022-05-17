@@ -5,14 +5,40 @@
  * @Author: wzs
  * @Date: 2022-05-17 20:40:44
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 21:58:09
+ * @LastEditTime: 2022-05-17 22:22:34
  */
 import { watch, getCurrentInstance, nextTick } from 'vue';
 import { debounce } from './index';
-// import moduleName from 'vue';
-export default function watchDefaultProps() {
+
+export function getDefaultProps() {
+  return {
+    color: {
+      type: String,
+      default: ''
+    },
+    name: {
+      type: String,
+      default: ''
+    },
+    url: {
+      type: String,
+      default: ''
+    },
+    datasetIndex: {
+      type: [Number, null],
+      default: 0
+    },
+    encode: {
+      type: Array,
+      default: () => {
+        return [];
+      }
+    }
+  };
+}
+
+export function watchDefaultProps(props, config, itemConfig, index) {
   const that = getCurrentInstance();
-  const props = that.props;
   watch(
     [
       () => props.name,
@@ -42,11 +68,11 @@ export default function watchDefaultProps() {
         });
       }
 
-      if (encode != oldEncode) {
-        nextTick(() => {
-          setEncode(encode);
-        });
-      }
+      // if (encode != oldEncode) {
+      //   nextTick(() => {
+      //     setEncode(encode);
+      //   });
+      // }
     },
     {
       immediate: true
@@ -57,9 +83,9 @@ export default function watchDefaultProps() {
    * @param {String} name
    */
   const setName = (name) => {
-    const { index, config, itemConfig } = that.setupState;
-    if (index != null) {
-      config.series[index].name = name ? name : '';
+    // const { index.value, config, itemConfig } = that.setupState;
+    if (index.value != null) {
+      config.series[index.value].name = name ? name : '';
     } else {
       itemConfig.name = name ? name : '';
     }
@@ -69,9 +95,9 @@ export default function watchDefaultProps() {
    * @param {String} url
    */
   const setUrl = (url) => {
-    const { index, config, itemConfig } = that.setupState;
-    if (index != null) {
-      config.series[index].url = url ? url : '';
+    // const { index.value, config, itemConfig } = that.setupState;
+    if (index.value != null) {
+      config.series[index.value].url = url ? url : '';
     } else {
       itemConfig.url = url ? url : '';
     }
@@ -81,9 +107,9 @@ export default function watchDefaultProps() {
    * @param {Number} datasetIndex
    */
   const setDatasetIndex = (datasetIndex) => {
-    const { index, config, itemConfig } = that.setupState;
-    if (index != null) {
-      config.series[index].datasetIndex = datasetIndex ? datasetIndex : 0;
+    // const { index.value, config, itemConfig } = that.setupState;
+    if (index.value != null) {
+      config.series[index.value].datasetIndex = datasetIndex ? datasetIndex : 0;
     } else {
       itemConfig.datasetIndex = datasetIndex ? datasetIndex : 0;
     }
@@ -93,9 +119,9 @@ export default function watchDefaultProps() {
    * @param {x: String, y: String} encode
    */
   const setEncode = (encode) => {
-    const { index, config, itemConfig } = that.setupState;
-    if (index != null) {
-      config.series[index].encode = encode ? encode : null;
+    // const { index.value, config, itemConfig } = that.setupState;
+    if (index.value != null) {
+      config.series[index.value].encode = encode ? encode : null;
     } else {
       itemConfig.encode = encode ? encode : null;
     }

@@ -19,20 +19,22 @@ import {
 import { use } from 'echarts/core';
 import { ScatterChart } from 'echarts/charts';
 import { cloneDeep } from 'lodash';
-import { getDefaultProps } from '@packages/util';
-import watchDefaultProps from '@packages/util/watchDefaultProps';
+import {
+  watchDefaultProps,
+  getDefaultProps
+} from '@packages/util/watchDefaultProps';
 use([ScatterChart]);
 
 const props = defineProps({
   ...getDefaultProps()
 });
-const { config, setSeries, delSeries, throughUrl } = inject('chart');
+const { config, setSeries, delSeries } = inject('chart');
 const index = shallowRef(null);
 const itemLabel = shallowRef(null);
 const itemConfig = ref({
   type: 'scatter'
 });
-watchDefaultProps();
+watchDefaultProps(props, config, itemConfig.value, index);
 const setScatter = () => {
   setSeries(cloneDeep(itemConfig.value)).then((res) => {
     index.value = res.index;
