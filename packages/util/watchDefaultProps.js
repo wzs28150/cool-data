@@ -5,9 +5,9 @@
  * @Author: wzs
  * @Date: 2022-05-17 20:40:44
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 22:29:12
+ * @LastEditTime: 2022-05-19 08:30:31
  */
-import { watch, getCurrentInstance, nextTick } from 'vue';
+import { watch, nextTick } from 'vue';
 import { debounce } from './index';
 
 export function getDefaultProps() {
@@ -36,7 +36,6 @@ export function getDefaultProps() {
 }
 
 export function watchDefaultProps(props, config, itemConfig, index) {
-  const that = getCurrentInstance();
   watch(
     [
       () => props.name,
@@ -73,6 +72,7 @@ export function watchDefaultProps(props, config, itemConfig, index) {
       }
     },
     {
+      deep: true,
       immediate: true
     }
   );
@@ -81,7 +81,6 @@ export function watchDefaultProps(props, config, itemConfig, index) {
    * @param {String} name
    */
   const setName = (name) => {
-    // const { index.value, config, itemConfig } = that.setupState;
     if (index.value != null) {
       config.series[index.value].name = name ? name : '';
     } else {
@@ -93,7 +92,6 @@ export function watchDefaultProps(props, config, itemConfig, index) {
    * @param {String} url
    */
   const setUrl = (url) => {
-    // const { index.value, config, itemConfig } = that.setupState;
     if (index.value != null) {
       config.series[index.value].url = url ? url : '';
     } else {
@@ -105,7 +103,6 @@ export function watchDefaultProps(props, config, itemConfig, index) {
    * @param {Number} datasetIndex
    */
   const setDatasetIndex = (datasetIndex) => {
-    // const { index.value, config, itemConfig } = that.setupState;
     if (index.value != null) {
       config.series[index.value].datasetIndex = datasetIndex ? datasetIndex : 0;
     } else {
@@ -117,8 +114,6 @@ export function watchDefaultProps(props, config, itemConfig, index) {
    * @param {x: String, y: String} encode
    */
   const setEncode = (encode) => {
-    // const { index.value, config, itemConfig } = that.setupState;
-    console.log(encode);
     if (index.value != null) {
       if (encode) {
         config.series[index.value].encode = encode;

@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-17 09:11:43
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 14:00:05
+ * @LastEditTime: 2022-05-18 13:48:47
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -26,12 +26,14 @@
               :axis-line="data.xAxis.axisLine"
               :axis-label="data.xAxis.axisLabel"
               :split-line="data.xAxis.splitLine"
+              :formatter="data.xAxis.formatter"
             />
             <YAxis
               type="value"
               :axis-line="data.yAxis.axisLine"
               :axis-label="data.yAxis.axisLabel"
               :split-line="data.yAxis.splitLine"
+              :formatter="data.yAxis.formatter"
             />
             <Area
               v-for="(item, index) in data.list"
@@ -168,6 +170,13 @@
                     label="轴标签"
                     size="large"
                   />
+                  <div class="setting-item-title">标签格式:</div>
+                  <el-input
+                    v-if="data.xAxis.axisLabel"
+                    v-model="data.xAxis.formatter"
+                    placeholder="请设置X轴标签格式"
+                    style="width: 20%; margin-right: 30px"
+                  />
                   <el-checkbox
                     v-model="data.xAxis.axisLine"
                     label="轴线"
@@ -180,6 +189,13 @@
                     v-model="data.yAxis.axisLabel"
                     label="轴标签"
                     size="large"
+                  />
+                  <div class="setting-item-title">标签格式:</div>
+                  <el-input
+                    v-if="data.yAxis.axisLabel"
+                    v-model="data.yAxis.formatter"
+                    placeholder="请设置Y轴标签格式"
+                    style="width: 20%; margin-right: 30px"
                   />
                   <el-checkbox
                     v-model="data.yAxis.axisLine"
@@ -201,9 +217,9 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Line设置" name="6">
-                <el-button color="#626aef" plain @click="addLine">
-                  添加Line
+              <el-collapse-item title="Area设置" name="6">
+                <el-button color="#626aef" plain @click="addArea">
+                  添加Area
                 </el-button>
                 <div class="bar-list">
                   <div
@@ -212,12 +228,12 @@
                     class="bar-item"
                   >
                     <div class="title">
-                      <div class="text">Line{{ index + 1 }}</div>
+                      <div class="text">Area{{ index + 1 }}</div>
                       <el-button
                         type="danger"
                         :icon="Delete"
                         circle
-                        @click="delLine(index)"
+                        @click="delArea(index)"
                       />
                     </div>
                     <div class="setting-item">
@@ -297,11 +313,12 @@ const cmOptions = ref({
   mode: 'text/x-vue',
   // mode: 'text/html',
   tabSize: 2,
-  theme: 'darcula'
+  theme: 'darcula',
+  readOnly: true
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
-const lineConfig = {
+const areaConfig = {
   url: '',
   smooth: false,
   dashed: false,
@@ -358,14 +375,16 @@ const data = reactive({
   xAxis: {
     axisLine: true,
     axisLabel: true,
-    splitLine: false
+    splitLine: false,
+    formatter: '{value}'
   },
   yAxis: {
     axisLine: false,
     axisLabel: true,
-    splitLine: true
+    splitLine: true,
+    formatter: '{value}%'
   },
-  list: [deepClone(lineConfig, true)]
+  list: [deepClone(areaConfig, true)]
   // list: [
   //   {
   //     round: false,
@@ -395,15 +414,15 @@ watch(
   }
 );
 // 添加柱子
-const addLine = () => {
+const addArea = () => {
   if (data.list.length < data.dataset[0].dimensions.length - 1) {
     data.list.push({
-      ...deepClone(lineConfig, true)
+      ...deepClone(areaConfig, true)
     });
   }
 };
 // 删除柱子
-const delLine = (index) => {
+const delArea = (index) => {
   if (data.list.length > 1) {
     data.list.splice(index, 1);
   }
@@ -437,10 +456,14 @@ const setCode = (val) => {
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.xAxis.splitLine ? ' :split-line="true"' : ''
+  }${
+    data.xAxis.axisLabel ? ' :formatter="'+data.xAxis.formatter+'"' : ''
   } />\n\t\t<YAxis type="value"${
     data.yAxis.axisLine ? ' :axis-line="true"' : ''
   }${data.yAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.yAxis.splitLine ? '' : ' :split-line="false"'
+  }${
+    data.yAxis.axisLabel ? ' :formatter="'+data.yAxis.formatter+'"' : ''
   } />\n${listCode}\t</chart>\n</template>`;
 
   code.value += `\n<script setup>\n\timport { ref } from 'vue';\n\tconst dataset = ref(${JSON.stringify(
@@ -460,7 +483,6 @@ const dataChangeFinish = () => {
 };
 
 const throughChange = (label) => {
-  console.log(label);
   switch (label) {
     case 'whole':
       data.throughUrl = 'color';

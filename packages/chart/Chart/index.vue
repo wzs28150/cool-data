@@ -10,13 +10,14 @@
 import {
   ref,
   onMounted,
+  onUnmounted,
   reactive,
   watch,
   shallowRef,
   toRefs,
-  provide
+  provide,
+  nextTick
 } from 'vue';
-import { useRouter } from 'vue-router';
 import { use, init, registerTheme } from 'echarts/core';
 import { CanvasRenderer } from 'echarts/renderers';
 import { autoresizeProps, useAutoresize } from '../../util/autoResize';
@@ -44,7 +45,6 @@ use([
 ]);
 const root = shallowRef();
 const chart = shallowRef();
-const router = useRouter();
 // console.log(router);
 const option = ref({
   title: {},
@@ -187,8 +187,11 @@ watch(
   () => config,
   () => {
     if (chart.value) {
-      initChart();
+      
     }
+    nextTick(()=>{
+      initChart();
+    })
   },
   {
     deep: true
@@ -296,6 +299,12 @@ const setSeries = (itemConfig) => {
     //     }
     //   ]);
     // }
+    // if(itemConfig.componentType == 'mount'){
+    //   // 设置山峰交错不溢出
+    //   config.xAxis.min = -1;
+    //   config.xAxis.max = 4;
+    //   config.xAxis.boundaryGap = false;
+    // }
     // 分组排序
     seriesCache.value = groupAndSort('type', 'itemLabel', seriesCache.value);
 
@@ -331,4 +340,7 @@ onMounted(() => {
   // setTheme();
   initChart();
 });
+onUnmounted(()=>{
+  chart.value.dispose();
+})
 </script>

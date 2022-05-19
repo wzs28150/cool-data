@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 21:18:34
+ * @LastEditTime: 2022-05-19 11:18:57
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -40,7 +40,10 @@
             <Scatter
               v-for="(item, index) in data.list"
               :key="index"
-              :name="item.shape"
+              :shape="item.shape"
+              :effect="item.effect"
+              :effect-type="item.effectType"
+              :symbol-size="item.symbolSize"
             />
             <!-- <Line :dataset-index="1" /> -->
           </chart>
@@ -54,6 +57,7 @@
             :options="cmOptions"
             :height="codeHeight"
             class="code"
+            scene="look"
           />
         </div>
       </div>
@@ -167,6 +171,7 @@
                     label="轴标签"
                     size="large"
                   />
+                  <div class="setting-item-title">标签格式:</div>
                   <el-input
                     v-if="data.xAxis.axisLabel"
                     v-model="data.xAxis.formatter"
@@ -186,6 +191,7 @@
                     label="轴标签"
                     size="large"
                   />
+                  <div class="setting-item-title">标签格式:</div>
                   <el-input
                     v-if="data.yAxis.axisLabel"
                     v-model="data.yAxis.formatter"
@@ -212,7 +218,7 @@
                   />
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="Mount设置" name="6">
+              <el-collapse-item title="Scatter设置" name="6">
                 <!-- <el-button color="#626aef" plain @click="addLine">
                   添加Line
                 </el-button> -->
@@ -223,7 +229,7 @@
                     class="bar-item"
                   >
                     <div class="title">
-                      <div class="text">Line{{ index + 1 }}</div>
+                      <div class="text">Scatter</div>
                       <!-- <el-button
                         type="danger"
                         :icon="Delete"
@@ -233,10 +239,32 @@
                     </div>
                     <div class="setting-item">
                       <div class="setting-item-title">形状:</div>
-                      <el-radio-group v-model="item.shape" size="large">
-                        <el-radio label="triangle"> 三角 </el-radio>
-                        <el-radio label="round"> 圆角 </el-radio>
-                        <el-radio label="sharp"> 尖角 </el-radio>
+                      <el-radio-group v-model="item.shape" style="margin-right: 32px;" size="large">
+                        <el-radio label="point"> 点 </el-radio>
+                        <el-radio label="bubble"> 气泡 </el-radio>
+                      </el-radio-group>
+                      <div class="setting-item-title">气泡大小规则:</div>
+                      <el-input
+                        v-if="item.shape == 'bubble'"
+                        v-model="item.symbolSize"
+                        placeholder="气泡大小规则"
+                        style="width: 40%; margin-right: 30px"
+                      />
+                    </div>
+                    <div class="setting-item">
+                      <div class="setting-item-title">涟漪:</div>
+                      <el-switch
+                        v-model="item.effect"
+                        class="switch"
+                        inactive-color="#999999"
+                        inline-prompt
+                        active-text="是"
+                        inactive-text="否"
+                      />
+                      <div v-if="item.effect" class="setting-item-title">涟漪方式:</div>
+                      <el-radio-group v-if="item.effect" v-model="item.effectType" size="large">
+                        <el-radio label="stroke"> 线 </el-radio>
+                        <el-radio label="fill"> 面 </el-radio>
                       </el-radio-group>
                     </div>
                     <div
@@ -291,13 +319,19 @@ const cmOptions = ref({
   mode: 'text/x-vue',
   // mode: 'text/html',
   tabSize: 2,
-  theme: 'darcula'
+  theme: 'darcula',
+  readOnly: true
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
 const lineConfig = {
   url: '',
-  shape: 'triangle'
+  shape: 'point',
+  effect: false,
+  effectType: 'stroke',
+  symbolSize: (data)=>{
+    return data[1] / 2;
+  }
 };
 
 const dataType = ref('静态数据');
@@ -395,7 +429,7 @@ const setCode = (val) => {
   // console.log(val);
   let listCode = '';
   val.list.map((item) => {
-    listCode += `\t\t<Mount${item.shape ? ' :shape="' + item.shape + '"' : ''}${
+    listCode += `\t\t<Scatter${item.shape ? ' :shape="' + item.shape + '"' : ''}${
       item.url ? ' :url="' + item.url + '"' : ''
     } />\n`;
   });
@@ -417,11 +451,11 @@ const setCode = (val) => {
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.xAxis.splitLine ? ' :split-line="true"' : ''
-  } />\n\t\t<YAxis type="value"${
+  }${data.xAxis.axisLabel ? ' :formatter="'+data.xAxis.formatter+'"' : ''} />\n\t\t<YAxis type="value"${
     data.yAxis.axisLine ? ' :axis-line="true"' : ''
   }${data.yAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.yAxis.splitLine ? '' : ' :split-line="false"'
-  } />\n${listCode}\t</chart>\n</template>`;
+  }${data.yAxis.axisLabel ? ' :formatter="'+data.yAxis.formatter+'"' : ''} />\n${listCode}\t</chart>\n</template>`;
 
   code.value += `\n<script setup>\n\timport { ref } from 'vue';\n\tconst dataset = ref(${JSON.stringify(
     data.dataset,

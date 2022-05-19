@@ -65,11 +65,17 @@ export default defineComponent({
         theme: props.theme,
         // 显示行号
         lineNumbers: true,
-        readOnly: (props.scene === 'add' || props.scene === 'edit') ? false : 'nocursor' // true: 不可编辑  false: 可编辑 'nocursor' 失焦,不可编辑
+        readOnly: (props.scene === 'add' || props.scene === 'edit') ? false : true // true: 不可编辑  false: 可编辑 'nocursor' 失焦,不可编辑
       },
       // 初始化
       initialize: () => {
         // 初始化编辑器实例，传入需要被实例化的文本域对象和默认配置
+        console.log(proxy);
+        
+      }
+    })
+    onMounted(() => {
+      nextTick(()=>{
         coder = CodeMirror.fromTextArea(proxy.$refs.textarea, data.options)
         const h = props.heightSize + 'px'
         coder.setSize('auto', h)
@@ -77,11 +83,6 @@ export default defineComponent({
         coder.on(props.eventType, coder => {
           emit('update:value', coder.getValue())
         })
-      }
-    })
-    onMounted(() => {
-      nextTick(()=>{
-        data.initialize()
       })
       
     })

@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 14:17:24
+ * @LastEditTime: 2022-05-18 14:15:55
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -26,12 +26,14 @@
               :axis-line="data.xAxis.axisLine"
               :axis-label="data.xAxis.axisLabel"
               :split-line="data.xAxis.splitLine"
+              :formatter="data.xAxis.formatter"
             />
             <YAxis
               type="value"
               :axis-line="data.yAxis.axisLine"
               :axis-label="data.yAxis.axisLabel"
               :split-line="data.yAxis.splitLine"
+              :formatter="data.yAxis.formatter"
             />
             <Mount
               v-for="(item, index) in data.list"
@@ -164,6 +166,13 @@
                     label="轴标签"
                     size="large"
                   />
+                  <div class="setting-item-title">标签格式:</div>
+                  <el-input
+                    v-if="data.xAxis.axisLabel"
+                    v-model="data.xAxis.formatter"
+                    placeholder="请设置X轴标签格式"
+                    style="width: 20%; margin-right: 30px"
+                  />
                   <el-checkbox
                     v-model="data.xAxis.axisLine"
                     label="轴线"
@@ -176,6 +185,13 @@
                     v-model="data.yAxis.axisLabel"
                     label="轴标签"
                     size="large"
+                  />
+                  <div class="setting-item-title">标签格式:</div>
+                  <el-input
+                    v-if="data.yAxis.axisLabel"
+                    v-model="data.yAxis.formatter"
+                    placeholder="请设置Y轴标签格式"
+                    style="width: 20%; margin-right: 30px"
                   />
                   <el-checkbox
                     v-model="data.yAxis.axisLine"
@@ -208,7 +224,7 @@
                     class="bar-item"
                   >
                     <div class="title">
-                      <div class="text">Line{{ index + 1 }}</div>
+                      <div class="text">Mount</div>
                       <!-- <el-button
                         type="danger"
                         :icon="Delete"
@@ -271,11 +287,12 @@ const cmOptions = ref({
   mode: 'text/x-vue',
   // mode: 'text/html',
   tabSize: 2,
-  theme: 'darcula'
+  theme: 'darcula',
+  readOnly: true
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 
-const lineConfig = {
+const mountConfig = {
   url: '',
   shape: 'triangle'
 };
@@ -327,14 +344,16 @@ const data = reactive({
   xAxis: {
     axisLine: true,
     axisLabel: true,
-    splitLine: false
+    splitLine: false,
+    formatter: '{value}'
   },
   yAxis: {
     axisLine: false,
     axisLabel: true,
-    splitLine: true
+    splitLine: true,
+    formatter: '{value}'
   },
-  list: [deepClone(lineConfig, true)]
+  list: [deepClone(mountConfig, true)]
   // list: [
   //   {
   //     round: false,
@@ -363,20 +382,6 @@ watch(
     deep: true
   }
 );
-// 添加柱子
-const addLine = () => {
-  if (data.list.length < data.dataset[0].dimensions.length - 1) {
-    data.list.push({
-      ...deepClone(lineConfig, true)
-    });
-  }
-};
-// 删除柱子
-const delLine = (index) => {
-  if (data.list.length > 1) {
-    data.list.splice(index, 1);
-  }
-};
 // 设置编辑器中的代码
 const setCode = (val) => {
   // console.log(val);
@@ -404,11 +409,11 @@ const setCode = (val) => {
     data.xAxis.axisLine ? '' : ' :axis-line="false"'
   }${data.xAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.xAxis.splitLine ? ' :split-line="true"' : ''
-  } />\n\t\t<YAxis type="value"${
+  }${data.xAxis.axisLabel ? ' :formatter="'+data.xAxis.formatter+'"' : ''} />\n\t\t<YAxis type="value"${
     data.yAxis.axisLine ? ' :axis-line="true"' : ''
   }${data.yAxis.axisLabel ? '' : ' :axis-label="false"'}${
     data.yAxis.splitLine ? '' : ' :split-line="false"'
-  } />\n${listCode}\t</chart>\n</template>`;
+  }${data.yAxis.axisLabel ? ' :formatter="'+data.yAxis.formatter+'"' : ''} />\n${listCode}\t</chart>\n</template>`;
 
   code.value += `\n<script setup>\n\timport { ref } from 'vue';\n\tconst dataset = ref(${JSON.stringify(
     data.dataset,

@@ -5,7 +5,7 @@
  * @Author: wzs
  * @Date: 2022-05-16 21:32:02
  * @LastEditors: wzs
- * @LastEditTime: 2022-05-17 14:00:15
+ * @LastEditTime: 2022-05-18 13:48:55
 -->
 <template>
   <el-row class="list" :gutter="20">
@@ -303,7 +303,8 @@ const cmOptions = ref({
   mode: 'text/x-vue',
   // mode: 'text/html',
   tabSize: 2,
-  theme: 'darcula'
+  theme: 'darcula',
+  readOnly: true
 });
 const activeNames = ref(['1', '2', '3', '4', '5', '6']);
 

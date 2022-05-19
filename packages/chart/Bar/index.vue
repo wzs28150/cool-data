@@ -58,7 +58,9 @@ const itemConfig = ref({
   backgroundStyle: {},
   itemStyle: {}
 });
+// 监听基础参数变化
 watchDefaultProps(props, config, itemConfig.value, index);
+// 监听独有参数变化
 watch(
   [
     () => props.round,
@@ -190,7 +192,7 @@ const setBg = (bg) => {
 //     }
 //   }
 // };
-
+// 设置宽度
 const setWidth = (width) => {
   if (index.value != null) {
     config.series[index.value].barWidth = width;

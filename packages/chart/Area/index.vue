@@ -11,9 +11,12 @@ import { onMounted, inject, onUnmounted, ref, nextTick, watch } from 'vue';
 import { LineChart } from 'echarts/charts';
 import { MarkPointComponent } from 'echarts/components';
 import { use, graphic } from 'echarts/core';
-import { union, cloneDeep, merge } from 'lodash';
+import { cloneDeep } from 'lodash';
 import { toRgb } from '@packages/util/color';
-import { getDefaultProps } from '@packages/util';
+import {
+  watchDefaultProps,
+  getDefaultProps
+} from '@packages/util/watchDefaultProps';
 use([LineChart, MarkPointComponent]);
 const props = defineProps({
   ...getDefaultProps(),
@@ -38,7 +41,7 @@ const props = defineProps({
 const { config, setSeries, delSeries, theme } = inject('chart');
 const index = ref(null);
 const itemLabel = ref(null);
-const lineConfig = ref({
+const itemConfig = ref({
   type: 'line',
   name: 'line',
   stack: '',
@@ -58,6 +61,9 @@ const lineConfig = ref({
     }
   }
 });
+// 监听基础参数变化
+watchDefaultProps(props, config, itemConfig.value, index);
+// 监听独有参数变化
 watch(
   [() => props.smooth, () => props.dashed, () => props.stack, () => props.step],
   (
@@ -89,15 +95,15 @@ watch(
     immediate: true
   }
 );
-
+// 设置平滑
 const setSmooth = (smooth) => {
   if (index.value != null) {
     config.series[index.value].smooth = smooth;
   } else {
-    lineConfig.value.smooth = smooth;
+    itemConfig.value.smooth = smooth;
   }
 };
-
+// 设置虚线
 const setDashed = (dashed) => {
   if (index.value != null) {
     config.series[index.value].lineStyle = dashed
@@ -108,7 +114,7 @@ const setDashed = (dashed) => {
           type: 'solid'
         };
   } else {
-    lineConfig.value.smooth = dashed
+    itemConfig.value.smooth = dashed
       ? {
           type: 'dashed'
         }
@@ -117,22 +123,23 @@ const setDashed = (dashed) => {
         };
   }
 };
+// 设置堆叠
 const setStack = (stack) => {
   if (index.value != null) {
     config.series[index.value].stack = stack;
   } else {
-    lineConfig.value.stack = stack;
+    itemConfig.value.stack = stack;
   }
 };
-
+// 设置时序
 const setStep = (step) => {
   if (index.value != null) {
     config.series[index.value].step = step ? 'end' : false;
   } else {
-    lineConfig.value.step = step ? 'end' : false;
+    itemConfig.value.step = step ? 'end' : false;
   }
 };
-
+// 设置渐变区域色
 const setColor = (index) => {
   let color = null;
   if (typeof theme.color[index] == 'object') {
@@ -154,8 +161,7 @@ const setColor = (index) => {
 };
 
 const setArea = () => {
-  let itemConfig = cloneDeep(lineConfig.value);
-  setSeries(itemConfig).then((res) => {
+  setSeries(cloneDeep(itemConfig.value)).then((res) => {
     index.value = res.index;
     itemLabel.value = res.itemLabel;
     // 处理颜色渐变
@@ -168,7 +174,6 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  // config.series.splice(index.value, 1);
   delSeries(itemLabel.value);
 });
 </script>
