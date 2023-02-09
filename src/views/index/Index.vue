@@ -322,7 +322,7 @@
   // Ctrl + 滚轮 设置放大
   const handleWheel = (e) => {
     e.preventDefault();
-    if (e.ctrlKey || e.metaKey) {
+    if (e.altKey || e.metaKey) {
       const nextScale = parseFloat(Math.max(0.5, scale.value - e.deltaY / 500).toFixed(2));
       data.scale = parseInt(nextScale * 100);
       if (miniMapScale.value == 1) {
