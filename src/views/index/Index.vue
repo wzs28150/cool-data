@@ -132,8 +132,8 @@
   });
   const list = ref();
   const project = computed(() => store.state.Project.projectData);
-  const width = ref(null);
-  const height = ref(null);
+  const containerWidth = ref(null);
+  const containerHeight = ref(null);
   const canvasWidth = ref(1920);
   const canvasHeight = ref(1080);
   const miniLeft = ref(0);
@@ -160,18 +160,18 @@
     return data.scale / 100;
   });
   const needMiniMapMove = computed(() => {
-    return canvasWidth.value * scale.value > width.value;
+    return canvasWidth.value * scale.value > containerWidth.value;
   });
   const miniMapScale = computed(() => {
     return needMiniMapMove.value ? 1 / scale.value.toFixed(2) : 1;
   });
   const screenStyle = computed(() => {
     return {
-      width: `${needMiniMapMove.value ? canvasWidth.value * scale.value : width.value - 80}px`,
+      width: `${needMiniMapMove.value ? canvasWidth.value * scale.value : containerWidth.value - 80}px`,
       height: `${
-        canvasHeight.value * scale.value > height.value
+        canvasHeight.value * scale.value > containerHeight.value
           ? canvasHeight.value * scale.value
-          : height.value - 110
+          : containerHeight.value - 110
       }px`,
     };
   });
@@ -187,10 +187,10 @@
     console.log(needMiniMapMove.value);
     return {
       width: `${
-        !needMiniMapMove.value ? canvasWidth.value / 10 : (width.value / 10) * miniMapScale.value
+        !needMiniMapMove.value ? canvasWidth.value / 10 : (containerWidth.value / 10) * miniMapScale.value
       }px`,
       height: `${
-        !needMiniMapMove.value ? canvasHeight.value / 10 : (height.value / 10) * miniMapScale.value
+        !needMiniMapMove.value ? canvasHeight.value / 10 : (containerHeight.value / 10) * miniMapScale.value
       }px`,
       left: `${needMiniMapMove.value ? miniLeft.value : 0}px`,
       top: `${needMiniMapMove.value ? miniTop.value : 0}px`,
@@ -243,14 +243,14 @@
             // 更新小地图位置
             miniLeft.value = needMiniMapMove.value
               ? Math.min(
-                  canvasWidth.value / 10 - (width.value / 10) * miniMapScale.value,
+                  canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value,
                   Math.max(0, (originalScrollLeft - distanceX) / scale.value / 10)
                 )
               : 0;
             // 更新小地图位置
             miniTop.value = needMiniMapMove.value
               ? Math.min(
-                  canvasHeight.value / 10 - (height.value / 10) * miniMapScale.value,
+                  canvasHeight.value / 10 - (containerHeight.value / 10) * miniMapScale.value,
                   Math.max(0, (originalScrollTop - distanceY) / scale.value / 10)
                 )
               : 0;
@@ -291,12 +291,13 @@
           el.style['transition'] = 'none';
           const distanceX = ev.clientX - disX;
           const distanceY = ev.clientY - disY;
+          console.log(canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value, canvasWidth.value / 10, (containerWidth.value / 10) * miniMapScale.value,miniMapScale.value);
           miniLeft.value = Math.min(
-            canvasWidth.value / 10 - (width.value / 10) * miniMapScale.value,
+            canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value,
             Math.max(0, distanceX + originalScrollLeft)
           );
           miniTop.value = Math.min(
-            canvasHeight.value / 10 - (height.value / 10) * miniMapScale.value,
+            canvasHeight.value / 10 - (containerHeight.value / 10) * miniMapScale.value,
             Math.max(0, distanceY + originalScrollTop)
           );
           boardRef.value.scrollTo(
@@ -344,13 +345,13 @@
   };
   // 初始画布
   const resetBoard = () => {
-    // console.log((width.value * 0.75) / 1920);
-    data.scale = parseInt(((width.value * 0.8) / 1920) * 100);
+    // console.log((containerWidth.value * 0.75) / 1920);
+    data.scale = parseInt(((containerWidth.value * 0.8) / 1920) * 100);
     // 垂直居中滚动条
-    // boardRef.value.scrollTop = screensRef.value.clientHeight / 2 - height.value / 2;
+    // boardRef.value.scrollTop = screensRef.value.clientHeight / 2 - containerHeight.value / 2;
     // // boardRef.value.scrollTop = 543
     // // 水平居中滚动条
-    // boardRef.value.scrollLeft = screensRef.value.clientWidth / 2 - width.value / 2;
+    // boardRef.value.scrollLeft = screensRef.value.clientWidth / 2 - containerWidth.value / 2;
     scaleSelectShow.value = false;
   };
 
@@ -385,12 +386,12 @@
   };
 
   onMounted(() => {
-    width.value = container.value.clientWidth;
-    height.value = container.value.clientHeight;
+    containerWidth.value = container.value.clientWidth;
+    containerHeight.value = container.value.clientHeight;
     resetBoard();
     window.addEventListener('resize', () => {
-      width.value = container.value.clientWidth;
-      height.value = container.value.clientHeight;
+      containerWidth.value = container.value.clientWidth;
+      containerHeight.value = container.value.clientHeight;
       resetBoard();
     });
     window.addEventListener('mousewheel', disableMouseWheel, { passive: false });
