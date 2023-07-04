@@ -3,11 +3,11 @@
     <div class="left-inner">
       <div class="menu">
         <ul>
-          <li v-for="item in menu.top" :key="item.title">
+          <li v-for="(item, index) in store.menu.top" :key="item.title">
             <el-tooltip class="box-item" effect="dark" :content="item.title" placement="right">
               <span
                 :class="`${item.icon} ${drawerInfo.type == item.type ? 'active' : ''}`"
-                @click="drawerShow(item)"
+                @click="drawerShow(item, index)"
               ></span>
             </el-tooltip>
           </li>
@@ -15,11 +15,11 @@
       </div>
       <div class="config">
         <ul>
-          <li v-for="item in menu.bottom" :key="item.title">
+          <li v-for="(item, index) in store.menu.bottom" :key="item.title">
             <el-tooltip class="box-item" effect="dark" :content="item.title" placement="right">
               <span
                 :class="`${item.icon} ${drawerInfo.type == item.type ? 'active' : ''}`"
-                @click="drawerShow(item)"
+                @click="drawerShow(item, index)"
               ></span>
             </el-tooltip>
           </li>
@@ -44,68 +44,60 @@
         </button>
       </header>
       <section class="el-drawer__body">
-        <chartList v-if="drawerInfo.type == 'chart'" />
-        <div v-if="drawerInfo.type == 'text'" class="left-drawer-content"> text </div>
         <!-- 快捷键 -->
         <keybordList v-if="drawerInfo.type == 'keybord'" />
         <!-- 快捷键 -->
+        <childMenu v-else :index="drawerInfo.index" />
       </section>
     </div>
     <!-- 弹窗 -->
   </div>
 </template>
 <script setup>
-  import { reactive, ref } from 'vue';
   import { Close } from '@element-plus/icons-vue';
-  import chartList from './chartList.vue';
+  import childMenu from './childMenu.vue';
   import keybordList from './keybordList.vue';
-  const drawerFlag = ref(false);
-  const drawerInfo = reactive({
-    title: '',
-    size: 250,
-    type: '',
-  });
+  import useIndexStore from '../store';
+  const drawerFlag = computed(() => store.drawerFlag);
+  const drawerInfo = computed(() => store.drawerInfo);
 
-  const menu = {
-    top: [
-      {
-        title: '图表',
-        icon: 'chart',
-        type: 'chart',
-        size: 250,
-      },
-      {
-        title: '文本',
-        icon: 'text',
-        type: 'text',
-        size: 250,
-      },
-    ],
-    bottom: [
-      {
-        title: '快捷键',
-        icon: 'keybord',
-        type: 'keybord',
-        size: 250,
-      },
-    ],
-  };
-  const drawerShow = (info) => {
+  const store = useIndexStore();
+
+  (async () => {
+    await store.getLeftMenuList();
+  })();
+  /**
+   * @name: 左侧菜单显示
+   * @description: 左侧菜单抽屉显示
+   * @param {*} info
+   * @return {*}
+   */
+  const drawerShow = (info, index) => {
     if (drawerInfo.title && info.title == drawerInfo.title) {
-      drawerFlag.value = !drawerFlag.value;
+      store.setDrawerFlag(!drawerFlag.value);
       return;
     }
-    drawerInfo.title = info.title;
-    drawerInfo.size = info.size;
-    drawerInfo.type = info.type;
-    drawerFlag.value = true;
+    store.setDrawerInfo({
+      index: index,
+      title: info.title,
+      type: info.type,
+      size: info.size,
+    });
+    store.setDrawerFlag(true);
   };
-
+  /**
+   * @name: 左侧菜单抽屉关闭事件
+   * @description: 左侧菜单抽屉关闭事件，清空菜单信息
+   * @return {*}
+   */
   const handleDrawerClose = () => {
-    drawerInfo.title = '';
-    drawerInfo.type = '';
-    drawerInfo.size = 250;
-    drawerFlag.value = false;
+    store.setDrawerInfo({
+      index: null,
+      title: '',
+      type: '',
+      size: 250,
+    });
+    store.setDrawerFlag(false);
   };
 </script>
 
@@ -180,6 +172,10 @@
             &.text {
               background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACIklEQVRYR+2XPWgWQRCGn9f4Q7ARsUohmEBsRCFgYSUp0ogQMV0gCGmEpAyIgoVCwCBYGkgjiKCVYkBsLMTKLkVIo2CKQDoJEsiPRh1ZcieX8y53u3f3+aHflbczO8+9M7OzJ9r8UZvz0QGsmqE/FDSzYeAqcKjq5p7+O8ALSfNJvyzAx38BLmbakXStCPCp55fXai5p1AdwFlj1JPBtvB5gIo7hC3hb0rInoJe5mfUC0x1AL9kSxv+fgmZ2HZgEjniq9hV4KGku6Ve7gma2ABzNgTsYvf+es74haaBpwAfA5QyAwwnwDeBbhs0rSVNNA7pzzh0N3SmAC0B/9O4j8D61vgUsS7JGAfPqzsyGgLPR+qKkN2VqNKQGnwBd0eY3Ja2UDBQKeBKYiWL8kDRWNOpcl1506QDuSMor+D3cFRR0jXUXOAW8S3d55tw0s+PAF0k/y6jnbEIBI98DwDFJa+l4voM9l7cK4H4iZN0HxwGX5rfArXTXNdAkjuEeMAjMSXpUVIOLiSlxSdKnMmkOVdDM+oDXUYxtSeeKAD8kDEYkLTUMeAZ4HseQdLoDCPgc1C1T0BV5fBFYkOSarPAxs5YBngCuREQvJX0upNs9P1sDWAYmy6YDGKpc7PfPK3gDKDVJKijpJsn90IO6Qtww1zKTJDmLw6KEe61LOl806kJ/K8Oxdj03XaolPdsXsGqUuv1ru7DWDfa7aZrauK59217BX/vUVjgIWWxgAAAAAElFTkSuQmCC');
             }
+
+            &.media {
+              background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAACzUlEQVRYR+2YS6hOURTHf/+EiLxD8hoh76IYM5IMyGNwKQMpYUQxkiIDGSuECXkrhVJioAwkeRRSJGTg/cj1upbW7Zzazv2+e873nXOuc+ue+iZnr732b//XWmev/YmKP6o4Hz2AeSPU/RQ0s4HAAqBv3t13Mr8NuCnpVdoaHRQ0s1PAzLSJBYx/dCEkfe3MVy3AxwUsntWFA77MA/gUaM26WgN2HuLLkg6nzUlTcJmkB2lOyhzPBGhmbjca6FUizHdJb5L+UwGBR8AxYFaJcLHrE5J2hOtkAfwFXOgCOF/it6SpjQK6/dkuAkTSpLyAa4CHBQIvBbbH/nIDJh3kBTWzaWGE/jugmY0FPkn67JurDKCZ9QMOAnO9GIDdko5XCXAtsC1ICYecD4yrRIjNbAuwLpGzC4FBVQGcDJwBekeQtyS1lBZiMxsOtABDgfOS7qRVtJk55GLgHeCnRmspgGbmodkFDImgvDvZIOl6GmRyvHBA4DSwvAaIt2WrJd2vB2lmI4E2SW9jmzIAw/VduT9BXnnoVkp6ERqZmV8fXPEl0fuTwE5JbWUCPge8MicAewOgZ8AqSd7S+4fY02A/MDuh7EVgKzCl0Sq+F1yYFgH+gU02C35v2SPpWwSxCdgYANwG/Ls3AjgETKwT9kvAUcD9tT9Zjrr1gP+uRQp5+xMCejFcrZHsrmIcQh++EakzLLD1eZ6Hfv7GjzcermI2wEarLEj2PsARYE4dtbzp9TwcAPhdZHotu1QFmwWMQj0Y8ALwvAyffZIOBJvxu7dvpgNkbkBgnqQPdVTyohgf5ZTDtnMDmyVdCedEfxC4kjPC90UAvgdeJwCTV4dR0QkTm/0EngRzYvv+SbWbAfQiOVdPsaLfNwPoSe3VF4esaKbQ311JK/4JeZbVzGxM1LuVeS/+4UJI+tIwYJZNlGXT/f4fLEuJZv32KNiscvG8vx50OzgfxffbAAAAAElFTkSuQmCC');
+            }
           }
         }
       }
@@ -232,7 +228,6 @@
           overflow: hidden;
         }
       }
-
     }
   }
 </style>

@@ -8,8 +8,8 @@
           <SketchRule
             :thick="data.thick"
             :scale="scale"
-            :width="width - 20"
-            :height="height - 20"
+            :width="containerWidth - 20"
+            :height="containerHeight - 20"
             :start-x="data.startX"
             :start-y="data.startY"
             :lines="data.lines"
@@ -19,44 +19,17 @@
           <div ref="boardRef" v-dragscroll class="board" @wheel="handleWheel">
             <div ref="screensRef" class="screen-container" :style="screenStyle">
               <div ref="canvasRef" class="canvas" :style="canvasStyle">
-                <draggable
-                  v-model="project[0].chart"
-                  class="dragArea list-group w-full"
-                  :sort="false"
-                  group="people"
-                  @add="checkMove"
-                  @change="end"
-                >
-                  <!-- <Vue3DraggableResizable
+                <div class="dragArea list-group w-full container" @drop="drop" @dragover="dragOver">
+                  <dragResize
                     v-for="(item, index) in project[0].chart"
+                    :id="index"
                     :key="index"
-                    v-model:x="item.x"
-                    v-model:y="item.y"
-                    v-model:active="item.active"
-                    :w="item.w"
-                    :h="item.h"
-                    :parent="true"
-                    :init-w="item.x"
-                    :init-h="item.y"
-                    :draggable="true"
-                    :resizable="true"
-                    @activated="activatedHandle"
+                    :page-index="0"
+                    class="chart-item"
                   >
-                    
-                  </Vue3DraggableResizable> -->
-                  <!-- <DraggableContainer
-                    reference-line-color="#999999"
-                    :adsorb-cols="data.lines.h"
-                    :adsorb-rows="data.lines.v"
-                  >
-                    
-                  </DraggableContainer> -->
-                  <div>
-                    <dragResize v-for="(item, index) in project[0].chart" :id="index" :key="index" :page-index="0" class="chart-item">
-                      <bar-1 />
-                    </dragResize>
-                  </div>
-                </draggable>
+                    <bar1 />
+                  </dragResize>
+                </div>
               </div>
             </div>
           </div>
@@ -102,12 +75,10 @@
 </template>
 
 <script setup>
-  import { onMounted, reactive, ref, computed, nextTick, watch, provide  } from 'vue';
   import { ScaleToOriginal, Plus, Minus, ArrowUp } from '@element-plus/icons-vue';
-  import { useStore } from 'vuex';
+  import useIndexStore from './store';
   import { SketchRule } from 'vue3-sketch-ruler';
   import 'vue3-sketch-ruler/lib/style.css';
-  import { VueDraggableNext as draggable } from 'vue-draggable-next';
   // import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable';
   // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css';
   import top from './components/top.vue';
@@ -115,8 +86,8 @@
   import right from './components/right.vue';
   import dragResize from './components/dragResize.vue';
 
-  const store = useStore();
-
+  const store = useIndexStore();
+  console.log(store);
   const data = reactive({
     scale: 75,
     startX: 0,
@@ -131,7 +102,7 @@
     // shadow: 0,
   });
   const list = ref();
-  const project = computed(() => store.state.Project.projectData);
+  const project = computed(() => store.projectData);
   const containerWidth = ref(null);
   const containerHeight = ref(null);
   const canvasWidth = ref(1920);
@@ -152,10 +123,10 @@
   //   }
   // })
 
-  provide('canvas',{
+  provide('canvas', {
     width: canvasWidth.value,
-    height: canvasHeight.value
-  })
+    height: canvasHeight.value,
+  });
   const scale = computed(() => {
     return data.scale / 100;
   });
@@ -167,7 +138,9 @@
   });
   const screenStyle = computed(() => {
     return {
-      width: `${needMiniMapMove.value ? canvasWidth.value * scale.value : containerWidth.value - 80}px`,
+      width: `${
+        needMiniMapMove.value ? canvasWidth.value * scale.value : containerWidth.value - 80
+      }px`,
       height: `${
         canvasHeight.value * scale.value > containerHeight.value
           ? canvasHeight.value * scale.value
@@ -187,10 +160,14 @@
     console.log(needMiniMapMove.value);
     return {
       width: `${
-        !needMiniMapMove.value ? canvasWidth.value / 10 : (containerWidth.value / 10) * miniMapScale.value
+        !needMiniMapMove.value
+          ? canvasWidth.value / 10
+          : (containerWidth.value / 10) * miniMapScale.value
       }px`,
       height: `${
-        !needMiniMapMove.value ? canvasHeight.value / 10 : (containerHeight.value / 10) * miniMapScale.value
+        !needMiniMapMove.value
+          ? canvasHeight.value / 10
+          : (containerHeight.value / 10) * miniMapScale.value
       }px`,
       left: `${needMiniMapMove.value ? miniLeft.value : 0}px`,
       top: `${needMiniMapMove.value ? miniTop.value : 0}px`,
@@ -291,7 +268,12 @@
           el.style['transition'] = 'none';
           const distanceX = ev.clientX - disX;
           const distanceY = ev.clientY - disY;
-          console.log(canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value, canvasWidth.value / 10, (containerWidth.value / 10) * miniMapScale.value,miniMapScale.value);
+          console.log(
+            canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value,
+            canvasWidth.value / 10,
+            (containerWidth.value / 10) * miniMapScale.value,
+            miniMapScale.value
+          );
           miniLeft.value = Math.min(
             canvasWidth.value / 10 - (containerWidth.value / 10) * miniMapScale.value,
             Math.max(0, distanceX + originalScrollLeft)
@@ -364,13 +346,32 @@
   const checkMove = (event) => {
     console.log(event);
     nextTick(() => {
-      store.dispatch('Project/setChartPosition', {
+      store.setChartPosition({
         pageIndex: 0,
         index: event.newIndex,
         x: event.originalEvent.offsetX,
         y: event.originalEvent.offsetY,
       });
     });
+  };
+
+  const drop = (event) => {
+    event.preventDefault();
+    const data = event.dataTransfer.getData('text/plain');
+    console.log(event);
+    console.log('拖拽参数值：', JSON.parse(data));
+    const item = JSON.parse(data);
+    item.x = event.offsetX;
+    item.y = event.offsetY;
+    item.pageIndex = 0;
+    nextTick(() => {
+      store.addChartData(item);
+    });
+  };
+
+  const dragOver = (event) => {
+    event.preventDefault();
+    // console.log(e);
   };
 
   const end = (e) => {

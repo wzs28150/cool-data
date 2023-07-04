@@ -3,8 +3,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import legacy from '@vitejs/plugin-legacy';
 import { setNodeEnv } from './src/utils/env';
-import { vitePluginMock } from './src/utils/mock';
-import { vitePluginStore } from './src/utils/store';
+// import { vitePluginMock } from './src/utils/mock';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -12,32 +11,40 @@ import { zip, progress } from 'esc-plugin';
 export default defineConfig(({ mode, command }) => {
   setNodeEnv(mode);
   const port = parseInt(process.env.APP_PORT || '3000');
+  const isBuild = command === 'build';
 
   const plugins = [
     vue(),
-    vitePluginStore(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
+    }),
+    AutoImport({
+      imports: ['vue', 'vue-router', 'pinia'],
+      dts: false,
     }),
     Components({
       resolvers: [ElementPlusResolver()],
     }),
-    progress(),
-    zip({
-      type: 'zip',
-      archiverName: 'dist.zip',
-      sourceName: 'dist',
-      open: true,
-    }),
+
     // legacy({
     //   targets: ['ie >= 11'],
     //   additionalLegacyPolyfills: ['regenerator-runtime/runtime']
     // })
   ];
+  if (isBuild) {
+    plugins.push(legacy());
+    plugins.push(progress());
+    plugins.push(
+      zip({
+        type: 'zip',
+        archiverName: 'dist.zip',
+        sourceName: 'dist',
+        open: true,
+      })
+    );
+  }
 
-  // @vitejs/plugin-legacy
-  command === 'build' && plugins.push(legacy());
-  mode === 'development' && process.env.APP_MOCK === 'true' && plugins.push(vitePluginMock());
+  // mode === 'development' && process.env.APP_MOCK === 'true' && plugins.push(vitePluginMock());
 
   return {
     base: './',
