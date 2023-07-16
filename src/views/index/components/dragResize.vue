@@ -4,11 +4,16 @@
     :h="item.h"
     :x="item.x"
     :y="item.y"
-    :rotatable="true"
+    :rotatable="false"
     :parent="true"
+    :snap="true"
+    :isConflictCheck="false"
+    :snapTolerance="10"
     @resizing="resizing"
     @dragstop="onDragStop"
     @rotatestop="onRotateStop"
+    :scaleRatio="pageInfo.scale / 100"
+    @refLineParams="getRefLineParams"
   >
     <div :style="`width: ${item.w}px;height: ${item.h}px`">
       <slot />
@@ -30,7 +35,8 @@
     },
   });
   const item = computed(() => store.projectData[props.pageIndex].chart[props.id]);
-
+  const pageInfo = computed(() => store.pageInfo);
+  console.log(pageInfo.value);
   const resizing = (x, y, w, h) => {
     console.log(x, y, w, h);
     item.value.x = Math.ceil(x);
@@ -46,10 +52,16 @@
   const onRotateStop = (deg) => {
     item.value.rotation = deg;
   };
+  const getRefLineParams = (params) => {
+    const { vLine, hLine } = params;
+    store.setPageInfo('vLine', vLine);
+    store.setPageInfo('hLine', hLine);
+  };
 </script>
 <style lang="less">
   .handle.handle-rot {
     background: none;
+
     &::after {
       border: 0.25em solid #fff;
       border-left-color: transparent;

@@ -69,7 +69,8 @@
         padding: 10px;
         cursor: pointer;
         &:hover {
-          box-shadow: 0 0 5px #0a0a0a inset;
+          background-color: hsla(0, 0%, 100%, 0.08);
+          border-radius: 2px;
         }
         .icon {
           width: 18px;

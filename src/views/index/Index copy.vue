@@ -6,13 +6,13 @@
       <div class="low-code-main-container">
         <div ref="container" class="low-code-main-page">
           <SketchRule
-            :thick="pageInfo.thick"
+            :thick="data.thick"
             :scale="scale"
             :width="containerWidth - 20"
             :height="containerHeight - 20"
-            :start-x="pageInfo.startX"
-            :start-y="pageInfo.startY"
-            :lines="pageInfo.lines"
+            :start-x="data.startX"
+            :start-y="data.startY"
+            :lines="data.lines"
             :corner-active="false"
             :palette="{ lineColor: '#999999', bgColor: '#292929', fontColor: '#eeeeee' }"
           />
@@ -29,28 +29,6 @@
                   >
                     <bar1 />
                   </dragResize>
-
-                  <span
-                    class="ref-line v-line"
-                    v-for="(item, index) in pageInfo.vLine"
-                    :key="'v_' + index"
-                    v-show="item.display"
-                    :style="{
-                      left: item.position,
-                      top: item.origin,
-                      height: item.lineLength,
-                    }"
-                  />
-                  <span
-                    class="ref-line h-line"
-                    v-for="(item, index) in pageInfo.hLine"
-                    :key="'h_' + index"
-                    :style="{
-                      top: item.position,
-                      left: item.origin,
-                      width: item.lineLength,
-                    }"
-                  />
                 </div>
               </div>
             </div>
@@ -59,7 +37,7 @@
             <div class="bottom-bar-inner">
               <div class="scale-select">
                 <div class="scale-select-show" @click="scaleSelectShow = !scaleSelectShow">
-                  {{ pageInfo.scale }}%<el-icon class="arrow"><arrow-up /></el-icon>
+                  {{ data.scale }}%<el-icon class="arrow"><arrow-up /></el-icon>
                 </div>
                 <ul v-if="scaleSelectShow">
                   <li @click="setScale(200)">200%</li>
@@ -71,7 +49,7 @@
               </div>
               <el-icon :size="14" class="minus" @click="minusScale"><minus /></el-icon>
               <div class="scale">
-                <el-slider v-model="pageInfo.scale" size="small" :max="200" :show-tooltip="false" />
+                <el-slider v-model="data.scale" size="small" :max="200" :show-tooltip="false" />
               </div>
               <el-icon :size="14" class="plus" @click="plusScale"><plus /></el-icon>
               <div class="mini-map-show-btn">
@@ -101,11 +79,29 @@
   import useIndexStore from './store';
   import { SketchRule } from 'vue3-sketch-ruler';
   import 'vue3-sketch-ruler/lib/style.css';
+  // import Vue3DraggableResizable, { DraggableContainer } from 'vue3-draggable-resizable';
+  // import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css';
   import top from './components/top.vue';
   import left from './components/left.vue';
   import right from './components/right.vue';
   import dragResize from './components/dragResize.vue';
+
   const store = useIndexStore();
+  console.log(store);
+  const data = reactive({
+    scale: 75,
+    startX: 0,
+    startY: 0,
+    lines: {
+      h: [0, 1920],
+      v: [0, 1080],
+    },
+    thick: 20,
+    isShowRuler: true,
+    isShowReferLine: true,
+    // shadow: 0,
+  });
+  const list = ref();
   const project = computed(() => store.projectData);
   const containerWidth = ref(null);
   const containerHeight = ref(null);
@@ -120,14 +116,19 @@
   const grab = ref(false);
   const scaleSelectShow = ref(false);
   const miniMapShow = ref(true);
-  const pageInfo = computed(() => store.pageInfo);
+  // const miniLeft = computed(()=>{
+  //   if(screensRef.value){
+  //     console.log(screensRef.value);
+  //     return screensRef.value.getBoundingClientRect().left / 10
+  //   }
+  // })
 
   provide('canvas', {
     width: canvasWidth.value,
     height: canvasHeight.value,
   });
   const scale = computed(() => {
-    return pageInfo.value.scale / 100;
+    return data.scale / 100;
   });
   const needMiniMapMove = computed(() => {
     return canvasWidth.value * scale.value > containerWidth.value;
@@ -156,6 +157,7 @@
     };
   });
   const miniMapSelectStyle = computed(() => {
+    console.log(needMiniMapMove.value);
     return {
       width: `${
         !needMiniMapMove.value
@@ -175,7 +177,7 @@
 
   // 监听缩放变化同步更新标尺
   watch(
-    () => pageInfo.value.scale,
+    () => data.scale,
     () => {
       nextTick(() => {
         handleBoardChange();
@@ -190,10 +192,10 @@
     const screensRect = boardRef.value.getBoundingClientRect();
     const canvasRect = canvasRef.value.getBoundingClientRect();
     // 标尺开始的刻度
-    const startX = (screensRect.left + pageInfo.value.thick - canvasRect.left) / scale.value;
-    const startY = (screensRect.top + pageInfo.value.thick - canvasRect.top) / scale.value;
-    store.setPageInfo('startX', startX);
-    store.setPageInfo('startY', startY);
+    const startX = (screensRect.left + data.thick - canvasRect.left) / scale.value;
+    const startY = (screensRect.top + data.thick - canvasRect.top) / scale.value;
+    data.startX = startX;
+    data.startY = startY;
   };
   const spaceKey = ref(false);
   // 空格+左键拖拽
@@ -305,7 +307,7 @@
     e.preventDefault();
     if (e.altKey || e.metaKey) {
       const nextScale = parseFloat(Math.max(0.5, scale.value - e.deltaY / 500).toFixed(2));
-      store.setPageInfo('scale', parseInt(nextScale * 100));
+      data.scale = parseInt(nextScale * 100);
       if (miniMapScale.value == 1) {
         miniLeft.value = 0;
         miniTop.value = 0;
@@ -314,19 +316,19 @@
     }
   };
   const minusScale = () => {
-    store.setPageInfo('scale', Math.max(50, pageInfo.value.scale - 10));
+    data.scale = Math.max(50, data.scale - 10);
   };
   const plusScale = () => {
-    store.setPageInfo('scale', Math.min(200, pageInfo.value.scale + 10));
+    data.scale = Math.min(200, data.scale + 10);
   };
   const setScale = (e) => {
-    store.setPageInfo('scale', e);
+    data.scale = e;
     scaleSelectShow.value = false;
   };
   // 初始画布
   const resetBoard = () => {
     // console.log((containerWidth.value * 0.75) / 1920);
-    store.setPageInfo('scale', parseInt(((containerWidth.value * 0.8) / 1920) * 100));
+    data.scale = parseInt(((containerWidth.value * 0.8) / 1920) * 100);
     // 垂直居中滚动条
     // boardRef.value.scrollTop = screensRef.value.clientHeight / 2 - containerHeight.value / 2;
     // // boardRef.value.scrollTop = 543
@@ -339,6 +341,18 @@
     if (e.ctrlKey || e.metaKey) {
       e.preventDefault();
     }
+  };
+
+  const checkMove = (event) => {
+    console.log(event);
+    nextTick(() => {
+      store.setChartPosition({
+        pageIndex: 0,
+        index: event.newIndex,
+        x: event.originalEvent.offsetX,
+        y: event.originalEvent.offsetY,
+      });
+    });
   };
 
   const drop = (event) => {
@@ -505,18 +519,6 @@
                   position: relative;
                   .vdr-container.active {
                     border-color: #eee;
-                  }
-
-                  .ref-line {
-                    position: absolute;
-                    background-color: #eee;
-                    z-index: 9999;
-                  }
-                  .v-line {
-                    width: 1px;
-                  }
-                  .h-line {
-                    height: 1px;
                   }
                 }
               }

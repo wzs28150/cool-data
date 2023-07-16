@@ -1,6 +1,21 @@
 import { getLeftMenu } from './service';
 const useIndexStore = defineStore('Index', {
   state: () => ({
+    pageInfo: {
+      scale: 75,
+      startX: 0,
+      startY: 0,
+      lines: {
+        h: [0, 1920],
+        v: [0, 1080],
+      },
+      thick: 20,
+      isShowRuler: true,
+      isShowReferLine: true,
+      vLine: [],
+      hLine: []
+      // shadow: 0,
+    },
     drawerFlag: false,
     drawerInfo: {
       title: '',
@@ -64,6 +79,14 @@ const useIndexStore = defineStore('Index', {
         // console.log(data.list);
         this.menu.top = data.list;
       } catch (error) {}
+    },
+    async setPageInfo(key, val) {
+      try {
+        this.pageInfo[key] = val;
+        return true;
+      } catch (error) {
+        return false;
+      }
     },
   },
 });
